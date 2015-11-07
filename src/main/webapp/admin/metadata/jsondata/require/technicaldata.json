@@ -1,0 +1,16 @@
+{
+  "total": 28,
+  "rows": [
+    {
+      "id": "9",
+      "zh_name": "格式",
+      "en_name": "Format",
+      "description": "字段描述",
+      "kind": "vocabulary",
+      "lom_id": "4.1",
+      "code": "11121554",
+      "innercode": "010101",
+      "val_num": 10
+    }
+  ]
+}

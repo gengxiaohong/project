@@ -1,0 +1,71 @@
+{
+  "total": 28,
+  "rows": [
+    {
+      "id": "1",
+      "zh_name": "版型",
+      "en_name": "Version type",
+      "description": "字段描述",
+      "kind": "vocabulary",
+      "lom_id": "-",
+      "code": "11121554",
+      "innercode": "010101",
+      "val_num": 8
+    },
+    {
+      "id": "2",
+      "zh_name": "结构",
+      "en_name": "structure",
+      "description": "字段描述",
+      "kind": "vocabulary",
+      "lom_id": "1.7",
+      "code": "11121554",
+      "innercode": "010101",
+      "val_num": 8
+    },
+    {
+      "id": "3",
+      "zh_name": "要求",
+      "en_name": "Requirements",
+      "description": "字段描述",
+      "kind": "structure",
+      "lom_id": "4.4",
+      "code": "11121554",
+      "innercode": "010101",
+      "val_num": 1
+    },
+    {
+      "id": "4",
+      "zh_name": "安装描述",
+      "en_name": "Installation Remark",
+      "description": "字段描述",
+      "kind": "langstring",
+      "lom_id": "4.5",
+      "code": "11121554",
+      "innercode": "010101",
+      "val_num": 1
+    },
+    {
+      "id": ",5",
+      "zh_name": "交互类型",
+      "en_name": "Interactivity type",
+      "description": "字段描述",
+      "kind": "vocabulary",
+      "lom_id": "5.1",
+      "code": "11121554",
+      "innercode": "010101",
+      "val_num": 1000
+    },
+    {
+      "id": "6",
+      "zh_name": "关联资源",
+      "en_name": "Relation",
+      "description": "字段描述",
+      "kind": "structure",
+      "lom_id": "7",
+      "code": "11121554",
+      "innercode": "010101",
+      "val_num": 100
+    }
+  ]
+}

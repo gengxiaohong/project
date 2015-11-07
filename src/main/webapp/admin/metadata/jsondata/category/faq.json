@@ -1,0 +1,27 @@
+{
+  "total": 28,
+  "rows": [
+    {
+      "id": "1",
+      "zh_name": "关联资源",
+      "en_name": "Relation",
+      "description": "字段描述",
+      "kind": "structure",
+      "lom_id": "7",
+      "code": "11121554",
+      "innercode": "010101",
+      "val_num": 100
+    },
+    {
+      "id": "2",
+      "zh_name": "类型",
+      "en_name": "Case type",
+      "description": "字段描述",
+      "kind": "vocabulary",
+      "lom_id": "1.7",
+      "code": "11121554",
+      "innercode": "010101",
+      "val_num": 8
+    }
+  ]
+}

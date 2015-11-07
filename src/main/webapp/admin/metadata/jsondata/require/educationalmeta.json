@@ -1,0 +1,16 @@
+{
+  "total": 28,
+  "rows": [
+    {
+      "id": "10",
+      "zh_name": "学习资源类型",
+      "en_name": "LearningResourceType",
+      "description": "字段描述",
+      "kind": "vocabulary",
+      "lom_id": "5.2",
+      "code": "11121554",
+      "innercode": "010101",
+      "val_num": 10
+    }
+  ]
+}

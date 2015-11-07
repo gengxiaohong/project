@@ -1,0 +1,16 @@
+{
+  "total": 28,
+  "rows": [
+    {
+      "id": "1",
+      "zh_name": "题类",
+      "en_name": "Item category",
+      "description": "字段描述",
+      "kind": "vocabulary",
+      "lom_id": "-",
+      "code": "11121554",
+      "innercode": "010101",
+      "val_num": 8
+    }
+  ]
+}

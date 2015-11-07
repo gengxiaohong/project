@@ -1,0 +1,16 @@
+{
+  "total": 28,
+  "rows": [
+    {
+      "id": "6",
+      "zh_name": "贡献",
+      "en_name": "Contribute",
+      "description": "字段描述",
+      "kind": "structure",
+      "lom_id": "2.3",
+      "code": "11121554",
+      "innercode": "010101",
+      "val_num": 10
+    }
+  ]
+}
