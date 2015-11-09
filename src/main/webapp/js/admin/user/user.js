@@ -72,7 +72,7 @@ function newUser(){
     initAddGroupCombotree();
     initAddDepartmentCombotree();
     $("#add_user_dlg").dialog("open").dialog('setTitle', '添加新用户');
-    $("#add_user_from").form("clear");
+    $("#add_user_form").form("clear");
 }
 
 function saveUser(){
