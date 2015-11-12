@@ -217,7 +217,7 @@ function modifyGroup(){
         var obj = jQuery.parseJSON(result);
         if (obj.success==false) {
             $('#modify_group_dlg').dialog('close');
-            $.message.alert("提示",obj.msg,"info");
+            $.messager.alert("提示",obj.msg,"info");
         } else {
             $('#modify_group_dlg').dialog('close');
             $("#group_tree").tree("reload");
@@ -250,7 +250,7 @@ function delGroupRole(index){
                     }, function (result) {
                         var obj = jQuery.parseJSON(result);
                         if (obj.success==false) {
-                            $.message.alert("提示", obj.msg, "info");
+                            $.messager.alert("提示", obj.msg, "info");
                         } else {
                             $("#group_role_grid").datagrid('reload');
                         }
@@ -299,7 +299,7 @@ function saveGroupUser(){
         var obj = jQuery.parseJSON(result);
         if (obj.success==false) {
             $('#add_group_user_dlg').dialog('close');
-            $.message.alert("提示",obj.msg,"info");
+            $.messager.alert("提示",obj.msg,"info");
         } else {
             $('#add_group_user_dlg').dialog('close');
             $("#group_user_grid").datagrid('reload');

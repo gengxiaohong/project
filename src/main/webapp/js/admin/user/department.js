@@ -116,7 +116,7 @@ function saveDepartment(){
         var obj = jQuery.parseJSON(result);
         if (obj.success==false) {
             $('#add_department_dlg').dialog('close');
-            $.message.alert("提示",obj.msg,"info");
+            $.messager.alert("提示",obj.msg,"info");
         } else {
             $('#add_department_dlg').dialog('close');
             $("#department_tree").tree("reload");
@@ -128,11 +128,11 @@ function modifyDepartment(){
     var id= $("#modify_department_dlg input[name=id]").val();
     var name = $("#modify_department_dlg input[name=name]").val();
     var parent_id=$("#modify_department_dlg .department_tree").combotree("getValue");
-    $.post("/bcms/proxy", {method:"put",url: "department/"+id, name: name,parent_id:parent_id}, function (result) {
+    $.post("/bcms/proxy", {method:"get",url: "department/"+id, name: name,parent_id:parent_id}, function (result) {
         var obj = jQuery.parseJSON(result);
         if (obj.success==false) {
             $('#modify_department_dlg').dialog('close');
-            $.message.alert("提示",obj.msg,"info");
+            $.messager.alert("提示",obj.msg,"info");
         } else {
             $('#modify_department_dlg').dialog('close');
             $("#department_tree").tree("reload");
@@ -147,10 +147,10 @@ function delDepartment(){
     if(node) {
         $.messager.confirm('确认', '确认删除?', function (data) {
             if(data) {
-                $.post("/bcms/proxy", {method: "delete", url: "department/" + node.id }, function (result) {
+                $.post("/bcms/proxy", {method: "get", url: "department/" + node.id }, function (result) {
                     var obj= $.parseJSON(result);
                     if (obj.success==false) {
-                        alert("删除失败!");
+                        $.messager.alert("提示", "删除失败！", "error");
                     } else {
                         $("#department_tree").tree("reload");
                     }

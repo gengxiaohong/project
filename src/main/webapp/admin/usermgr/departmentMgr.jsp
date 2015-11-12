@@ -60,7 +60,7 @@
   <div class="ftitle">
     修改部门
   </div>
-  <form id="modify_group_form" method="post">
+  <form id="modify_group_form" method="get">
     <div class="fitem">
       <label>
         部门名称
