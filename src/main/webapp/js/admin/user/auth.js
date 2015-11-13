@@ -145,6 +145,7 @@ function addAuth(){
     initAddDepartmentTree();
     initAddResourcelibraryTree();
     $('#add_auth_dlg').dialog('open').dialog("setTitle","添加权限");
+    $("#add_role_form").form("clear");
 }
 
 function modifyAuth(){
@@ -172,7 +173,7 @@ function modifyAuth(){
             targets.push(target);
         }
     }
-    $.post("/bcms/proxy", {method:"put",url: "permission/"+id, name: name, description:description,targets:JSON.stringify(targets)}, function (result) {
+    $.post("/bcms/proxy", {method:"get",url: "permission/"+id, name: name, description:description,targets:JSON.stringify(targets)}, function (result) {
         var obj = jQuery.parseJSON(result);
         if (obj.success==false) {
             $('#modify_auth_dlg').dialog('close');
