@@ -4,7 +4,7 @@
 $(function () {
     $('#information_table').datagrid({
         rownumbers: true,
-        singleSelect: false,
+        singleSelect: true,
         pagination: true,
         toolbar:"#tb",
         url: "/bcms/proxy?url=information&method=GET",
@@ -36,7 +36,7 @@ $(function () {
             {
                 field: '_operate', width: '10%', align: 'center', title: '操作',
                 formatter: function (value, row, index) {
-                    return '<a class="tablelink" href="#" onclick="editInformation(' + index + ')">修改</a>&nbsp;&nbsp;<a class="tablelink" href="#" onclick="delInformation(' + index + ')">删除</a>';
+                    return '<a class="easyui-linkbutton" iconCls="icon-edit" href="javascript:void(0)" onclick="editInformation(' + index + ')">修改</a>&nbsp;&nbsp;<a class="easyui-linkbutton" iconCls="icon-remove" href="javascript:void(0)" onclick="delInformation(' + index + ')">删除</a>';
                 }
             }
         ]]

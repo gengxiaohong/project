@@ -11,6 +11,7 @@
 <link rel="stylesheet" type="text/css" href="../../js/bootstrap-3.3.5-dist/css/bootstrap.css">
 <link rel="stylesheet" type="text/css" href="../../js/bootstrap-3.3.5-dist/css/bootstrap-theme.css">
 <link rel="stylesheet" type="text/css" href="../../css/admin-base.css">
+<link rel="stylesheet" type="text/css" href="../../css/icon.css">
 <link rel="stylesheet" type="text/css" href="../../js/jquery-easyui-1.4.3/themes/bootstrap/easyui.css"/>
 <link rel="stylesheet" type="text/css" href="../../js/jquery-easyui-1.4.3/themes/icon.css"/>
 <script src="../../js/jquery-easyui-1.4.3/jquery.min.js"></script>

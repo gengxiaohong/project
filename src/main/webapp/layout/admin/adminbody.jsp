@@ -11,7 +11,7 @@
 <div class="ui-mask">
     <p>正在加载页面,请稍后...</p>
 </div>
-<div data-options="region:'north',border:false" style="height:72px;background:#666;text-align:center">
+<div data-options="region:'north',border:false,split:false" style="height:72px;background:#666;text-align:center">
     <div id="header-inner">
         <table cellpadding="0" cellspacing="0" style="width:100%;">
             <tbody>
@@ -50,6 +50,6 @@
         </table>
     </div>
 </div>
-<div data-options="region:'south',split:false" style="height:50px;background:#666;" border="false">
-    <p id="footer-inner">Copyright © 2010-2015 www.boful.com</p>
+<div data-options="region:'south',split:false" border="false" style="height:30px;">
+    <p style="text-align:center;">Copyright © 2010-2015 www.boful.com</p><!-- id="footer-inner"  -->
 </div>

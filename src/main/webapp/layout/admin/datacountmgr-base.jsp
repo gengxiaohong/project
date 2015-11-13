@@ -34,7 +34,7 @@
         <div title="数据统计" iconCls="icon-cd_magnify">
             <ul class="easyui-tree">
                 <li iconCls="icon-cd_play"><span><a href="./resourceplaycount.jsp">资源点播统计</a></span></li>
-                <li iconCls="icon-chart_line"><span><a href="./useraccesscount.jsp">访问量统计</a></span></li>
+                <li iconCls="icon-chart_line"><span><a href="./useraccesscount.jsp">资源访问量统计</a></span></li>
             </ul>
         </div>
         <%--<div title="资源统计" iconCls="icon-cd_magnify">

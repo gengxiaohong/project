@@ -14,11 +14,7 @@
 <rapid:override name="mainName">评论管理</rapid:override>
 <rapid:override name="mainIcon">icon-page_world</rapid:override>
 <rapid:override name="body">
-<div data-options="region:'center',title:'评论管理'">
-  <div id="container">
-    <table id="comment_table"></table>
-  </div>
-</div>
+    <table id="comment_table" fit="true"></table>
   <div id="tb" style="padding:3px">
     <div style="margin-bottom: 5px;">
       创建者: <input class="easyui-textbox" style="width:150px" id="username">
@@ -28,7 +24,7 @@
         <option value="true">是</option>
         <option value="false">否</option>
       </select>
-      <a href="#" class="easyui-linkbutton" iconCls="icon-search" onclick="reloadgrid();">搜索</a>
+      <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-search" onclick="reloadgrid();">搜索</a>
     </div>
   </div>
 </rapid:override>

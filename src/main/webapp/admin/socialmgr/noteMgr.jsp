@@ -15,12 +15,8 @@
 <rapid:override name="mainName">笔记管理</rapid:override>
 <rapid:override name="mainIcon">icon-page_world</rapid:override>
 <rapid:override name="body">
-<div data-options="region:'center',title:'笔记管理'">
-  <div id="container">
-    <table id="note_table">
+    <table id="note_table" data-options="fit:'true'">
     </table>
-  </div>
-  </div>
   <div id="tb" style="padding:3px">
     <div style="margin-bottom: 5px;">
       创建者: <input class="easyui-textbox" style="width:150px" id="username">
