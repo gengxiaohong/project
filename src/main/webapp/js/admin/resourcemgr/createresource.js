@@ -163,9 +163,9 @@ function submitForm() {
         }, function (data) {
             if (data.id != undefined) {
                 //alert("ok........");
-                if (waitFile.id != null) {
+                if (waitFile.fileId != null) {
                     $.post("/bcms/proxy", {
-                        url: "file/detail/" + waitFile.id,
+                        url: "file/detail/" + waitFile.fileId,
                         method: "POST",
                         resource_id: data.id
                     }, function (data3) {
@@ -201,7 +201,7 @@ function submitForm() {
 
 function submitSuccess(data3, resourceId) {
     if (data3.id != undefined) {
-        //alert("资源创建成功!");
+        alert("资源创建成功!");
         window.location.href = "/bcms/admin/resourcemgr/editmeta.jsp?id=" + resourceId;
     } else {
         alert("资源创建失败!");
