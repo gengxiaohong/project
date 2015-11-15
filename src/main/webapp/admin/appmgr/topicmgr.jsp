@@ -30,8 +30,6 @@
         <table id="rGrid" class="easyui-datagrid"
                data-options="rownumbers:true,singleSelect:true,url:'./caseliblist.json',method:'post'" pagination="true"
                toolbar="#rGridTbr">
-            <thead>
-            </thead>
         </table>
     </div>
 </div>

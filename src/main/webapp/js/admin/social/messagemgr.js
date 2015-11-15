@@ -130,11 +130,11 @@ function saveMessage(){
         pick_user_id: uids.toString()
     }, function (data) {
         var result = JSON.parse(data);
-        if (!result.success) {
-            $("#message_table").datagrid("reload");
-            $('#message_tabs').tabs('close', "发送新消息");
+        if (!result.id) {
+           alert('发送新消息失败.');
         } else {
-            alert("发送失败!");
+        	 $("#message_table").datagrid("reload");
+             $('#message_tabs').tabs('close', "发送新消息");
         }
     });
 }
