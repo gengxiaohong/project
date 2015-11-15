@@ -21,12 +21,14 @@
       <table id="message_table" fit="true"></table>
     </div>
   </div>
-  <div id="tb" style="padding:3px">
-    <div style="margin-bottom: 5px;">
+  <div id="tb" style="padding:5px">
+    <div style="float:left;">
       <a href="#" onclick=" newMessage();" class="easyui-linkbutton" data-options="iconCls:'icon-add'">添加</a>
-      标题: <input class="easyui-textbox" style="width:150px" id="name">
-      <a href="#" class="easyui-linkbutton" iconCls="icon-search" onclick="reloadgrid();">搜索</a>
     </div>
+    <div style="float:right;">
+       <input class="easyui-searchbox" style="width:150px;height:24px;" searcher="reloadgrid" prompt="请输入标题..." id="name">
+    </div>
+     <div style="clear:both;"></div>
   </div>
 </rapid:override>
 

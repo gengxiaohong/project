@@ -128,11 +128,11 @@ function saveInformation(){
         role_id:roles.toString()
     }, function (data) {
         var result = JSON.parse(data);
-        if (!result.success) {
-            $("#information_table").datagrid("reload");
+        if (!result.id) {
+            alert('创建失败,请检查您的填写是否完整.');
+        } else{
+        	$("#information_table").datagrid("reload");
             $('#information_tabs').tabs('close', "添加资讯");
-        } else {
-            alert("创建失败!");
         }
     });
 }

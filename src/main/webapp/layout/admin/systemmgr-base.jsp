@@ -29,7 +29,7 @@
 <body class="easyui-layout">
 <jsp:include page="../../layout/admin/adminbody.jsp"/>
 <div data-options="region:'west',split:true" title="系统菜单" style="width:200px;" iconCls="icon-application_side_boxes">
-    <div class="easyui-accordion" style="width:100%;" id="treeMenu">
+    <div class="easyui-accordion" style="width:100%;" id="treeMenu" data-options="fit:true">
         <div iconCls="icon-script" title="Web服务">
             <ul class="easyui-tree">
                 <li iconCls="icon-config"><span><a href="./webconf.jsp">Web服务配置</a></span></li>
