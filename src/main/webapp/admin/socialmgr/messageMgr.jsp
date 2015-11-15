@@ -16,9 +16,9 @@
 <rapid:override name="mainIcon">icon-page_world</rapid:override>
 <rapid:override name="body">
 
-  <div id="message_tabs" class="easyui-tabs">
-    <div title="消息列表" style="padding:10px">
-      <table id="message_table"></table>
+  <div id="message_tabs" class="easyui-tabs" fit="true">
+    <div title="消息列表" style="padding:0px">
+      <table id="message_table" fit="true"></table>
     </div>
   </div>
   <div id="tb" style="padding:3px">

@@ -14,11 +14,7 @@
 <rapid:override name="mainName">评分管理</rapid:override>
 <rapid:override name="mainIcon">icon-page_world</rapid:override>
 <rapid:override name="body">
-<div data-options="region:'center',title:'评分管理'">
-  <div id="container">
-    <table id="score_table"></table>
-  </div>
-</div>
+    <table id="score_table" data-options="fit:'true'"></table>
   <div id="tb" style="padding:3px">
     <div style="margin-bottom: 5px;">
       创建者: <input class="easyui-textbox" style="width:150px" id="username">

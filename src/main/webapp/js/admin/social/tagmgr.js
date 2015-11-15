@@ -15,7 +15,7 @@ $(function () {
     $("#tag_tree_grid").treegrid({
         idField: 'id',
         treeField: 'name',
-        rownumbers: true,
+        rownumbers: false,
         pagination: true,
         url: "/bcms/proxy?url=tag&method=GET",
         columns: [[

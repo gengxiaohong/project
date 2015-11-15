@@ -10,19 +10,15 @@
 <%@ taglib uri="http://www.rapid-framework.org.cn/rapid" prefix="rapid" %>
 <rapid:override name="title">提问管理</rapid:override>
 <rapid:override name="head">
-  <script type="text/javascript" src="http://www.jeasyui.com/easyui/datagrid-detailview.js"></script>
+  <script type="text/javascript" src="../../js/jquery-easyui-1.4.3/extension/datagrid-detailview.js"></script>
   <script type="text/javascript" src="../../js/admin/social/questionmgr.js"></script>
   <script type="text/javascript" src="../../js/ckeditor/ckeditor.js"></script>
 </rapid:override>
 <rapid:override name="mainName">提问管理</rapid:override>
 <rapid:override name="mainIcon">icon-page_world</rapid:override>
 <rapid:override name="body">
-<div data-options="region:'center',title:'提问管理'">
-  <div id="container">
-    <table id="question_table">
+    <table id="question_table" data-options="fit:'true'">
     </table>
-  </div>
-  </div>
   <div id="tb" style="padding:3px">
     <div style="margin-bottom: 5px;">
       创建者: <input class="easyui-textbox" style="width:150px" id="username">

@@ -10,6 +10,6 @@
 	
 %>
 <%!HttpClient getClient() {
-		request.
+		request,
 		return null;
 	}%>

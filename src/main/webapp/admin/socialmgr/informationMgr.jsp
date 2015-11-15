@@ -15,15 +15,17 @@
 <rapid:override name="mainName">资讯管理</rapid:override>
 <rapid:override name="mainIcon">icon-page_world</rapid:override>
 <rapid:override name="body">
-<div id="information_tabs" class="easyui-tabs">
-  <div title="资讯列表" style="padding:10px">
-    <table id="information_table"></table>
+<div id="information_tabs" class="easyui-tabs" fit="true">
+  <div title="资讯列表" style="padding:0px">
+    <table id="information_table" fit="true"></table>
   </div>
 </div>
-  <div id="tb" style="padding:3px">
-      <a href="#" onclick="newInformation();" class="easyui-linkbutton" data-options="iconCls:'icon-add'">添加</a>
-        标题: <input class="easyui-textbox" style="width:200px" id="name">
-        <a href="#" class="easyui-linkbutton" iconCls="icon-search" onclick="reloadgrid();">搜索</a>
+  <div id="tb" style="padding:5px">
+      	
+        <input class="easyui-textbox" style="width:200px" id="name" placeholder="请输入资讯名称">
+        <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-search" onclick="reloadgrid();">搜索</a> <span style="color:silver;">|</span> 
+        	<a href="javascript:void(0)" onclick="newInformation();" class="easyui-linkbutton" data-options="iconCls:'icon-add'">添加</a>
+        
   </div>
 
 </rapid:override>

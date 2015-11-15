@@ -9,7 +9,7 @@ $(function () {
         toolbar:"#tb",
         url: "/bcms/proxy?url=comment&method=GET",
         columns: [[
-            {field: 'user_id', width: '20%', align: 'center', title: '提交者'},
+            {field: 'username', width: '20%', align: 'center', title: '提交者'},
             {field: 'content', width: '45%', align: 'center', title: '内容'},
             {field: 'target_id', width: '10%', align: 'center', title: '关联资源'},
             {
@@ -25,7 +25,7 @@ $(function () {
             {
                 field: '_operate', width: '10%', align: 'center', title: '操作',
                 formatter: function (value, row, index) {
-                    return '<a class="tablelink" href="#" onclick="editUser(' + index + ')">修改</a>&nbsp;&nbsp;<a class="tablelink" href="#" onclick="delComment(' + index + ')">删除</a>';
+                    return '<a class="tablelink" href="#" onclick="delComment(' + index + ')">删除</a>';
                 }
             }
         ]]
@@ -36,7 +36,11 @@ function getQueryParams(queryParams){
     var username=$("#username").val();
     var is_blocked=$("#is_blocked").combobox('getValue');
     queryParams.username=username;
-    queryParams.is_blocked=is_blocked;
+    	if(is_blocked == 'true'){
+    		queryParams.is_blocked = true;
+    	}else{
+    		queryParams.is_blocked = false;
+    	}
     return queryParams;
 }
 
