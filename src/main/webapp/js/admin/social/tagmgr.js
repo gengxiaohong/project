@@ -7,8 +7,8 @@ $(function () {
         textField: 'text',
         onSelect: function (tag) {
             var id = $('#search_tag').combobox('getValue');
-            $("#tag_tree").tree("expand", $("#tag_tree").tree("find", id).target);
-            $('#tag_tree').tree('select', $("#tag_tree").tree("find", id).target);
+            $("#tag_tree_grid").tree("expand", $("#tag_tree_grid").tree("find", id).target);
+            $('#tag_tree_grid').tree('select', $("#tag_tree_grid").tree("find", id).target);
         }
     });
 
@@ -23,7 +23,7 @@ $(function () {
             {
                 field: '_operate', width: '20%', align: 'center', title: '操作',
                 formatter: function (value, row, index) {
-                    return '<a class="tablelink" href="#" onclick="clickModifyTag(' + row.id + ')">修改</a>&nbsp;&nbsp;<a class="tablelink" href="#" onclick="delTag(' + row.id + ')">删除</a>';
+                    return '<a class="tablelink" href="javascript:void(0)" onclick="clickModifyTag(' + row.id + ')">修改</a>&nbsp;&nbsp;<a class="tablelink" href="javascript:void(0)" onclick="delTag(' + row.id + ')">删除</a>';
                 }
             }
         ]]
@@ -49,10 +49,9 @@ function modifyTag(){
     var id=$("#modify_tag_dlg input[name=id]").val();
     var name=$("#modify_tag_dlg input[name=name]").val();
     var parent_id=$("#modify_tag_dlg input[name=parent_id]").val();
-    $.post("/bcms/proxy", {method:"put",url: "tag/"+id,name:name,parent_id:arent_idli}, function (result) {
+    $.post("/bcms/proxy", {method:"put",url: "tag/"+id,name:name,parent_id:parent_id}, function (result) {
         var obj= $.parseJSON(result);
-        if (obj.success==false) {
-            $('#modify_tag_dlg').dialog('close');
+        if (!obj.id) {
             alert(obj.msg);
         } else {
             $('#modify_tag_dlg').dialog('close');
