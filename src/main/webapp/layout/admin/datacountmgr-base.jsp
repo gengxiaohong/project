@@ -97,9 +97,9 @@
 </head>
 <body class="easyui-layout">
 <jsp:include page="../../layout/admin/adminbody.jsp"/>
-<div data-options="region:'west',split:true" title="系统菜单" style="width:200px;" iconCls="icon-application_side_boxes">
-    <div class="easyui-accordion" style="width:100%;" id="treeMenu">
-        <div title="数据统计" iconCls="icon-cd_magnify">
+<div data-options="region:'west',split:false" title="系统菜单" style="width:200px;" iconCls="icon-application_side_boxes">
+    <div class="easyui-accordion" style="width:100%;" id="treeMenu" data-options="fit:true">
+        <div title="数据统计" iconCls="icon-cd_magnify" style="padding:10px 0px;">
             <ul class="easyui-tree">
                 <li iconCls="icon-cd_play"><span><a href="./resourceplaycount.jsp">资源点播统计</a></span></li>
                 <li iconCls="icon-chart_line"><span><a href="./useraccesscount.jsp">资源访问量统计</a></span></li>

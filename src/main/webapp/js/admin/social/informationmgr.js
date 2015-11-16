@@ -437,7 +437,7 @@ function saveInformation(){
     }, function (data) {
         var result = JSON.parse(data);
         if (!result.id) {
-            alert('创建失败,请检查您的填写是否完整.');
+            alert(result.msg);
         } else{
         	$("#information_table").datagrid("reload");
             $('#information_tabs').tabs('close', "添加资讯");

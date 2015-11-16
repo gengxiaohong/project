@@ -131,7 +131,7 @@ function saveMessage(){
     }, function (data) {
         var result = JSON.parse(data);
         if (!result.id) {
-           alert('发送新消息失败.');
+           alert(result.msg);
         } else {
         	 $("#message_table").datagrid("reload");
              $('#message_tabs').tabs('close', "发送新消息");
