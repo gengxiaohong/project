@@ -20,11 +20,11 @@
             <a class="easyui-linkbutton" plain="true" iconCls="icon-add" onclick="showAddEncodeItemDlg()">增加编码项</a>
             <a class="easyui-linkbutton" plain="true" iconCls="icon-remove" onclick="delEncode();">删除</a>
             <select class="easyui-combobox" editable="false" id="searchCondition">
-                <option>按名称</option>
-                <option>按编码</option>
+                <option value="name">按属性</option>
+                <option value="code">按编码</option>
             </select>
-            <input type="text" class="easyui-textbox"/><a class="easyui-linkbutton" plain="true"
-                                                          iconCls="icon-search">搜索</a>
+            <input type="text" class="easyui-textbox" id="searchContent"/>
+            <a class="easyui-linkbutton" plain="true" iconCls="icon-search" onclick="searchEncode()">搜索</a>
 
         </div>
         <table toolbar="#tbr" id="metaGrid" class="easyui-treegrid"
@@ -98,7 +98,7 @@
                 </tr>
             </table>
             <a class="easyui-linkbutton" plain="false" onclick="submitModifyEncodeItem();">提交</a>
-            <a class="easyui-linkbutton" plain="false" onclick="$('#addEncodeItemDlg').dialog('close');">取消</a>
+            <a class="easyui-linkbutton" plain="false" onclick="$('#editEncodeDlg').dialog('close');">取消</a>
         </form>
     </div>
 </rapid:override>

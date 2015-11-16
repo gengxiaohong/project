@@ -92,6 +92,13 @@ function showEditDicItemDlg(index) {
         $("#editDicItemDlg #en_name1").textbox("setText", row.en_name);
         $("#editDicItemDlg #lom_id1").textbox("setText", row.lom_id);
         $("#editDicItemDlg #source1").textbox("setText", row.source);
+        $("#editDicItemDlg #words1").textbox("setText", row.words);
+        
+        $("#editDicItemDlg input[name=zh_name]").val(row.zh_name);
+        $("#editDicItemDlg input[name=en_name]").val(row.en_name);
+        $("#editDicItemDlg input[name=lom_id]").val(row.lom_id);
+        $("#editDicItemDlg input[name=source]").val(row.source);
+        
         var words1 = "";
         if (row.words) {
             for (var i = 0; i < row.words.length; i++) {
@@ -100,6 +107,7 @@ function showEditDicItemDlg(index) {
             words1 = words1.substr(0, words1.length - 1);
         }
         $("#words1").textbox("setText", words1);
+        $("#editDicItemDlg input[name=words]").val(words1);
         dlg.dialog("open");
     }
 }

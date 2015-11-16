@@ -30,7 +30,7 @@
                 <option>按编码</option>
             </select>
             <input type="text" class="easyui-textbox"/><a class="easyui-linkbutton" plain="true"
-                                                          iconCls="icon-search">搜索</a>
+                                                          iconCls="icon-search"  onclick="searchMetaData()">搜索</a>
 
         </div>
         <table toolbar="#tbr" id="metaGrid" class="easyui-treegrid"

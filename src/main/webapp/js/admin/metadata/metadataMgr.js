@@ -252,7 +252,7 @@ $(function () {
         }, {
             text: '关闭',
             handler: function () {
-                $("#addStructureItemDlg").dialog("close");
+                $("#editStructureItemDlg").dialog("close");
 
             }
         }]
@@ -680,4 +680,9 @@ function showEditMetaItemDlg(node) {
     $("#description21").textbox("setValue", node.description);
     $("#domain21").textbox("setValue", node.domain);
     dlg.dialog("open");
+}
+
+
+function searchMetaData() {
+	
 }
