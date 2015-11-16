@@ -21,6 +21,13 @@
   </div>
 </div>
   <div id="tb" style="padding:5px">
+<<<<<<< HEAD
+      	
+        <input class="easyui-textbox" style="width:200px" id="name" placeholder="请输入资讯名称">
+        <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-search" onclick="reloadgrid();">搜索</a> <span style="color:silver;">|</span> 
+        	<a href="javascript:void(0)" onclick="newInformation();" class="easyui-linkbutton" data-options="iconCls:'icon-add'">添加</a>
+        
+=======
       	<div style="float:left;">
       		<a href="javascript:void(0)" onclick="newInformation();" class="easyui-linkbutton" data-options="iconCls:'icon-add'">添加</a>
       	</div>
@@ -29,6 +36,7 @@
        <!--  <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-search" onclick="reloadgrid();">搜索</a> <span style="color:silver;">|</span> --> 
         </div>
         <div style="clear:both;"></div>
+>>>>>>> refs/remotes/origin/master
   </div>
 
 </rapid:override>

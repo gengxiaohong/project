@@ -53,17 +53,54 @@ $(function () {
     });
 });
 
+//function delResource(metaId) {
+//    $.post("/bcms/proxy?url=resource/" + metaId + "&method=DELETE", {}, function (data) {
+//        if (data.id != undefined) {
+//            $("#rGrid").datagrid("reload");
+//        }
+//    }, "json");
+//}
+
 function delResource(metaId) {
-    $.post("/bcms/proxy?url=resource/" + metaId + "&method=DELETE", {}, function (data) {
-        if (data.id != undefined) {
-            $("#rGrid").datagrid("reload");
-        }
-    }, "json");
+    var rows = $('#rGrid').datagrid("getSelections");
+    if (rows.length > 0) {
+        $.messager.confirm('确认', '确认删除?', function (data) {
+            if (data) {
+                for (var i = 0; i < rows.length; i++) {
+                    $.post("/bcms/proxy", {method: "delete", url: "resource/" + rows[i].id + "/"}, function (result) {
+                        var obj = $.parseJSON(result);
+                        if (obj.success == false) {
+                        	 $.messager.alert("提示", "删除失败！", "info");
+                        } else {
+                            $("#rGrid").datagrid('reload');
+                        }
+                    });
+                }
+            }
+        })
+    } else {
+        $.messager.alert("提示", "请选择要删除的行！", "info");
+        return;
+    }
 }
+
 function addMetaItems() {
     $(".items-container").append("<div class='items'>" + $(".items").html() + "</div>");
 }
 
 function addField() {
     $("#fieldHref").before("<br/><input type=\"text\" class=\"easyui-textbox\">");
+}
+
+function getQueryParams(queryParams){
+    var name=$("#name").val();
+    queryParams.name=name;
+    return queryParams;
+}
+
+function reloadgrid() {
+    var queryParams = $('#rGrid').datagrid('options').queryParams;
+    getQueryParams(queryParams);
+    $('#rGrid').datagrid('options').queryParams = queryParams;
+    $("#rGrid").datagrid('reload');
 }
