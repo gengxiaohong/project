@@ -20,7 +20,7 @@
            title="发布">发布</a>
         <a href="javascript:void(0)" class="easyui-linkbutton" onclick="loadLocal()" plain="true" iconCls="icon-ok"
            title="审核">审核</a>
-        <a href="javascript:void(0)" class="easyui-linkbutton" onclick="loadLocal()" plain="true" iconCls="icon-remove"
+        <a href="javascript:void(0)" class="easyui-linkbutton" onclick="delResource()" plain="true" iconCls="icon-remove"
            title="删除">删除</a>|<label>名称:<input type="text" class="easyui-textbox" id="name"/></label>
         <a href="javascript:void(0)" class="easyui-linkbutton" onclick="reloadgrid()" plain="true" iconCls="icon-search"
            title="搜索"></a>

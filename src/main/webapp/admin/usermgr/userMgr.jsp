@@ -21,7 +21,7 @@
 </div>
 <div id="tb" style="padding:3px">
     <div style="margin-bottom: 5px;">
-    <a href="#" onclick=" newUser();" class="easyui-linkbutton" data-options="iconCls:'icon-add'">添加</a>
+    <a href="#" onclick="newUser();" class="easyui-linkbutton" data-options="iconCls:'icon-add'">添加</a>
     <a href="#" onclick="delUsers();" class="easyui-linkbutton" data-options="iconCls:'icon-cancel'">删除</a>
         </div>
         <div>

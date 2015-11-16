@@ -62,6 +62,23 @@ $(function () {
 //}
 
 function delResource(metaId) {
+        $.messager.confirm('确认', '确认删除?', function (data) {
+            if (data) {
+                for (var i = 0; i < rows.length; i++) {
+                    $.post("/bcms/proxy", {method: "delete", url: "resource/" + rows[i].id + "/"}, function (result) {
+                        var obj = $.parseJSON(result);
+                        if (obj.success == false) {
+                        	 $.messager.alert("提示", "删除失败！", "info");
+                        } else {
+                            $("#rGrid").datagrid('reload');
+                        }
+                    });
+                }
+            }
+        })
+}
+
+function delResource() {
     var rows = $('#rGrid').datagrid("getSelections");
     if (rows.length > 0) {
         $.messager.confirm('确认', '确认删除?', function (data) {
@@ -70,7 +87,7 @@ function delResource(metaId) {
                     $.post("/bcms/proxy", {method: "delete", url: "resource/" + rows[i].id + "/"}, function (result) {
                         var obj = $.parseJSON(result);
                         if (obj.success == false) {
-                        	 $.messager.alert("提示", "删除失败！", "info");
+                        	$.messager.alert("提示", "删除失败！", "info");
                         } else {
                             $("#rGrid").datagrid('reload');
                         }

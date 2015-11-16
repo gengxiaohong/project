@@ -11,6 +11,10 @@
  */
 $(function () {
     $("#rGrid").datagrid({
+    	rownumbers: true,
+        singleSelect: false,
+        url: "/bcms/proxy?url=topic&method=GET",
+        pagination: true,
         columns: [
             [
                 {
