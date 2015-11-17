@@ -48,7 +48,7 @@
             <label>
                 状态
             </label>
-            <select class="easyui-combobox" name="dept">
+            <select class="easyui-combobox" name="is_published">
                 <option>启用</option>
                 <option>禁用</option>
             </select>
@@ -57,7 +57,7 @@
             <label>
                 专题海报
             </label>
-            <input name="name" class="easyui-validatebox" required="true" type="file" value="" />
+            <input name="descr" class="easyui-validatebox" required="true" type="file" value="" />
         </div>
         <div class="fitem">
             <label>
@@ -101,7 +101,7 @@
 </div>
 
 <div id="add_topic_dlg_buttons">
-    <a href="javascript:void(0)" class="easyui-linkbutton" onclick="javascript:$('#add_topic_dlg').dialog('close')" iconcls="icon-save">保存</a>
+    <a href="javascript:void(0)" class="easyui-linkbutton" onclick="saveTopic()" iconcls="icon-save">保存</a>
     <a href="javascript:void(0)" class="easyui-linkbutton" onclick="javascript:$('#add_topic_dlg').dialog('close')"
        iconcls="icon-cancel">取消</a>
 </div>
