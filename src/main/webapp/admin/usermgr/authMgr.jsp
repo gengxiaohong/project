@@ -15,6 +15,10 @@
 <rapid:override name="mainIcon">icon-page_world</rapid:override>
 <rapid:override name="body">
     <div data-options="region:'center',title:'权限管理'">
+     <div style="margin-bottom: 5px;">
+    <a href="#" onclick="addAuth();" class="easyui-linkbutton" data-options="iconCls:'icon-add'">添加权限</a>
+    <a href="#" onclick="delAuth();" class="easyui-linkbutton" data-options="iconCls:'icon-cancel'">删除权限</a>
+        </div>
     <div id="container">
 
         <table id="auth_table"></table>

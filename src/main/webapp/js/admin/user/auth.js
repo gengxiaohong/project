@@ -47,15 +47,10 @@ $(function () {
             {field:'description',width:'25%',align:'center',title:'备注'},
             {field:'_operate',width:'7%',align:'center',title:'操作',
                 formatter: function (value, row,index) {
-                    return '<a class="tablelink" href="#" onclick="editAuth('+ index + ')">修改</a>';
+                    return '<a class="tablelink" href="#" onclick="delAuth('+ index + ')">删除权限</a>';
                 }
             }
-        ]],
-        toolbar:[{
-            text:'添加权限',iconCls:'icon-add',handler:function(){
-                addAuth();
-            }
-        }]
+        ]]
     });
 
 });
@@ -185,7 +180,7 @@ function modifyAuth(){
     });
 }
 
-/*function delAuth(index) {
+function delAuth(index) {
     var row= $('#auth_table').datagrid("getData").rows[index];
     if (row) {
         $.messager.confirm('确认', '确认删除?', function (data) {
@@ -193,7 +188,7 @@ function modifyAuth(){
                 $.post("/bcms/proxy", {method:"delete",url: "permission/" + row.id + "/"}, function (result) {
                     var obj = jQuery.parseJSON(result);
                     if (obj.success) {
-                        initAuthGrid();
+                    	$("#auth_table").datagrid('reload');
                     } else {
                         $.messager.alert("提示",obj.msg,"error");
                     }
@@ -204,7 +199,31 @@ function modifyAuth(){
         $.messager.alert("提示", "请选择要删除的行！", "info");
         return;
     }
-}*/
+}
+
+function delAuth() {
+    var rows = $('#auth_table').datagrid("getSelections");
+    if (rows.length > 0) {
+        $.messager.confirm('确认', '确认删除?', function (data) {
+            if (data) {
+                for (var i = 0; i < rows.length; i++) {
+                    $.post("/bcms/proxy", {method: "delete", url: "permission/" + rows[i].id + "/"}, function (result) {
+                        var obj = $.parseJSON(result);
+                        if (obj.success == false) {
+                            alert("删除失败!");
+                        } else {
+                            $("#auth_table").datagrid('reload');
+                        }
+                    });
+                }
+            }
+        })
+    } else {
+        $.messager.alert("提示", "请选择要删除的行！", "info");
+        return;
+    }
+}
+
 
 function saveAuth() {
     var name = $("#add_auth_dlg input[name=name]").val();

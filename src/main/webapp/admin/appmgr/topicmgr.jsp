@@ -9,6 +9,9 @@
 <%@ taglib uri="http://www.rapid-framework.org.cn/rapid" prefix="rapid" %>
 <rapid:override name="title">专题管理</rapid:override>
 <rapid:override name="head">
+    <script type="text/javascript" src="../../js/spark-md5.js"></script>
+    <script type="text/javascript" src="../../js/common/fileutils.js"></script>
+    <script type="text/javascript" src="http://42.62.52.40:8000/static/flow.js"></script>
     <script type="text/javascript" src="../../js/admin/topicmgr.js"></script>
 </rapid:override>
 <rapid:override name="mainName">专题管理</rapid:override>
@@ -18,11 +21,11 @@
     <a href="javascript:void(0)" class="easyui-linkbutton" onclick="addTopic()" plain="true"
        iconCls="icon-add"
        title="添加">添加</a>
-    <a href="javascript:void(0)" class="easyui-linkbutton" onclick="loadLocal()" plain="true" iconCls="icon-ok"
+    <a href="javascript:void(0)" class="easyui-linkbutton" onclick="editTopic()" plain="true" iconCls="icon-ok"
        title="修改">修改</a>
-    <a href="javascript:void(0)" class="easyui-linkbutton" onclick="loadLocal()" plain="true" iconCls="icon-remove"
-       title="删除">删除</a>|<label>名称:<input type="text" class="easyui-textbox" name="name"/></label>
-    <a href="javascript:void(0)" class="easyui-linkbutton" onclick="loadLocal()" plain="true" iconCls="icon-search"
+    <a href="javascript:void(0)" class="easyui-linkbutton" onclick="delTopic()" plain="true" iconCls="icon-remove"
+       title="删除">删除</a>|<label>名称:<input type="text" class="easyui-textbox" id="name"/></label>
+    <a href="javascript:void(0)" class="easyui-linkbutton" onclick="reloadgrid()" plain="true" iconCls="icon-search"
        title="搜索"></a>
 </div>
 <div data-options="region:'center',title:'专题管理'" iconCls="icon-page_world">
@@ -42,22 +45,24 @@
             <label>
                 专题名称
             </label>
-            <input name="name" class="easyui-validatebox" required="true" type="text" value="" />
+            <input id="name10" name="name" class="easyui-textbox" required="true" type="text" value="" />
         </div>
         <div class="fitem">
             <label>
                 状态
             </label>
-            <select class="easyui-combobox" name="is_published">
-                <option>启用</option>
-                <option>禁用</option>
+            <select class="easyui-combobox" id="is_published">
+                <option value="1">启用</option>
+                <option value="0">禁用</option>
             </select>
         </div>
         <div class="fitem">
             <label>
                 专题海报
             </label>
-            <input name="descr" class="easyui-validatebox" required="true" type="file" value="" />
+                <input type="text" class="easyui-filebox" buttonText="选择文件" id="fileIpt">&nbsp;&nbsp;<a class="easyui-linkbutton" onclick="startUpload()">上传</a>
+                <ul class="list-group" id="fileList">
+                    </ul>
         </div>
         <div class="fitem">
             <label>
@@ -65,13 +70,9 @@
             </label>
             <div class="easyui-layout" style="width:630px;height:300px;">
                 <div data-options="region:'west',title:'资源库',split:true" style="width:210px;">
-                    <div class="easyui-datalist">
-                        <li value="AL">案例库</li>
-                        <li value="AK">视频库</li>
-                        <li value="AZ">课程中心</li>
-                        <li value="AR">精品课程库</li>
-                        <li value="CA">虚拟仿真库</li>
-                    </div>
+                   <select id="resourceTree" url="/bcms/proxy?url=resourcelibrary/&method=GET" class="easyui-combotree"
+                            data-options="method:'POST',required:true"
+                            style="width:200px;"></select>
                 </div>
                 <div data-options="region:'center',title:'待选资源'" style="padding:5px;">
                     <ul class="easyui-datalist">
@@ -95,7 +96,7 @@
             <label>
                 描述
             </label>
-            <input class="easyui-textbox" data-options="multiline:true" style="width:630px;height: 100px;">
+            <input id="descr" class="easyui-textbox" data-options="multiline:true" style="width:630px;height: 100px;">
         </div>
     </form>
 </div>
@@ -116,25 +117,25 @@
             <label>
                 专题名称
             </label>
-            <input name="name" class="easyui-validatebox" required="true" type="text" value="" />
+            <input id="name10" name="name" class="easyui-validatebox" required="true" type="text" value="" />
         </div>
         <div class="fitem">
             <label>
                 描述
             </label>
-            <input class="easyui-textbox" data-options="multiline:true" style="width:300px;height:100px">
+            <input id="descr" name="descr" class="easyui-textbox" data-options="multiline:true" style="width:300px;height:100px">
         </div>
         <div class="fitem">
             <label>
                 状态
             </label>
-            <input name="name" class="easyui-validatebox" required="true" type="text" value="" />
+            <input id="is_published" name="is_published" class="easyui-validatebox" required="true" type="text" value="" />
         </div>
         <div class="fitem">
             <label>
                 专题海报
             </label>
-            <input name="name" class="easyui-validatebox" required="true" type="text" value="" />
+            <input id="fileList" class="easyui-validatebox" required="true" type="text" value="" />
         </div>
         <div class="fitem">
             <label>
@@ -142,17 +143,9 @@
             </label>
             <div id="cc"  class="easyui-layout" style="width:630px;height:300px;">
                 <div data-options="region:'west',title:'资源库',split:true" style="width:210px;">
-                    <div class="easyui-datalist">
-                        <li value="AL">Alabama</li>
-                        <li value="AK">Alaska</li>
-                        <li value="AZ">Arizona</li>
-                        <li value="AR">Arkansas</li>
-                        <li value="CA">California</li>
-                        <li value="CO">Colorado</li>
-                        <li value="CT">Connecticut</li>
-                        <li value="DE">Delaware</li>
-                        <li value="FL">Florida</li>
-                    </div>
+                    <select id="resourceTree" url="/bcms/proxy?url=resourcelibrary/&method=GET" class="easyui-combotree"
+                            data-options="method:'POST',required:true"
+                            style="width:200px;"></select>
                 </div>
                 <div data-options="region:'center',title:'待选用户'" style="padding:5px;">
                     <ul class="easyui-datalist">
@@ -169,7 +162,7 @@
 </div>
 
 <div id="modify_topic_dlg_buttons">
-    <a href="javascript:void(0)" class="easyui-linkbutton" onclick="javascript:$('#modify_tag_dlg').dialog('close')" iconcls="icon-save">保存</a>
+    <a href="javascript:void(0)" class="easyui-linkbutton" onclick="modifyTopic()" iconcls="icon-save">保存</a>
     <a href="javascript:void(0)" class="easyui-linkbutton" onclick="javascript:$('#modify_tag_dlg').dialog('close')"
        iconcls="icon-cancel">取消</a>
 </div>
