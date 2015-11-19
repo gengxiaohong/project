@@ -71,3 +71,21 @@
     font-weight: bold;
     background: url("http://rms.boful.com/skin/blue/pc/admin/images/ou_admin_loading_bg.png");
 }
+
+@charset "utf-8";
+/* CSS Document */
+body{ font-family:"Î¢ÈíÑÅºÚ";  margin:0px; padding:0px; }
+.logo a{ text-decoration:none; color:#FFF;}
+*{ margin:0px; padding:0px; border:0px;}
+ul{ list-style:none;}
+.clear{ clear:both;}
+
+.logo{ height:88px; width:100%; background:#4ca9ef; -moz-box-shadow: 0px 3px 10px #c8c6c6; 
+box-shadow: 0px 3px 10px #c8c6c6;overflow-y:hidden;}
+.logo-left{ float:left; width:407px;}
+.logo-right{ float:right; font-size:14px; margin-top:18px; margin-right:3px;}
+.logo-right li{ float:left;text-align:center; margin:0px  15px;}
+.logo-right li a{ display:block;}
+.logo-right span{display:inline-block; height:40px; padding:0px 5px;}
+.logo-right span img{ margin-top:7px;}
+.logo-right li a:hover{ color:#196cb9; background:url(../images/menu/linkbg.png) top center no-repeat;}

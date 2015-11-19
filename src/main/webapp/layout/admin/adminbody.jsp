@@ -11,8 +11,8 @@
 <div class="ui-mask">
     <p>正在加载页面,请稍后...</p>
 </div>
-<div data-options="region:'north',border:false,split:false" style="height:72px;background:#666;text-align:center">
-    <div id="header-inner">
+<div data-options="region:'north',border:false,split:false">
+    <!-- <div id="header-inner">
         <table cellpadding="0" cellspacing="0" style="width:100%;">
             <tbody>
             <tr>
@@ -34,7 +34,8 @@
                         <a href="../../admin/appmgr/topicmgr.jsp">应用管理</a>
                         <a href="../../admin/datacount/datacout.jsp">数据统计</a>
                         <a href="../../admin/sysmgr/webconf.jsp">服务管理</a>
-                        <a href="../../admin/socialmgr/informationMgr.jsp">社会化功能管理</a>
+                        <a target="socialmgr" href="../../admin/socialmgr/informationMgr.jsp">社会化功能管理</a>
+                    	<a href="../../layout/admin/socialmgr-base.jsp">社会化功能管理</a>
                     </div>
 
                 </td>
@@ -48,8 +49,45 @@
             </tr>
             </tbody>
         </table>
-    </div>
+    </div> -->
+    <div class="logo">
+		<div class="logo-left">
+			<img src="../../images/menu/logo.jpg" />
+		</div>
+		<ul class="logo-right">
+
+			<li><a
+				href="../../admin/usermgr/userMgr.jsp"><span><img
+						src="../../images/menu/user.png" /></span><br />
+					<span>用户管理</span></a></li>
+			<li><a  href="../../admin/resourcemgr/rmgr.jsp"><span><img
+						src="../../images/menu/sources.png" /></span><br />
+					<span>资源管理</span></a></li>
+			<li><a href="../../admin/metadata/metadataMgr.jsp"><span><img
+						src="../../images/menu/data.png" /></span><br />
+					<span>元数据管理</span></a></li>
+			<li><a href="../../admin/appmgr/topicmgr.jsp"><span><img
+						src="../../images/menu/application.png" /></span><br />
+					<span>应用管理</span></a></li>
+			<li><a
+				href="../../admin/datacount/datacout.jsp"><span><img
+						src="../../images/menu/datacount.png" /></span><br />
+					<span>数据统计</span></a></li>
+			<li><a
+				href="/mrms/jsp/servermanager/serverMainManger"><span><img
+						src="../../images/menu/service.png" /></span><br />
+					<span>服务管理</span></a></li>
+			<li><a href="../../layout/admin/socialmgr-base.jsp"><span><img
+						src="../../images/menu/social.png" /></span><br />
+					<span>社会化功能管理</span></a></li>
+			<li><a  href="../../admin/login.jsp"><span><img
+						src="../../images/menu/return.png" /></span><br />
+					<span>退出</span></a></li>
+		</ul>
+	</div>
+	<div class="clear"></div>
+    
 </div>
-<div data-options="region:'south',split:false" border="false" style="height:30px;">
+<div data-options="region:'south',split:false" border="false">
     <p style="text-align:center;">Copyright © 2010-2015 www.boful.com</p><!-- id="footer-inner"  -->
 </div>
