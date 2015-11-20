@@ -6,14 +6,18 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<%@ taglib uri="http://www.rapid-framework.org.cn/rapid" prefix="rapid" %>
+<%-- <%@ taglib uri="http://www.rapid-framework.org.cn/rapid" prefix="rapid" %>
 <rapid:override name="title">标签管理</rapid:override>
-<rapid:override name="head">
+<rapid:override name="head"> --%>
+<head>
+<jsp:include page="../../layout/admin/adminheader.jsp"/>
     <script type="text/javascript" src="../../js/admin/social/tagmgr.js"></script>
-</rapid:override>
+    </head>
+<%-- </rapid:override>
 <rapid:override name="mainName">标签管理</rapid:override>
 <rapid:override name="mainIcon">icon-page_world</rapid:override>
-<rapid:override name="body">
+<rapid:override name="body"> --%>
+<body>
 <div region="center">
       <div style="padding:5px;background:#fafafa;border:1px solid #ccc">
         <input id="search_tag" style="width: 300px;align-items: center; display: none;">
@@ -65,8 +69,9 @@
     <a href="javascript:void(0)" class="easyui-linkbutton" onclick="javascript:$('#modify_tag_dlg').dialog('close')"
        iconcls="icon-cancel">取消</a>
 </div>
-
-</rapid:override>
+</body>
+<%-- </rapid:override>
 
 <!-- extends from base.jsp -->
 <%@ include file="../../layout/admin/socialmgr-base.jsp" %>
+ --%>
