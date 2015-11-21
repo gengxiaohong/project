@@ -29,8 +29,28 @@ $(function () {
                         return date.format("yyyy-MM-dd HH:mm:ss");
                     }
                 },
-                {field: 'kind', title: '类型', width: 100, sortable: true},
-                {field: 'status', title: '状态', width: 100, sortable: true},
+                {field: 'kind', title: '类型', width: 100, sortable: true,
+                	formatter:function(value){
+                		if(value==0)
+                		return '普通';
+                		if(value==1)
+                		return '课程';
+                		if(value==2)
+                    	return '课时';
+                		if(value==3)
+                    	return '素材';
+                		}},
+                {field: 'status', title: '状态', width: 100, sortable: true,
+                	formatter:function(value){
+                        if(value==0)
+                        return '编辑中';
+                        if(value==1)
+                        return '审核中';
+                        if(value==2)
+                        return '审核通过';
+                        if(value==3)
+                        return '审核拒绝';
+                        }},
                 {
                     field: 'delOpt', title: '删除', width: 100, formatter: function (value, row, index) {
                     return "<a class='easyui-linkbutton' onclick='delResource(" + row.id + ")'>删除</a>";

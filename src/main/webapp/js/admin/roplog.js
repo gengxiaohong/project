@@ -10,14 +10,19 @@
  */
 $(function () {
     $("#logGrid").datagrid({
+    	url: "/bcms/proxy?url=log/daily_source_ip&method=GET",
+        fitColumns: true,
+        autoRowHeight: true,
+        fit: true,
         columns: [
             [
-                {field: 'id', title: 'id', width: 100},
-                {field: 'user_name', title: '名称', width: 100, sortable: true},
-                {field: 'resource_name', title: '资源名称', width: 100},
-                {field: 'operation', title: '操作', width: 100, sortable: true},
-                {field: 'result', title: '操作结果', width: 100, sortable: true},
-                {field: 'create_date', title: '操作日期', width: 100, sortable: true}
+                {field: 'ip', title: 'ip', width: 100},
+                {field: 'number', title: '数量', width: 100, sortable: true}
+//                {field: 'user_name', title: '名称', width: 100, sortable: true},
+//                {field: 'resource_name', title: '资源名称', width: 100},
+//                {field: 'operation', title: '操作', width: 100, sortable: true},
+//                {field: 'result', title: '操作结果', width: 100, sortable: true},
+//                {field: 'create_date', title: '操作日期', width: 100, sortable: true}
             ]
         ]
     });

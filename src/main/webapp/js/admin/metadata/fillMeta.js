@@ -22,7 +22,7 @@ $(function () {
     //	$('#dg').datagrid().datagrid('enableCellEditing');
 
     $("#metaGrid").treegrid({
-        url: "/bcms/resouceMetaQuery?id=" + resourceId,
+        url: "/bcms/proxy/resouceMetaQuery?id=" + resourceId,
         idField: "id",
         treeField: "zh_name",
         fitColumns: true,

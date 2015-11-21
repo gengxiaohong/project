@@ -46,6 +46,13 @@
             </tr>
 
             <tr>
+                <td><label>标签</label></td>
+                <td><select id="tagTree" url="/bcms/proxy?url=tag/&method=GET" class="easyui-combotree" multiple="true" 
+                            data-options="method:'POST',required:true" 
+                            style="width: 200px;"></select></td>
+            </tr>
+
+            <tr>
                 <td colspan="2" style="text-align: center;padding:10px;">
                     <a class="easyui-linkbutton" onclick="submitForm()">提交</a>
                 </td>
