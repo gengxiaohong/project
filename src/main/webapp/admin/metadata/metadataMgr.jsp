@@ -16,9 +16,9 @@
 <rapid:override name="body">
     <div data-options="region:'center',title:'字段列表'" iconCls="icon-page_world">
         <div id="tbr" style="height:30px;line-height:30px;">
-            <a class="easyui-linkbutton" plain="true" iconCls="icon-add" onclick="showAddStructureItemDlg()">选择结构类型</a>
-            <a class="easyui-linkbutton" plain="true" iconCls="icon-add" onclick="showAddDicItemDlg()">选择词汇表类型</a>
-            <a class="easyui-linkbutton" plain="true" iconCls="icon-add" onclick="showAddItemDlg()">增加普通类型</a>
+            <a class="easyui-linkbutton" plain="true" iconCls="icon-add" onclick="showAddStructureItemDlg()">增加结构类型元数据</a>
+            <a class="easyui-linkbutton" plain="true" iconCls="icon-add" onclick="showAddDicItemDlg()">增加词汇表类型元数据</a>
+            <a class="easyui-linkbutton" plain="true" iconCls="icon-add" onclick="showAddItemDlg()">增加普通类型元数据</a>
             <a class="easyui-linkbutton" plain="true" iconCls="icon-remove" onclick="deleteMetaItem()">删除</a>
             <select class="easyui-combobox" editable="false">
                 <option>必须元素</option>
@@ -34,8 +34,7 @@
 
         </div>
         <table toolbar="#tbr" id="metaGrid" class="easyui-treegrid"
-               data-options="singleSelect:true,collapsible:true,url:'./metalist.json',method:'post'" rownumbers="true"
-               pagination="true">
+               data-options="singleSelect:true,collapsible:true," rownumbers="true" pagination="true">
         </table>
     </div>
     <div id="ttbr">
@@ -46,9 +45,8 @@
     </div>
     <div toolbar="#ttbr" id="selectItemDlg" title="选择字段" class="easyui-dialog" closed="true"
          style="width:450px;height:400px;padding:10px;">
-        <ul id="metadata_tree1" class="easyui-tree" url="./lefttree.json" checkbox="true"></ul>
     </div>
-    <div id="addMetaItemDlg" title="增加字段" class="easyui-dialog" closed="true"
+    <div id="addMetaItemDlg" title="增加元数据" class="easyui-dialog" closed="true"
          style="width:450px;">
         <form>
             <table class="table">

@@ -114,14 +114,43 @@ function submitModifyEncodeItem(){
     });
 }
 
+function searchEncode() {
+	var searchCondition = $('#searchCondition').combobox('getValue');
+	var searchContent = $('#searchContent').val();
+	var queryParams = $('#metaGrid').treegrid('options').queryParams;  
+	if(searchCondition == 'name') {
+		queryParams.name = searchContent;
+	} else if(searchCondition == 'code') {
+		queryParams.code = searchContent;
+	}
+	
+	queryParams.url = "encode";
+	queryParams.method = "GET";
+    //重新加载treegrid的数据  
+    $("#metaGrid").treegrid('reload');
+}
+
 $(function () {
     $("#metaGrid").treegrid({
+    	url:'/bcms/proxy?url=encode&method=GET&parent_id=0',
         idField: 'id',
         treeField: 'name',
+        animate: false,
         fitColumns: true,
+        loadFilter: function (data, parentId) {
+            if (data.rows) {
+                for (var i = 0; i < data.rows.length; i++) {
+                    var row = data.rows[i];
+                    if (row.parent_id == 0) {
+                        row.state = "closed";
+                    }
+                }
+            }
+            return data;
+        },
         columns: [[
             {field: "id", title: "id", width: 100, hidden: true},
-            {field: "name", title: "属性", width: 100,align:'center'},
+            {field: "name", title: "属性", width: 100,align:'left'},
             {field: "code", title: "编码", width: 100,align:'center'},
             {
                 field: "edit", title: "操作", width: 100, align: 'center', formatter: function (value, row) {
@@ -130,7 +159,6 @@ $(function () {
             }
         ]]
     });
-
 });
 
 

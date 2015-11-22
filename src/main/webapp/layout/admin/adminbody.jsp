@@ -74,7 +74,7 @@
 						src="../../images/menu/datacount.png" /></span><br />
 					<span>数据统计</span></a></li>
 			<li><a
-				href="/mrms/jsp/servermanager/serverMainManger"><span><img
+				href="../../layout/admin/systemmgr-base.jsp"><span><img
 						src="../../images/menu/service.png" /></span><br />
 					<span>服务管理</span></a></li>
 			<li><a href="../../layout/admin/socialmgr-base.jsp"><span><img

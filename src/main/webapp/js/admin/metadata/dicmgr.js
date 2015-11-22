@@ -72,15 +72,23 @@ $(function () {
                 return "<a onclick='showEditDicItemDlg(\"" + index + "\")'>编辑</a>";
             }
             }
-        ]],
-        onLoadSuccess: function (data) {
-            $(".easyui-combobox").combobox();
-            //alert(data);
-            // $("#metaGrid").datagrid("loadData", {"rows": data.rows, "total": data.total});
-        }
+        ]]
     });
 
 });
+
+function searchDicItem() {
+	var searchCondition = $('#searchCondition').combobox('getValue');
+	var searchContent = $('#searchContent').val();
+	var queryParams = $('#metaGrid').datagrid('options').queryParams;  
+	if(searchCondition == 'name') {
+		queryParams.zh_name = searchContent;
+	} else if(searchCondition == 'code') {
+		queryParams.lom_id = searchContent;
+	}
+    //重新加载datagrid的数据  
+    $("#metaGrid").datagrid('reload');
+}
 
 function showEditDicItemDlg(index) {
     $('#metaGrid').datagrid('selectRow', index);

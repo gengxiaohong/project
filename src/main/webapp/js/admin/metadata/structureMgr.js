@@ -63,23 +63,10 @@ function addItemToDlg() {
     $("#selectItemDlg").dialog("close");
 }
 $(function () {
-    $("#metadata_tree1").tree({
-        onCheck: function (node, checked) {
-            if (!node.children) {
-                if (checked) {
-                    $("#ttbr p").append("<a about='" + node.id + "'>" + node.text + "</a>");
-                } else {
-                    $("#ttbr p").find("a[about='" + node.id + "']").remove();
-                }
-            }
-
-        }
-    });
-
     var isFirst = true;
     var loadCount = 0;
     $("#metaGrid").treegrid({
-        url: "/bcms/structureQueryProxy",
+        url: "/bcms/proxy?url=metatype&method=GET&kind=3&parent_id=0&structure_type_id=0",
         idField: 'id',
         treeField: 'zh_name',
         fitColumns: true,
@@ -94,15 +81,10 @@ $(function () {
             }
             return data;
         },
-        onLoadSuccess: function (row, data) {
-            //var opt = $("#metaGrid").treegrid("options");
-            //opt.url = "/bcms/proxy?url=metatype&method=GET";
-            //alert(opt.url);
-        },
         columns: [
             [
-                {field: 'ckId', width: 30, checkbox: true},
-                {field: 'id', title: '编号', width: 30},
+               /* {field: 'ckId', width: 30, checkbox: true},
+                {field: 'id', title: '编号', width: 30},*/
                 {field: 'zh_name', title: '中文', width: 100},
                 {field: 'en_name', title: '英文', width: 100},
                 {
@@ -124,7 +106,8 @@ $(function () {
                 {field: 'example', title: '举例', width: 50},
                 {field: 'domain', title: '值域', width: 50},
                 {field: 'val_num', title: '取值数', width: 50},
-                {field: 'parent_id', title: '父类型id', width: 50}, {
+               /* {field: 'parent_id', title: '父类型id', width: 50}, */
+                {
                 field: "edit", title: "编辑", formatter: function (value, row, index) {
                     return "<a class='easyui-linkbutton' onclick='showEditItemDlg(" + row.id + ")'>编辑</a>";
                 }
@@ -165,6 +148,8 @@ function showAddItemDlg(isTop) {
             var dlg = $("#addMetaItemDlg");
             dlg.dialog("open");
             dlg.find("input[name='parent_id']").val(row.id);
+        } else {
+        	alert("请选择一个一级结构类型");
         }
     }
 
@@ -295,4 +280,26 @@ function delStructure() {
     } else {
         alert("请选择要删除的数据");
     }
+}
+
+function searchStructure() {
+	var searchCondition = $('#searchCondition').combobox('getValue');
+	var searchContent = $('#searchContent').val();
+	var queryParams = $('#metaGrid').treegrid('options').queryParams;  
+	if(searchCondition == 'zh_name') {
+		queryParams.zh_name = searchContent;
+	} else if(searchCondition == 'en_name') {
+		queryParams.en_name = searchContent;
+	} else if(searchCondition == 'lom_id') {
+		queryParams.lom_id = searchContent;
+	}
+	
+	queryParams.url = "metatype";
+	queryParams.method = "GET";
+	queryParams.kind = "3";
+	queryParams.structure_type = "0";
+	queryParams.parent_id = "0";
+	
+    //重新加载treegrid的数据  
+    $("#metaGrid").treegrid('reload');
 }

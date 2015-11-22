@@ -20,17 +20,16 @@
                 <%--<a class="easyui-linkbutton" plain="true" iconCls="icon-add" onclick="showAddDicItemDlg()">增加词汇</a>--%>
             <a class="easyui-linkbutton" plain="true" iconCls="icon-remove" onclick="deleteDic()">删除</a>
             <select class="easyui-combobox" editable="false" id="searchCondition">
-                <option>按名称</option>
-                <option>按编码</option>
+                <option value="name">按名称</option>
+                <option value="code">按编码</option>
             </select>
-            <input type="text" class="easyui-textbox"/><a class="easyui-linkbutton" plain="true"
-                                                          iconCls="icon-search">搜索</a>
+            <input type="text" class="easyui-textbox" id="searchContent"/>
+            <a class="easyui-linkbutton" plain="true" iconCls="icon-search" onclick="searchDicItem()">搜索</a>
 
         </div>
         <table toolbar="#tbr" id="metaGrid" class="easyui-datagrid"
                data-options="singleSelect:true,collapsible:true,method:'post'" rownumbers="true"
                pagination="true">
-
         </table>
     </div>
     <div id="ttbr">

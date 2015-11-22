@@ -44,17 +44,17 @@
     </div>
     <div title="结构类型">
         <ul class="easyui-tree" id="structure_tree">
-            <li><span><a href="./structureMgr.jsp">列表</a></span></li>
+            <li><span><a href="./structureMgr.jsp">结构类型管理</a></span></li>
         </ul>
     </div>
     <div title="词汇表">
         <ul id="vocabularydata_tree" class="easyui-tree">
-            <li><span><a href="./dicmgr.jsp?type=1">列表</a></span></li>
+            <li><span><a href="./dicmgr.jsp?type=1">词汇表管理</a></span></li>
         </ul>
     </div>
     <div title="编码表">
         <ul id="encodedata_tree" class="easyui-tree">
-            <li><span><a href="./codemgr.jsp?type=1">列表</a></span></li>
+            <li><span><a href="./codemgr.jsp?type=1">编码表管理</a></span></li>
         </ul>
     </div>
 </div>

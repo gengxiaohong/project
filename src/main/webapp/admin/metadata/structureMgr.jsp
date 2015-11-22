@@ -20,11 +20,12 @@
             <a class="easyui-linkbutton" plain="true" iconCls="icon-add" onclick="showAddItemDlg(false)">增加</a>
             <a class="easyui-linkbutton" plain="true" iconCls="icon-remove" onclick="delStructure();">删除</a>
             <select class="easyui-combobox" editable="false" id="searchCondition">
-                <option>按名称</option>
-                <option>按编码</option>
+               <option value="zh_name">按中文名</option>
+                <option value="en_name">按英文名</option>
+                <option value="lom_id">按LOM编码</option>
             </select>
-            <input type="text" class="easyui-textbox"/><a class="easyui-linkbutton" plain="true"
-                                                          iconCls="icon-search">搜索</a>
+            <input type="text" class="easyui-textbox" id="searchContent"/>
+            <a class="easyui-linkbutton" plain="true" iconCls="icon-search" onclick="searchStructure()">搜索</a>
 
         </div>
         <!--url:'./structure.json'-->
@@ -41,7 +42,6 @@
     </div>
     <div toolbar="#ttbr" id="selectItemDlg" title="选择字段" class="easyui-dialog" closed="true"
          style="width:450px;height:400px;padding:10px;">
-        <ul id="metadata_tree1" class="easyui-tree" url="./lefttree.json" checkbox="true"></ul>
     </div>
     <div id="addMetaItemDlg" title="增加结构类型" class="easyui-dialog" closed="true"
          style="width:450px;height:650px;padding:10px;">

@@ -28,7 +28,7 @@
 
         </div>
         <table toolbar="#tbr" id="metaGrid" class="easyui-treegrid"
-               data-options="singleSelect:true,collapsible:true,url:'/bcms/proxy?url=encode&method=GET&parent_id=0',method:'post'"
+               data-options="singleSelect:true,collapsible:true,method:'post'"
                rownumbers="true"
                pagination="true">
 

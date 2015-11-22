@@ -587,7 +587,7 @@ function addStructureItem(mtypeId) {
 
 function showAddItemDlg() {
     var node = $("#metadata_tree").tree("getSelected");
-    if (node && (node.node_type != 1)) {
+    if (node && (node.node_type == 2)) {
         $("#addMetaItemDlg").dialog("open");
     } else {
         alert("请选择元数据标准");
@@ -600,7 +600,7 @@ function showAddStructureItemDlg() {
 
 function showAddDicItemDlg() {
     var node = $("#metadata_tree").tree("getSelected");
-    if (node && (node.node_type != 1)) {
+    if (node && (node.node_type == 2)) {
         $("#addDicItemDlg").dialog("open");
     } else {
         alert("请选择元数据标准");

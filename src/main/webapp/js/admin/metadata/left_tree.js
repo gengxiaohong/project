@@ -19,7 +19,6 @@ $(function () {
             }
         },
         loadFilter: function (data, parent) {
-            //console.log(node.iconCls);
             for (var i = 0; i < data.length; i++) {
                 if (data[i].node_type == 1) {
                     data[i].iconCls = "icon-06";
