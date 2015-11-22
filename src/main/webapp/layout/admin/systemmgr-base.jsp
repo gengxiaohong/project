@@ -3,7 +3,7 @@
 <!DOCTYPE html>
 <html lang="zh-cn">
 <head>
-    <title><rapid:block name="title"/>-服务管理</title>
+    <title><rapid:block name="title"/>服务管理</title>
     <jsp:include page="../../layout/admin/adminheader.jsp"/>
     <style type="text/css">
         .ftitle
@@ -32,29 +32,29 @@
     <div class="easyui-accordion" style="width:100%;" id="treeMenu" data-options="fit:true">
         <div iconCls="icon-script" title="Web服务">
             <ul class="easyui-tree">
-                <li iconCls="icon-config"><span><a href="./webconf.jsp">Web服务配置</a></span></li>
-                <li iconCls="icon-config"><span><a href="./webservermonitor.jsp">Web服务器状态监测</a></span></li>
+                <li iconCls="icon-config"><span><a href="../../admin/sysmgr/webconf.jsp">Web服务配置</a></span></li>
+                <li iconCls="icon-config"><span><a href="../../admin/sysmgr/webservermonitor.jsp">Web服务器状态监测</a></span></li>
             </ul>
         </div>
         <div iconCls="icon-script" title="转码服务">
             <ul class="easyui-tree">
-                <li iconCls="icon-drive_disk"><span><a href="./convertconf.jsp">转码配置</a></span></li>
-                <li iconCls="icon-drive_disk"><span><a href="./convpolicy.jsp">转码策略配置</a></span></li>
-                <li iconCls="icon-drive_disk"><span><a href="./convqueue.jsp">转码队列</a></span></li>
-                <li iconCls="icon-drive_disk"><span><a href="./convsuccess.jsp">已转码文件</a></span></li>
-                <li iconCls="icon-drive_disk"><span><a href="./convmonitor.jsp">转码统计</a></span></li>
-                <li iconCls="icon-drive_disk"><span><a href="./convservermonitor.jsp">转码服务器监测</a></span></li>
+                <li iconCls="icon-drive_disk"><span><a href="../../admin/sysmgr/convertconf.jsp">转码配置</a></span></li>
+                <li iconCls="icon-drive_disk"><span><a href="../../admin/sysmgr/convpolicy.jsp">转码策略配置</a></span></li>
+                <li iconCls="icon-drive_disk"><span><a href="../../admin/sysmgr/convqueue.jsp">转码队列</a></span></li>
+                <li iconCls="icon-drive_disk"><span><a href="../../admin/sysmgr/convsuccess.jsp">已转码文件</a></span></li>
+                <li iconCls="icon-drive_disk"><span><a href="../../admin/sysmgr/convmonitor.jsp">转码统计</a></span></li>
+                <li iconCls="icon-drive_disk"><span><a href="../../admin/sysmgr/convservermonitor.jsp">转码服务器监测</a></span></li>
             </ul>
         </div>
         <div iconCls="icon-script" title="流媒体服务">
             <ul class="easyui-tree">
-                <li iconCls="icon-drive_disk"><span><a href="./mediaserverconf.jsp">流媒体配置</a></span></li>
-                <li iconCls="icon-drive_disk"><span><a href="./mediaservermonitor.jsp">流媒体服务器监测</a></span></li>
+                <li iconCls="icon-drive_disk"><span><a href="../../admin/sysmgr/mediaserverconf.jsp">流媒体配置</a></span></li>
+                <li iconCls="icon-drive_disk"><span><a href="../../admin/sysmgr/mediaservermonitor.jsp">流媒体服务器监测</a></span></li>
             </ul>
         </div>
         <div iconCls="icon-script" title="存储服务">
             <ul class="easyui-tree">
-                <li iconCls="icon-drive_disk"><span><a href="./storeconf.jsp">存储配置</a></span></li>
+                <li iconCls="icon-drive_disk"><span><a href="../../admin/sysmgr/storeconf.jsp">存储配置</a></span></li>
             </ul>
         </div>
     </div>
