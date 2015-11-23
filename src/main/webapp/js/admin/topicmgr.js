@@ -36,15 +36,90 @@ $(function () {
                 field: 'is_published',
                 title: '状态',
                 width: 100,
-                sortable: true
+                sortable: true,
+                formatter:function(value){
+                    if(value)
+                    return '发布';
+                    else
+                    return '不发布';
+                    }
             }
             ]
         ]
     });
 });
+
 function addTopic(){
+	//$("#add_tag_form").form("clear");
     $('#add_topic_dlg').dialog('open').dialog("setTitle", "添加专题");
-    $("#add_tag_form").form("clear");
+    initResourceLibrary();
+}
+function initResourceLibrary() {
+    $('#add_topic_dlg #resourceTree').tree({
+        url: "/bcms/proxy?url=resourcelibrary/&method=GET",
+        lines: true,
+        onBeforeLoad: function (node, param) {
+            ajaxLoading();
+        },
+        loadFilter: function (data) {
+            return formatTreeData(data.rows);
+        },
+        onLoadSuccess: function (node, data) {
+            ajaxLoadEnd();
+        }, onClick: function (node) {
+        	initResourceListByResourceLibrary(node);
+        }
+    });
+}
+
+function initResourceListByResourceLibrary(node) {
+    $.post("/bcms/proxy", {method: "get", url: "resource/",library_id: node.id,page:1,rows:10000}, function (result) {
+        var obj = jQuery.parseJSON(result);
+        if (obj.success==false) {
+            alert(obj.msg);
+        } else {
+            var rows = $('#select_resource_list').datalist("getData").rows;
+            for (var j = 0; j < rows.length; j++) {
+                for (var x = 0; x < obj.length; x++) {
+                    if (rows[j].id == obj[x].id) {
+                        obj[x].checked = true;
+                    }
+                }
+            }
+            $("#add_tag_form #resource_list").datalist({
+                checkbox: true,
+                singleSelect:false,
+                textField: 'name',
+                valueField: 'id',
+                data: obj,
+                onCheck: function (index, row) {
+                    $("#add_tag_form #select_resource_list").datalist('appendRow', {'id': row.id, 'text': row.name});
+                },
+                onUncheck:function(index,row) {
+                    var rows = $("#select_resource_list").datalist('getRows');
+                    for (var i = 0; i < rows.length; i++) {
+                        if (rows[i].id == row.id) {
+                            var sIndex = $("#select_resource_list").datalist('getRowIndex', rows[i]);
+                            $("#select_resource_list").datalist('deleteRow', sIndex);
+                        }
+                    }
+                }
+            });
+        }
+    });
+}
+
+function formatTreeData(data){
+    var fin = [];
+    for (var i = 0; i < data.length; i++) {
+        var obj = data[i];
+        obj.text = obj.name;
+        if (obj.children && obj.children.length > 0) {
+            obj.children = formatTreeData(obj.children);
+        }
+        fin.push(obj);
+    }
+    return fin;
 }
 
 function saveTopic(){
@@ -56,15 +131,26 @@ function saveTopic(){
     if (ff.form("validate")) {
         var name = $("#name10").textbox("getValue");
         var description = $("#descr").textbox("getValue");
-        var node = $("#resourceTree").combotree("getValue");
+        var rows = $('#select_resource_list').datalist("getData").rows;
+        var resource_ids=[];
+        for(var i=0;i<rows.length;i++){
+        	resource_ids.push(rows[i].id);
+        }
         var is_published = $("#is_published").combotree("getValue");
+        var is_published_flag;
+        if (parseInt(is_published)==0){
+        	is_published_flag=false;
+        }
+        else {
+        	is_published_flag=true;
+        }
         $.post("/bcms/proxy", {
             method: "POST",
             url: "special/",
             name: name,
             description: description,
-            resource_ids: parseInt(node),
-            is_published: parseInt(is_published)
+            resource_ids: JSON.stringify(resource_ids),
+            is_published: is_published_flag
         }, function (data) {
             if (data.id != undefined) {
                 //alert("ok........");
@@ -116,7 +202,7 @@ function submitSuccess(data3, resourceId) {
 function editTopic(){
     var row = $('#rGrid').datagrid('getSelected');
     if (row) {
-      //  initModify(row);
+        initModify(row);
         $('#modify_topic_dlg').dialog('open').dialog('setTitle', '编辑专题');;
     } else {
         $.messager.alert("提示", "请选择要编辑的行！", "info");
@@ -125,10 +211,26 @@ function editTopic(){
 }
 
 function initModify(row) {
-	 var name = $("#modify_topic_dlg input[name=name]").val();
-	 var description = $('#modify_topic_dlg input[name=descr]').val();
-	 var resource_ids = $('#modify_topic_dlg input[name=resources]').val();
-	 var is_published=$("#modify_topic_dlg .gender_combobox").combobox("getValue");
+	 $("#modify_topic_form").form("clear");
+	 $("#modify_topic_dlg input[name=name]").val(row.name);
+	 $('#modify_topic_dlg input[name=description]').val(row.description);
+	 $('#modify_topic_dlg input[name=is_published]').val(row.is_publish);
+	 
+	 
+//	 $("#modify_user_form").form("clear");
+//	    $("#modify_user_dlg input[name=id]").val(row.id);
+//	    $("#modify_user_dlg input[name=name]").val(row.username);
+//	    $("#modify_user_dlg input[name=cn_name]").val(row.cn_name);
+//	    $('#modify_user_dlg input[name=email]').val(row.email);
+//	    $('#modify_user_dlg input[name=phone]').val(row.phone);
+//	    $('#modify_user_dlg input[name=number]').val(row.number);
+//	    $("#modify_user_dlg .identity_combobox").combobox('loadData', [{"id": 1, "text": "学生"}, {"id": 2, "text": "老师"}]);
+//	    $("#modify_user_dlg .identity_combobox").combobox('setValues', [row.identity]);
+//	    $("#modify_user_dlg .gender_combobox").combobox('loadData', [{"id": 1, "text": "男"}, {"id": 2, "text": "女"}]);
+//	    $("#modify_user_dlg .gender_combobox").combobox('setValues', [row.gender]);
+//	    $('#modify_user_dlg input[name=id_card]').val(row.id_card);
+//	    $('#modify_user_dlg input[name=disk_size]').val(row.disk_size);
+//	    $('#modify_user_dlg input[name=description]').val(row.description);
     $.post("/bcms/proxy", {method: "put", url: "special/"}, function (result) {
         var obj = $.parseJSON(result);
         if (obj.success == false) {
@@ -228,14 +330,6 @@ function startUpload() {
 
 var waitFile = {status: false};
 $(function () {
-    $("#resourceTree").combotree({
-        loadFilter: function (data) {
-            for (var i = 0; i < data.rows.length; i++) {
-                data.rows[i].text = data.rows[i].name;
-            }
-            return data.rows;
-        }
-    });
 
     flow = new Flow({
         target: 'http://42.62.52.40:8000/file/upload',

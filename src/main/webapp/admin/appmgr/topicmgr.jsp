@@ -68,27 +68,15 @@
             <label>
                 资源检索
             </label>
-            <div class="easyui-layout" style="width:630px;height:300px;">
+            <div id="cc"  class="easyui-layout" style="width:630px;height:300px;align:center;">
                 <div data-options="region:'west',title:'资源库',split:true" style="width:210px;">
-                   <select id="resourceTree" url="/bcms/proxy?url=resourcelibrary/&method=GET" class="easyui-combotree"
-                            data-options="method:'POST',required:true"
-                            style="width:200px;"></select>
+                     <div id="resourceTree"></div>
                 </div>
                 <div data-options="region:'center',title:'待选资源'" style="padding:5px;">
-                    <ul class="easyui-datalist">
-                        <li value="AL"><input type="checkbox">好声音.mp4</li>
-                        <li value="AK"><input type="checkbox">music.mp3</li>
-                        <li value="AZ"><input type="checkbox">image.png</li>
-                        <li value="AR"><input type="checkbox">document.doc</li>
-                    </ul>
+                    <ul id="resource_list" class="easyui-datalist"></ul>
                 </div>
                 <div data-options="region:'east',title:'已选资源',split:true" style="width:210px;">
-                    <ul class="easyui-datalist">
-                        <li value="AL">好声音.mp4</li>
-                        <li value="AK">music.mp3</li>
-                        <li value="AZ">image.png</li>
-                        <li value="AR">document.doc</li>
-                    </ul>
+                    <ul id="select_resource_list" class="easyui-datalist"></ul>
                 </div>
             </div>
         </div>
@@ -123,19 +111,23 @@
             <label>
                 描述
             </label>
-            <input id="descr" name="descr" class="easyui-textbox" data-options="multiline:true" style="width:300px;height:100px">
+            <input id="descr" name="description" class="easyui-textbox" data-options="multiline:true" style="width:300px;height:100px">
         </div>
         <div class="fitem">
             <label>
                 状态
             </label>
-            <input id="is_published" name="is_published" class="easyui-validatebox" required="true" type="text" value="" />
+<!--             <input id="is_published" name="is_published" class="easyui-validatebox" required="true" type="text" value="" /> -->
+            <select class="easyui-combobox" id="is_published" name="is_published">
+                <option value="1">启用</option>
+                <option value="0">禁用</option>
+            </select>
         </div>
         <div class="fitem">
             <label>
                 专题海报
             </label>
-            <input id="fileList" class="easyui-validatebox" required="true" type="text" value="" />
+            <input id="fileList" name="fileList" class="easyui-validatebox" required="true" type="text" value="" />
         </div>
         <div class="fitem">
             <label>
@@ -143,9 +135,7 @@
             </label>
             <div id="cc"  class="easyui-layout" style="width:630px;height:300px;">
                 <div data-options="region:'west',title:'资源库',split:true" style="width:210px;">
-                    <select id="resourceTree" url="/bcms/proxy?url=resourcelibrary/&method=GET" class="easyui-combotree"
-                            data-options="method:'POST',required:true"
-                            style="width:200px;"></select>
+                    <div id="resourceTree"></div>
                 </div>
                 <div data-options="region:'center',title:'待选用户'" style="padding:5px;">
                     <ul class="easyui-datalist">

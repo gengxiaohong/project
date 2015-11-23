@@ -18,7 +18,11 @@ $(function () {
             [
                 {field: 'id', title: 'id', width: 100},
                 {field: 'name', title: '名称', width: 100, sortable: true},
-                {field: 'resourcelibrary_id', title: '库id', width: 100, sortable: true},
+                {field: 'resourcelibrary_id', title: '库id', width: 100, sortable: true,
+		             formatter: function (value, row, index) {
+                        var data = $('#categoryTree').tree("find", value);
+                        return data==null?"null(id:"+value+")":data.name+"(id:"+value+")";
+                    }},
                 {
                     field: 'created_at',
                     title: '创建日期',
@@ -30,26 +34,34 @@ $(function () {
                     }
                 },
                 {field: 'kind', title: '类型', width: 100, sortable: true,
-                	formatter:function(value){
-                		if(value==0)
-                		return '普通';
-                		if(value==1)
-                		return '课程';
-                		if(value==2)
-                    	return '课时';
-                		if(value==3)
-                    	return '素材';
+                	formatter: function (value, row, idx) {
+                    // 0 # 普通 1 # 课程 2 # 课时 3 # 素材
+                    if (row.kind == 0) {
+                        return "普通";
+                    } else if (row.kind == 1) {
+                        return "课程";
+                    } else if (row.kind == 2) {
+                        return "课时";
+                    } else if (row.kind == 3) {
+                        return "素材";
+                    } else {
+                        return row.kind;
+                    }
                 		}},
                 {field: 'status', title: '状态', width: 100, sortable: true,
-                	formatter:function(value){
-                        if(value==0)
-                        return '编辑中';
-                        if(value==1)
-                        return '审核中';
-                        if(value==2)
-                        return '审核通过';
-                        if(value==3)
-                        return '审核拒绝';
+                	formatter: function (value, row, idx) {
+                    //默认是0 STATUS_EDIT = 0 STATUS_AUDIT = 1 STATUS_PASSED = 2 STATUS_REJECT = 3
+                    if (row.status == 0) {
+                        return "编辑";
+                    } else if (row.status == 1) {
+                        return "待审";
+                    } else if (row.status == 2) {
+                        return "通过";
+                    } else if (row.status == 3) {
+                        return "拒绝";
+                    } else {
+                        return row.status;
+                    }
                         }},
                 {
                     field: 'delOpt', title: '删除', width: 100, formatter: function (value, row, index) {
