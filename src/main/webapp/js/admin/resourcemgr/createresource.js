@@ -165,7 +165,7 @@ function submitForm() {
                 //alert("ok........");
                 if (waitFile.fileId != null) {
                     $.post("/bcms/proxy", {
-                        url: "file/detail/" + waitFile.fileId,
+                        url: "file/detail/" + data.id,
                         method: "POST",
                         resource_id: data.id
                     }, function (data3) {
