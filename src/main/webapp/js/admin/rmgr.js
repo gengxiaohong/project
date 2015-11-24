@@ -85,13 +85,6 @@ $(function () {
     });
 });
 
-//function delResource(metaId) {
-//    $.post("/bcms/proxy?url=resource/" + metaId + "&method=DELETE", {}, function (data) {
-//        if (data.id != undefined) {
-//            $("#rGrid").datagrid("reload");
-//        }
-//    }, "json");
-//}
 
 function delResource(metaId) {
         $.messager.confirm('确认', '确认删除?', function (data) {
