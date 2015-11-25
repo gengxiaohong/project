@@ -15,10 +15,10 @@
 <rapid:override name="mainIcon">icon-page_world</rapid:override>
 <rapid:override name="body">
     <div id="rGridTbr" style="height:30px;line-height:30px;">
-        <a href="javascript:void(0)" class="easyui-linkbutton" onclick="loadLocal()" plain="true"
+        <a href="javascript:void(0)" class="easyui-linkbutton" onclick="publishResource()" plain="true"
            iconCls="icon-application_side_expand"
            title="发布">发布</a>
-        <a href="javascript:void(0)" class="easyui-linkbutton" onclick="loadLocal()" plain="true" iconCls="icon-ok"
+        <a href="javascript:void(0)" class="easyui-linkbutton" onclick="passResource()" plain="true" iconCls="icon-ok"
            title="审核">审核</a>
         <a href="javascript:void(0)" class="easyui-linkbutton" onclick="delResource()" plain="true" iconCls="icon-remove"
            title="删除">删除</a>|<label>名称:<input type="text" class="easyui-textbox" id="name"/></label>

@@ -197,7 +197,7 @@ function editTopic(){
     var row = $('#rGrid').datagrid('getSelected');
     if (row) {
         initModify(row);
-        $('#modify_topic_dlg').dialog('open').dialog('setTitle', '编辑专题');;
+        $('#modify_topic_dlg').dialog('open').dialog('setTitle', '编辑专题');
     } else {
         $.messager.alert("提示", "请选择要编辑的行！", "info");
         return;
