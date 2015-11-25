@@ -14,7 +14,6 @@
     <script type="text/javascript" src="../../js/admin/rmgr.js"></script>
     <script>
         var resourceId = <%=request.getParameter("id")%>;
-        alert(resourceId);
     </script>
     <script type="text/javascript" src="../../js/admin/resourcemgr/editresource.js"></script>
 </rapid:override>
@@ -58,6 +57,7 @@
                 </td>
             </tr>
         </table>
+        <input type="hidden" id="id10" value="<%=request.getParameter("id")%>">
     </form>
 </rapid:override>
 

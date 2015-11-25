@@ -117,11 +117,7 @@
             <label>
                 状态
             </label>
-<!--             <input id="is_published" name="is_published" class="easyui-validatebox" required="true" type="text" value="" /> -->
-            <select class="easyui-combobox" id="is_published" name="is_published">
-                <option value="1">启用</option>
-                <option value="0">禁用</option>
-            </select>
+            <input class="easyui-combobox publish_combobox" data-options="valueField:'id',textField:'text',panelHeight:'auto'" required="true" name="is_published">
         </div>
         <div class="fitem">
             <label>
@@ -133,21 +129,18 @@
             <label>
                 资源检索
             </label>
-            <div id="cc"  class="easyui-layout" style="width:630px;height:300px;">
+            <div id="cc"  class="easyui-layout" style="width:630px;height:300px;align:center;">
                 <div data-options="region:'west',title:'资源库',split:true" style="width:210px;">
-                    <div id="resourceTree"></div>
+                     <div id="resourceTree"></div>
                 </div>
-                <div data-options="region:'center',title:'待选用户'" style="padding:5px;">
-                    <ul class="easyui-datalist">
-                    </ul>
+                <div data-options="region:'center',title:'待选资源'" style="padding:5px;">
+                    <ul id="resource_list" class="easyui-datalist"></ul>
                 </div>
-                <div data-options="region:'east',title:'已选用户',split:true" style="width:210px;">
-                    <ul id="select_user_list" class="easyui-datalist">
-
-                    </ul>
+                <div data-options="region:'east',title:'已选资源',split:true" style="width:210px;">
+                    <ul id="select_resource_list" class="easyui-datalist"></ul>
                 </div>
-        </div>
             </div>
+        </div>
     </form>
 </div>
 

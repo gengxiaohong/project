@@ -85,13 +85,6 @@ $(function () {
     });
 });
 
-//function delResource(metaId) {
-//    $.post("/bcms/proxy?url=resource/" + metaId + "&method=DELETE", {}, function (data) {
-//        if (data.id != undefined) {
-//            $("#rGrid").datagrid("reload");
-//        }
-//    }, "json");
-//}
 
 function delResource(metaId) {
         $.messager.confirm('确认', '确认删除?', function (data) {
@@ -152,4 +145,63 @@ function reloadgrid() {
     getQueryParams(queryParams);
     $('#rGrid').datagrid('options').queryParams = queryParams;
     $("#rGrid").datagrid('reload');
+}
+
+function publishResource() {
+	var row = $('#rGrid').datagrid('getSelected');
+	if (row) {
+   	 $.post("/bcms/proxy", {
+            method: "PUT",
+            url: "resource/"+row.id,
+            name: row.name,
+            kind: row.kind,
+            resourcelibrary_id: row.resourcelibrary_id,
+            tag_ids: "["+row.tag_ids+"]",
+            status:1, //1 发布
+            parents:row.parents,
+            recommend_number:row.recommend_number,
+            click_number:row.click_number
+//            committer: parseInt(committer)
+        }, function (data) {
+            if (data.id != undefined) {
+                //alert("ok........");
+                alert("发布资源成功!");
+            } else {
+                alert("发布资源失败!");
+            }
+        }, "json");
+   } else {
+       $.messager.alert("提示", "请选择要发布的资源！", "info");
+       return;
+   }
+}
+
+
+function passResource() {
+	var row = $('#rGrid').datagrid('getSelected');
+    if (row) {
+    	 $.post("/bcms/proxy", {
+             method: "PUT",
+             url: "resource/"+row.id,
+             name: row.name,
+             kind: row.kind,
+             resourcelibrary_id: row.resourcelibrary_id,
+             tag_ids: "["+row.tag_ids+"]",
+             status:2, //2 审核
+             parents:row.parents,
+             recommend_number:row.recommend_number,
+             click_number:row.click_number
+//             committer: parseInt(committer)
+         }, function (data) {
+             if (data.id != undefined) {
+                 //alert("ok........");
+                 alert("审批资源成功!");
+             } else {
+                 alert("审批资源失败!");
+             }
+         }, "json");
+    } else {
+        $.messager.alert("提示", "请选择要审批的资源！", "info");
+        return;
+    }
 }

@@ -50,7 +50,7 @@ $(function () {
 });
 
 function addTopic(){
-	//$("#add_tag_form").form("clear");
+	$("#add_tag_form").form("clear");
     $('#add_topic_dlg').dialog('open').dialog("setTitle", "添加专题");
     initResourceLibrary();
 }
@@ -132,31 +132,25 @@ function saveTopic(){
         var name = $("#name10").textbox("getValue");
         var description = $("#descr").textbox("getValue");
         var rows = $('#select_resource_list').datalist("getData").rows;
+        var is_published = $("#is_published").combotree("getValue");
         var resource_ids=[];
         for(var i=0;i<rows.length;i++){
         	resource_ids.push(rows[i].id);
         }
-        var is_published = $("#is_published").combotree("getValue");
-        var is_published_flag;
-        if (parseInt(is_published)==0){
-        	is_published_flag=false;
-        }
-        else {
-        	is_published_flag=true;
-        }
+        
         $.post("/bcms/proxy", {
             method: "POST",
             url: "special/",
             name: name,
             description: description,
             resource_ids: JSON.stringify(resource_ids),
-            is_published: is_published_flag
+            is_published: is_published
         }, function (data) {
             if (data.id != undefined) {
                 //alert("ok........");
                 if (waitFile.fileId != null) {
                     $.post("/bcms/proxy", {
-                        url: "file/detail/" + fileId,
+                        url: "file/detail/" + data.id,
                         method: "POST",
                         resource_id: data.id
                     }, function (data3) {
@@ -193,7 +187,7 @@ function saveTopic(){
 function submitSuccess(data3, resourceId) {
     if (data3.id != undefined) {
         alert("资源创建成功!");
-        window.location.href = "/bcms/admin/resourcemgr/topicmgr.jsp";
+        window.location.href = "/bcms/admin/appmgr/topicmgr.jsp";
     } else {
         alert("资源创建失败!");
     }
@@ -203,7 +197,7 @@ function editTopic(){
     var row = $('#rGrid').datagrid('getSelected');
     if (row) {
         initModify(row);
-        $('#modify_topic_dlg').dialog('open').dialog('setTitle', '编辑专题');;
+        $('#modify_topic_dlg').dialog('open').dialog('setTitle', '编辑专题');
     } else {
         $.messager.alert("提示", "请选择要编辑的行！", "info");
         return;
@@ -214,23 +208,9 @@ function initModify(row) {
 	 $("#modify_topic_form").form("clear");
 	 $("#modify_topic_dlg input[name=name]").val(row.name);
 	 $('#modify_topic_dlg input[name=description]').val(row.description);
-	 $('#modify_topic_dlg input[name=is_published]').val(row.is_publish);
-	 
-	 
-//	 $("#modify_user_form").form("clear");
-//	    $("#modify_user_dlg input[name=id]").val(row.id);
-//	    $("#modify_user_dlg input[name=name]").val(row.username);
-//	    $("#modify_user_dlg input[name=cn_name]").val(row.cn_name);
-//	    $('#modify_user_dlg input[name=email]').val(row.email);
-//	    $('#modify_user_dlg input[name=phone]').val(row.phone);
-//	    $('#modify_user_dlg input[name=number]').val(row.number);
-//	    $("#modify_user_dlg .identity_combobox").combobox('loadData', [{"id": 1, "text": "学生"}, {"id": 2, "text": "老师"}]);
-//	    $("#modify_user_dlg .identity_combobox").combobox('setValues', [row.identity]);
-//	    $("#modify_user_dlg .gender_combobox").combobox('loadData', [{"id": 1, "text": "男"}, {"id": 2, "text": "女"}]);
-//	    $("#modify_user_dlg .gender_combobox").combobox('setValues', [row.gender]);
-//	    $('#modify_user_dlg input[name=id_card]').val(row.id_card);
-//	    $('#modify_user_dlg input[name=disk_size]').val(row.disk_size);
-//	    $('#modify_user_dlg input[name=description]').val(row.description);
+	 $("#modify_topic_dlg .publish_combobox").combobox('loadData', [{"id": true, "text": "启用"}, {"id": false, "text": "禁用"}]);
+	 $("#modify_topic_dlg .publish_combobox").combobox('setValues', [row.is_published]);
+	/* 
     $.post("/bcms/proxy", {method: "put", url: "special/"}, function (result) {
         var obj = $.parseJSON(result);
         if (obj.success == false) {
@@ -243,7 +223,7 @@ function initModify(row) {
             }
             $("#modify_topic_dlg .group_tree").combotree('setValues', t);
         }
-    });
+    });*/
 
 
 }
