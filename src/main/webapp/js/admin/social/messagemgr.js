@@ -23,10 +23,10 @@ $(function () {
         ]]
     });
 
-    $("#select_user_list").datalist({
+   /* $("#select_user_list").datalist({
         textField: 'name',
         valueField: 'id'
-    });
+    });*/
 
 });
 
@@ -70,12 +70,12 @@ function delMessage(index){
 }
 
 function newMessage(){
-    var tab= $('#message_tabs').tabs('getTab', "发送新消息");
+    /*var tab= $('#message_tabs').tabs('getTab', "发送新消息");
     if(!tab) {
         var html = "";
         html += '<div title="发送新消息">';
         html += '<div class="ftitle">发送新消息</div>';
-        html += '<form id="add_message_form" method="post">';
+        html += '<form id="add_message_dialog" method="post">';
         html += '<div class="fitem">';
         html += '<label>标题</label>';
         html += '<input id="name1" class="easyui-validatebox" required="true" type="text" />';
@@ -106,7 +106,12 @@ function newMessage(){
         });
     }else{
         $('#message_tabs').tabs('select','发送新消息');
-    }
+    }*/
+	$("#add_message_form").form('clear');
+	$("#add_message_dialog").window('open').window('resize',{
+		top:$(window).height()-400,
+		left:$(window).width()-800
+	});
     initDepartmentTree();
 }
 
@@ -115,7 +120,7 @@ function saveMessage(){
     var content=CKEDITOR.instances.content1.getData();
     var user_id=$.cookie("bcms_user_id");
     var create_at=new Date().format("yyyy-MM-dd HH:mm:ss");
-    var rows = $('#add_message_form #select_user_list').datalist("getData").rows;
+    var rows = $('#add_message_dialog #select_user_list').datalist("getData").rows;
     var uids=[];
     for(var i=0;i<rows.length;i++){
         uids.push(rows[i].id);
@@ -134,13 +139,13 @@ function saveMessage(){
         	$.messager.alert("提示", result.msg);
         } else {
         	 $("#message_table").datagrid("reload");
-             $('#message_tabs').tabs('close', "发送新消息");
+             $('#add_message_dialog').dialog('close');
         }
     });
 }
 
 function initDepartmentTree() {
-    $("#add_message_form #department_tree").tree({
+    $("#add_message_dialog #department_tree").tree({
         url: "/bcms/proxy?url=department&method=GET",
         lines: true,
         onBeforeLoad: function (node, param) {
@@ -171,14 +176,14 @@ function initUserListByDepartment(node) {
                     }
                 }
             }
-            $("#add_message_form #user_list").datalist({
+            $("#add_message_dialog #user_list").datalist({
                 checkbox: true,
                 singleSelect:false,
                 textField: 'cn_name',
                 valueField: 'id',
                 data: obj,
                 onCheck: function (index, row) {
-                    $("#add_message_form #select_user_list").datalist('appendRow', {'id': row.id, 'text': row.cn_name});
+                    $("#add_message_dialog #select_user_list").datalist('appendRow', {'id': row.id, 'text': row.cn_name});
                 },
                 onUncheck:function(index,row) {
                     var rows = $("#select_user_list").datalist('getRows');
@@ -205,4 +210,12 @@ function formatTreeData(data){
         fin.push(obj);
     }
     return fin;
+}
+function ajaxLoading(){
+    $("<div class=\"datagrid-mask\"></div>").css({display:"block",width:"100%",height:$("#deptList").height()}).appendTo("#deptList");
+    $("<div class=\"datagrid-mask-msg\"></div>").html("正在处理，请稍候。。。").appendTo("#deptList").css({display:"block",left:($(document.body).outerWidth(true) - 190) / 2,top:($(window).height() - 45) / 2});
+}
+function ajaxLoadEnd(){
+    $(".datagrid-mask").remove();
+    $(".datagrid-mask-msg").remove();
 }

@@ -36,11 +36,8 @@ function getQueryParams(queryParams){
     var username=$("#username").val();
     var is_blocked=$("#is_blocked").combobox('getValue');
     queryParams.username=username;
-    	if(is_blocked == 'true'){
-    		queryParams.is_blocked = true;
-    	}else{
-    		queryParams.is_blocked = false;
-    	}
+    alert(is_blocked);
+	queryParams.is_blocked = is_blocked;
     return queryParams;
 }
 

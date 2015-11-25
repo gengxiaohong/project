@@ -17,6 +17,7 @@ $(function () {
         treeField: 'name',
         rownumbers: false,
         pagination: true,
+        toolbar:"#tb",
         url: "/bcms/proxy?url=tag&method=GET",
         columns: [[
             {field: 'name', width: '75%', title: '名称'},
@@ -38,7 +39,10 @@ function clickModifyTag(id){
         $('#modify_tag_dlg input[name=name]').val(row.name);
         $('#modify_tag_dlg input[name=id]').val(id);
         $('#modify_tag_dlg input[name=parent_id]').val(row.parent_id);
-        $('#modify_tag_dlg').dialog('open').dialog('setTitle', '编辑标签');
+        $('#modify_tag_dlg').dialog('open').window('resize',{
+        	left:($(window).width()-400)/2,
+        	top:($(window).height()-120)/2
+        });;
     }else{
         $.messager.alert("提示", "请选择要编辑的行！", "info");
         return;
@@ -52,7 +56,7 @@ function modifyTag(){
     $.post("/bcms/proxy", {method:"put",url: "tag/"+id,name:name,parent_id:parent_id}, function (result) {
         var obj= $.parseJSON(result);
         if (!obj.id) {
-            alert(obj.msg);
+        	 $.messager.alert('提示',obj.msg);
         } else {
             $('#modify_tag_dlg').dialog('close');
             $("#tag_tree_grid").treegrid("reload");
@@ -102,9 +106,8 @@ function saveTag(){
         parent_id: parent_id
     }, function (data) {
         var result = JSON.parse(data);
-        if (result.success==false) {
-            $('#add_tag_dlg').dialog('close');
-            alert(result.msg);
+        if (!result.id) {
+            $.messager.alert('提示',result.msg);
         } else {
             $('#add_tag_dlg').dialog('close');
             $("#tag_tree_grid").treegrid("reload");

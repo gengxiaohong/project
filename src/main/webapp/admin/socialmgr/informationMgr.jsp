@@ -11,6 +11,11 @@
 <rapid:override name="head"> --%>
 <head>
 <jsp:include page="../../layout/admin/adminheader.jsp"/>
+<style type="text/css">
+	#add_information_form table td{
+		padding-top:5px;
+	}
+</style>
   <script type="text/javascript" src="../../js/admin/social/informationmgr.js"></script>
   <script type="text/javascript" src="../../js/ckeditor/ckeditor.js"></script>
 </head>
@@ -26,7 +31,8 @@
  </div>  -->
   <div id="tb" style="padding:5px">
    		<div style="float:left;">
-   		<a href="javascript:void(0)" onclick="newInformation();" class="easyui-linkbutton" data-options="iconCls:'icon-add'">添加</a>
+   		<a href="javascript:void(0)" onclick="newInformation();" class="easyui-linkbutton" data-options="iconCls:'icon-add'">添加</a>&nbsp;<span>|</span>
+   		<a href="javascript:void(0)" onclick="deleteInfos();" class="easyui-linkbutton" data-options="iconCls:'icon-remove'">删除</a>
    		</div>
       	<div style="float:right;">
       	<input class="easyui-searchbox" style="width:200px;height:24px;" id="name" prompt="请输入资讯名称..." searcher="reloadgrid">
@@ -34,12 +40,12 @@
       	</div>
       <div style="clear:both;"></div>
   </div>
-  <div class="easyui-dialog" id="newInformationDialog" style="width:800px;height:400;overflow:auto;" closed="true"
-   data-options="title:'添加资讯',collapsible:true" buttons="#add-dlg-buttons">
+  <div class="easyui-dialog" id="newInformationDialog" style="width:800px;height:400;padding-top:5px;overflow:auto;"
+   data-options="title:'添加资讯',collapsible:true,modal:true,closed:true" buttons="#add-dlg-buttons">
   	<form id="add_information_form" method="post">
   		<table>
   			<tr>
-  				<td colspan="2">标题:<input id="name1" class="easyui-validatebox" required="true" type="text" /></td>
+  				<td colspan="2">资讯标题:<input id="name1" class="easyui-validatebox" required="true" type="text" /></td>
   			</tr>
   			<tr>
   				<td>开始时间:<input id="published_at1" class="easyui-datetimebox" required="true" type="text" /></td>
@@ -88,12 +94,12 @@
   	</form>
   </div>
   <div id="add-dlg-buttons">
-		<a href="#" class="easyui-linkbutton" plain="true" iconCls="icon-ok" onclick="saveInformation();">保存</a>
-		<a href="#" class="easyui-linkbutton" plain="true" iconCls="icon-cancel" onclick="javascript:$('#newInformationDialog').dialog('close')">Cancel</a>
+		<a href="#" class="easyui-linkbutton" iconCls="icon-ok" onclick="saveInformation();">保存</a>
+		<a href="#" class="easyui-linkbutton" iconCls="icon-cancel" onclick="javascript:$('#newInformationDialog').dialog('close')">Cancel</a>
 	</div>
 	<div id="edit-dlg-buttons">
-		<a href="#" class="easyui-linkbutton" plain="true" iconCls="icon-ok" onclick="modifyInformation();">保存</a>
-		<a href="#" class="easyui-linkbutton" plain="true" iconCls="icon-cancel" onclick="javascript:$('#editInformationDialog').dialog('close')">Cancel</a>
+		<a href="#" class="easyui-linkbutton" iconCls="icon-ok" onclick="modifyInformation();">保存</a>
+		<a href="#" class="easyui-linkbutton" iconCls="icon-cancel" onclick="javascript:$('#editInformationDialog').dialog('close')">Cancel</a>
 	</div>
 </body>
 <%-- </rapid:override> --%>

@@ -10,7 +10,7 @@ $(function () {
         url: "/bcms/proxy?url=note&method=GET",
         columns: [[
             {field: 'content', width: '60%', align: 'center', title: '笔记内容'},
-            {field:'user_id',width:'10%',align:'center',title:'提交者'},
+            {field:'username',width:'10%',align:'center',title:'提交者'},
             {field:'target_id',width:'10%',align:'center',title:'关联资源'},
             {field:'is_public',width:'9%',align:'center',title:'是否公开',
                 formatter: function (value, row, index) {

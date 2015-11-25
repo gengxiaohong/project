@@ -18,25 +18,18 @@
 <rapid:override name="mainIcon">icon-page_world</rapid:override>
 <rapid:override name="body"> --%>
 <body>
-<div region="center">
-      <div style="padding:5px;background:#fafafa;border:1px solid #ccc">
+      <div id="tb" style="padding:5px;background:#fafafa;border:1px solid #ccc">
         <input id="search_tag" style="width: 300px;align-items: center; display: none;">
           <a href="#" onclick="clickAddTag();" class="easyui-linkbutton" plain="true" iconCls="icon-add">添加标签</a>
       </div>
-      <div id="tag_tree_grid"></div>
+      <div id="tag_tree_grid" fit="true"></div>
 
-</div>
 
-<div id="add_tag_dlg" class="easyui-dialog" style="width: 400px; height: auto; padding: 10px 20px;"
-     closed="true" buttons="#add_tag_dlg_buttons">
-    <div class="ftitle">
-        添加标签
-    </div>
+<div id="add_tag_dlg" class="easyui-dialog" style="width: 400px; height: 120px; padding: 10px 20px;"
+     data-options="closed:true,title:'添加标签'" buttons="#add_tag_dlg_buttons">
     <form id="add_tag_form" method="post">
         <div class="fitem">
-            <label>
-                标签名
-            </label>
+            <label>标签名</label>
             <input name="name" class="easyui-validatebox" required="true" type="text" />
             <input name="parent_id" type="hidden"/>
         </div>
@@ -48,11 +41,8 @@
     <a href="javascript:void(0)" class="easyui-linkbutton" onclick="javascript:$('#add_tag_dlg').dialog('close')" iconcls="icon-cancel">取消</a>
 </div>
 
-<div id="modify_tag_dlg" class="easyui-dialog" style="width: 400px; height: auto; padding: 10px 20px;"
-     closed="true" buttons="#modify_tag_dlg_buttons">
-    <div class="ftitle">
-        编辑标签
-    </div>
+<div id="modify_tag_dlg" class="easyui-dialog" style="width: 400px; height: 120px; padding: 10px 20px;"
+     data-options="closed:true,title:'编辑标签'" buttons="#modify_tag_dlg_buttons">
     <form id="modify_tag_form" method="post">
         <div class="fitem">
             <label>

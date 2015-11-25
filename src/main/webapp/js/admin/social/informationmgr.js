@@ -4,7 +4,7 @@
 $(function () {
     $('#information_table').datagrid({
         rownumbers: true,
-        singleSelect: true,
+        singleSelect: false,
         pagination: true,
         toolbar:"#tb",
         url: "/bcms/proxy?url=information&method=GET",
@@ -42,7 +42,31 @@ $(function () {
         ]]
     });
 });
-
+// 批量删除资讯
+function deleteInfos(){
+	var selRows = $("#information_table").datagrid("getSelections");
+	if(selRows.length == 0){
+		$.messager.alert('提示','请至少选择一行数据...');
+		return false;
+	}
+	var ids = [];
+	for(var i =0;i<selRows.length;i++){
+		ids.push(selRows[i].information_id);
+	}
+	$.messager.confirm('确认', '确认删除?', function (data) {
+        if(data) {
+            $.post("/bcms/proxy", {method: "delete", url: "information/" + ids.toString() }, function (result) {
+                var obj= $.parseJSON(result);
+                if (obj.success==false) {
+                    alert("删除失败!");
+                } else {
+                    $("#information_table").datagrid("reload");
+                }
+            });
+        }
+    })
+	
+};
 function getQueryParams(queryParams){
     var name=$("#name").val();
     queryParams.name=name;

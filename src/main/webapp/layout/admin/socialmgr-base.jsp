@@ -74,13 +74,13 @@
                 <li><a  target="mainFrame" id="not" class="easyui-linkbutton"  style="width:100%;text-align:left;"  iconCls="icon-user" plain="true"  href="../../admin/socialmgr/noteMgr.jsp"><span>笔记管理</span></a></li>
                 <li><a  target="mainFrame" id="que" class="easyui-linkbutton"  style="width:100%;text-align:left;"  iconCls="icon-user" plain="true"  href="../../admin/socialmgr/questionMgr.jsp"><span>提问管理</span></a></li>
                 <li><a  target="mainFrame" id="mes" class="easyui-linkbutton"  style="width:100%;text-align:left;"  iconCls="icon-user" plain="true"  href="../../admin/socialmgr/messageMgr.jsp"><span>站内消息管理</span></a></li> -->
-            	<li><a target="mainFrame" href="../../admin/socialmgr/informationMgr.jsp">资讯管理</a></li>
-                <li><a target="mainFrame" href="../../admin/socialmgr/commentMgr.jsp">评论管理</a></li>
-                <li><a target="mainFrame" href="../../admin/socialmgr/scoreMgr.jsp">评分管理</a></li>
-                <li><a target="mainFrame" href="../../admin/socialmgr/tagMgr.jsp">标签管理</a></li>
-                <li><a target="mainFrame" href="../../admin/socialmgr/noteMgr.jsp">笔记管理</a></li>
-                <li><a target="mainFrame" href="../../admin/socialmgr/questionMgr.jsp">提问管理</a></li>
-                <li><a target="mainFrame" href="../../admin/socialmgr/messageMgr.jsp">站内消息管理</a></li>
+            	<li><a target="mainFrame" ghref="../../admin/socialmgr/informationMgr.jsp">资讯管理</a></li>
+                <li><a target="mainFrame" ghref="../../admin/socialmgr/commentMgr.jsp">评论管理</a></li>
+                <li><a target="mainFrame" ghref="../../admin/socialmgr/scoreMgr.jsp">评分管理</a></li>
+                <li><a target="mainFrame" ghref="../../admin/socialmgr/tagMgr.jsp">标签管理</a></li>
+                <li><a target="mainFrame" ghref="../../admin/socialmgr/noteMgr.jsp">笔记管理</a></li>
+                <li><a target="mainFrame" ghref="../../admin/socialmgr/questionMgr.jsp">提问管理</a></li>
+                <li><a target="mainFrame" ghref="../../admin/socialmgr/messageMgr.jsp">站内消息管理</a></li>
             </ul>
         </div>
 
@@ -90,7 +90,7 @@
 <%-- <div data-options="region:'center',title:'<rapid:block name="mainName"/>'" iconCls="<rapid:block name="mainIcon"/>">
     <rapid:block name="body"/>
 </div> --%>
-<div data-options="region:'center',title:'社会化功能管理'" iconCls="icon-user">
+<div data-options="region:'center'">
     <div id="tabs" class="easyui-tabs" data-options="border:false,fit:true">
 			<div title="资讯管理">
 				<iframe id="contentPage" width="100%" height="100%"
@@ -99,33 +99,6 @@
 	</div>
 </div>
 <script type="text/javascript">
-	/* $(function(){
-		var currenURL = window.location.pathname;
-		if('/bcms/admin/socialmgr/informationMgr.jsp'== currenURL){
-			$('#inf').addClass('active');
-		}
-		if('/bcms/admin/socialmgr/commentMgr.jsp'== currenURL){
-			$('#com').addClass('active');		
-		}
-		if('/bcms/admin/socialmgr/scoreMgr.jsp'== currenURL){
-			$('#sco').addClass('active');
-		}
-		if('/bcms/admin/socialmgr/tagMgr.jsp'== currenURL){
-			$('#tag').addClass('active');
-		}
-		if('/bcms/admin/socialmgr/noteMgr.jsp'== currenURL){
-			$('#not').addClass('active');
-		}
-		if('/bcms/admin/socialmgr/questionMgr.jsp'== currenURL){
-			$('#que').addClass('active');
-		}
-		if('/bcms/admin/socialmgr/messageMgr.jsp'== currenURL){
-			$('#mes').addClass('active');
-		}
-	}) */
-	/**
-	 * 
-	 */
 	$(function() {
 		InitLeftMenu();
 	})
@@ -135,7 +108,7 @@
 		$('.easyui-accordion li:eq(0) div').addClass("tree-node-selected");
 		$('.easyui-accordion li a').click(function() {
 			var tabTitle = $(this).text();
-			var url = $(this).attr("href");
+			var url = $(this).attr("ghref");
 			addTab(tabTitle, url);
 			$('.easyui-accordion li div').removeClass("tree-node-selected");
 			$(this).parent().addClass("selected");
