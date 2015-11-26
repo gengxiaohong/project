@@ -272,11 +272,17 @@ function submitModifyStructureForm() {
 function delStructure() {
     var row = $('#metaGrid').treegrid('getSelected');
     if (row) {
-        $.post("/bcms/proxy", {url: "metatype/" + row.id, method: "DELETE"}, function (data) {
-            if (data.id != null) {
-                $("#metaGrid").treegrid("reload");
-            }
-        }, "json");
+    	$.messager.confirm('确认', '确认删除?', function (data) {
+    		if(data) {
+    			$.post("/bcms/proxy", {url: "metatype/" + row.id, method: "DELETE"}, function (result) {
+    	            if (result.id != null) {
+    	                $("#metaGrid").treegrid("reload");
+    	            } else {
+    	            	$.messager.alert("错误", "删除失败！", "error");
+    	            }
+    	        }, "json");
+    		}
+    	});
     } else {
         alert("请选择要删除的数据");
     }

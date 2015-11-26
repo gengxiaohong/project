@@ -684,5 +684,24 @@ function showEditMetaItemDlg(node) {
 
 
 function searchMetaData() {
+	var searchCollection= $('#searchCollection').combobox('getValue');
+	var searchCondition = $('#searchCondition').combobox('getValue');
+	var searchContent = $('#searchContent').val();
+	var queryParams = $('#metaGrid').treegrid('options').queryParams;  
+	
+	queryParams.collection = searchCollection;
+	if(searchCondition == 'zh_name') {
+		queryParams.zh_name = searchContent;
+	} else if(searchCondition == 'lom_id') {
+		queryParams.lom_id = searchContent;
+	}
+	queryParams.url = "metatype";
+	queryParams.method = "GET";
+	queryParams.kind = "3";
+	queryParams.structure_type = "0";
+	queryParams.parent_id = "0";
+	
+    //重新加载treegrid的数据  
+    $("#metaGrid").treegrid('reload');
 	
 }
