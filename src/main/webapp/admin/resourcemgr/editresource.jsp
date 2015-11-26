@@ -17,7 +17,7 @@
     </script>
     <script type="text/javascript" src="../../js/admin/resourcemgr/editresource.js"></script>
 </rapid:override>
-<rapid:override name="mainName">操作日志</rapid:override>
+<rapid:override name="mainName">编辑资源</rapid:override>
 <rapid:override name="mainIcon">icon-page_world</rapid:override>
 <rapid:override name="body">
     <form id="createResourceForm">

@@ -11,22 +11,37 @@ function dealData(children, pId) {
         }
     }
 }
+
+function displayVoc(node, boxId) {
+    if (node.children && node.children.length > 0) {
+
+        for (var i = 0; i < node.children.length; i++) {
+            displayVoc(node.children[i], boxId + "-" + node.children[i].id);
+        }
+    } else {
+        if (node.kind == 2 && node.vocabulary_type_id != undefined) {
+            $.post("/bcms/proxy", {method: "GET", url: "vocabulary/" + node.vocabulary_type_id}, function (data) {
+                if (data.id != undefined) {
+                    //console.log(data.words);
+                    $(boxId).combobox("loadData", data.words);
+                }
+            }, "json");
+        }
+    }
+}
+var href = window.location.href;
+var idx = href.indexOf("id=");
+var resourceId = href.substring(idx + 3);
+
 $(function () {
     $("thead").dblclick(function () {
         $(this).next().toggle();
-        //alert("---");
     });
-    var href = window.location.href;
-    var idx = href.indexOf("id=");
-    var resourceId = href.substring(idx + 3);
-    //	$('#dg').datagrid().datagrid('enableCellEditing');
-
     $("#metaGrid").treegrid({
-        url: "/bcms/proxy/resouceMetaQuery?id=" + resourceId,
+    	url: "/bcms/proxy?url=metatype&method=GET",
         idField: "id",
         treeField: "zh_name",
         fitColumns: true,
-        //onContextMenu: onContextMenu,
         columns: [
             [
                 {
@@ -55,37 +70,24 @@ $(function () {
                 },
                 {
                     field: "val_num", title: "取值数", width: 50
-                }/*,
-                {
-                    field: "add", title: "增加", width: 50, formatter: function (value, row, idx) {
-                    if (row.id.toString().indexOf("-") > -1) {
-                        return "--";
-                    } else {
-                        return "<a class='easyui-linkbutton' onclick='appendMetaRow(\"" + row.id + "\",\"" + row.zh_name + "\",\"" + row.en_name + "\"," + row.kind + "," + row.val_num + "," + row.collection + ",\"" + row.example + "\")'>增加</a>";
-                    }
                 }
-                }, {
-                field: "remove", title: "移除", width: 50, formatter: function (value, row, idx) {
-                    if (row.id.toString().indexOf("-") == -1) {
-                        return "--";
-                    } else {
-                        return "<a class='easyui-linkbutton' onclick='removeMetaRow(\"" + row.id + "\",\"" + row.zh_name + "\",\"" + row.en_name + "\"," + row.kind + "," + row.val_num + "," + row.collection + ",\"" + row.example + "\")'>移除</a>";
-                    }
-                }
-            }*/
 
             ]
         ],
         onLoadSuccess: function (data) {
             $(".easyui-textbox").textbox();
             $(".easyui-datebox").datebox();
-            $(".easyui-combobox").combobox();
+            $(".easyui-combobox").combobox({
+                textField: "name",
+                valueField: "id"
+            });
             $(".easyui-linkbutton").linkbutton();
 
             var dt = $('#metaGrid').treegrid("getData");
             for (var i = 0; i < dt.length; i++) {
                 var kind = dt[i].kind;
                 var rowId = dt[i].id;
+
                 if (kind == 2) {
                     var vId = dt[i].vocabulary_type_id;
                     var vBox = $("#fill-" + rowId);
@@ -97,16 +99,28 @@ $(function () {
                     //var sId = dt[i].structure_type_id;
                     var stid = dt[i].structure_type_id;
                     var node = dt[i];
+                    var boxId = "#fill";
+                    displayVoc(node, boxId);
 
-                    /*$.post("/bcms/proxy", {method: "GET", url: "metatype/" + stid}, function (data2) {
-                     for (var j = 0; j < data2.children.length; j++) {
-                     data2.children[j].parent = node.id;
-                     }
-                     $("#metaGrid").treegrid("append", data2.children);
-                     }, "json");*/
                 }
                 //console.log(dt[i].id);
             }
+
+            $.post("/bcms/proxy", {method: "GET", url: "resource/" + resourceId + "/meta"}, function (data2) {
+                console.log(data2.data);
+                    for (var i = 0; i < dt.length; i++) {
+                        var kind = dt[i].kind;
+                        var rowId = dt[i].id;
+                        var node = dt[i];
+                        var vBox = $("#fill-" + rowId);
+                        if(kind==0||kind==4)
+                            vBox.textbox("setValue", data2.data[rowId]);
+                        if(kind==2)
+                            vBox.combobox("setValue", data2.data[rowId]);
+                        if(kind==3)
+                            dataSet(node,"#fill",data2.data[rowId]);
+                    }
+             }, "json");
             //var data = $('#metaGrid').treegrid("getData");
             //$('#metaGrid').treegrid("loading");
             //loadDatas(data);
@@ -119,19 +133,29 @@ $(function () {
                     dealData(data.rows[i].children, data.rows[i].id);
                 }
             }
-            /*var data2 = {};
-             for (var i = 0; i < data.length; i++) {
-             if (data[i].kind == 3) {
-             data[i].state = "closed";
-             }
-             }
-             data2.rows = data;
-             data2.total = data.length;*/
-
             return data;
         }
     });
 });
+
+function dataSet(node, boxId,data){
+    if (boxId == "#fill") {
+        boxId += "-" + node.id;
+
+    }
+    if (node.children && node.children.length > 0) {
+
+        for (var i = 0; i < node.children.length; i++) {
+            dataSet(node.children[i], boxId + "-" + node.children[i].node_id,data[node.children[i].node_id]);
+        }
+    } else {
+
+            if(node.kind==0||node.kind==4)
+                $(boxId).textbox("setValue", data);
+            if(node.kind==2)
+                $(boxId).combobox("setValue", data);
+    }
+}
 
 function loadDatas(data) {
     for (var i = 0; i < data.length; i++) {
@@ -275,68 +299,69 @@ function append() {
         }]
     })
 }
-
-function submitMetaForm() {
-    var tboxes = $(".etextbox");
-    var tbx = $(tboxes[0]);
-
-   // alert(datas.length);
-   // alert(tbx.textbox("getValue"));
-    var id = $($($(".etextbox")[2]).parent().parent().parent()).find("td[field='id']").text();
-   // alert(id);
-    var idnew="";
-    var idnews="";
-    var idf="";
-    var count;
-    for (var i = 0; i < $(tboxes).length; i++) {
-        var tbx = $(tboxes[i]);
-        var id = $($($(".etextbox")[i]).parent().parent().parent()).find("td[field='id']").text();
-        //alert(id+"----"+tbx.textbox("getValue"));
-        var ids =id.split("-");
-
-
-
-            //if(ids.length>1) {
-            //    if(idf==""){
-            //        idf=ids[ids.length - 2];
-            //    }
-            //    if(idf==ids[ids.length - 2]) {
-            //        idnew += '"'+ids[ids.length - 1]+'":"'+tbx.textbox("getValue")+'"';
-            //    }else{
-            //        idnew += '{"'+ids[ids.length - 1]+'":"'+tbx.textbox("getValue")+'"}';
-            //    }
-            //    idf=ids[ids.length - 2];
-            //}else if(ids.length==1){
-            //
-            //}
-
-        idnew += '{"'+id+'":"'+tbx.textbox("getValue")+'"},';
-        idnews += id+",";
-        count=ids.length;
+var buffer = "";
+function dealRow(row, boxId) {
+    console.log(row.id + "---" + boxId);
+    if (row.kind != 3 && boxId == "#fill") {
+        boxId += "-" + row.id;
     }
-    alert(idnew);
-    alert(idnews);
+    if (row.kind == 0) {
+        var value0 = $("#fill-" + row.id).textbox("getValue");
+        if (value0 && value0 != "") {
+            buffer += "\""+row.node_id + "\":\"" + value0 + "\",";
+        }
+    } else if (row.kind == 1) {
+        var value1 = $("#fill-" + row.id).textbox("getValue");
+        if (value1 && value1 != "") {
+            buffer += "\""+row.node_id + "\": " + parseInt(value1) + ",";
+        }
+    } else if (row.kind == 2) {
+        var value2 = $("#fill-" + row.id).combobox("getValue");
+        if (value2 && value2 != "") {
+            buffer += "\""+row.node_id + "\":\"" + value2 + "\",";
+        }
+    } else if (row.kind == 3) {
+        buffer += "\""+row.node_id + "\":{";
+        for (var i = 0; i < row.children.length; i++) {
+            dealRow(row.children[i], boxId + "-" + row.children[i].node_id);
+        }
+        buffer += "},";
+        /*if(buffer.substring(buffer.length-3,buffer.length)=="{},"){
+            buffer = buffer.substring(0,buffer.length-3);
+        }*/
+    } else if (row.kind == 4) {
+        var value4 = $("#fill-" + row.id).datebox("getValue");
+        if (value4 && value4 != null) {
+            buffer += "\""+row.node_id + "\":\"" + value4 + "\",";
+        }
+    }
+}
+function submitMetaForm() {
+    buffer = "";
+    var rows = $('#metaGrid').treegrid("getData");
+    if (rows.length > 0) {
+        buffer += "{";
+        for (var i = 0; i < rows.length; i++) {
+            var row = rows[i];
+            console.log(row.id + "==");
+            dealRow(row, "#fill");
+        }
+        buffer += "}";
+    }
+    updateMeta(resourceId, buffer.replaceAll(",}","}"));
 }
 
-function updateMeta(id,value){
+function updateMeta(id, value) {
     var params = {
-
         method: "POST",
-        url: "metatype/",
-        id :id,
+        id:id,
         value:value
     };
-
-    $.post("/bcms/proxy", {
-        url: "resource/"+id+"/meta",
-        method: "POST",
-        metatype_id: data.id,
-        meta_library_id: node.id
-    }, function (data2) {
-        if (data2.result) {
-            alert("增加成功");
+    $.post("/bcms/proxy", {method: "put", url: "metatype/" + id}, function (data2) {
+        if (data2.success!=false) {
+            alert("更新成功");
         } else {
-            alert("增加失败");
+            alert("更新失败");
         }
     }, "json");
 }
