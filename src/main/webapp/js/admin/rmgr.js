@@ -166,6 +166,7 @@ function publishResource() {
             if (data.id != undefined) {
                 //alert("ok........");
                 alert("发布资源成功!");
+                reloadgrid();
             } else {
                 alert("发布资源失败!");
             }
@@ -196,6 +197,7 @@ function passResource() {
              if (data.id != undefined) {
                  //alert("ok........");
                  alert("审批资源成功!");
+                 reloadgrid();
              } else {
                  alert("审批资源失败!");
              }

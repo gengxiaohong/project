@@ -354,12 +354,13 @@ function submitMetaForm() {
 function updateMeta(id, value) {
     var params = {
         method: "POST",
-        id:id,
+        url: "resource/" + id + "/meta",
         value:value
     };
-    $.post("/bcms/proxy", {method: "put", url: "metatype/" + id}, function (data2) {
+    $.post("/bcms/proxy", params, function (data2) {
         if (data2.success!=false) {
             alert("更新成功");
+            window.location.href = "/bcms/admin/resourcemgr/rmgr.jsp";
         } else {
             alert("更新失败");
         }

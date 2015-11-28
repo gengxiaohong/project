@@ -64,6 +64,7 @@ function submitForm() {
             if (data.id != undefined) {
                 //alert("ok........");
                 alert("资源更新成功!");
+                window.location.href = "/bcms/admin/resourcemgr/rmgr.jsp";
             } else {
                 alert("资源更新失败!");
             }
