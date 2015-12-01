@@ -95,7 +95,7 @@
        iconcls="icon-cancel">取消</a>
 </div>
 
-<div id="modify_topic_dlg" class="easyui-dialog" style="width: 400px; height: auto; padding: 10px 20px;"
+<div id="modify_topic_dlg" class="easyui-dialog" style="width: 700px; height: auto; padding: 10px 20px;"
      closed="true" buttons="#modify_topic_dlg_buttons">
     <div class="ftitle">
         编辑标签
