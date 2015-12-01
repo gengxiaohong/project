@@ -12,7 +12,7 @@
 $(function () {
     $("#rGrid").datagrid({
     	rownumbers: true,
-        singleSelect: false,
+        singleSelect: true,
         url: "/bcms/proxy?url=special&method=GET",
         pagination: true,
         columns: [
@@ -198,57 +198,117 @@ function editTopic(){
     if (row) {
         initModify(row);
         $('#modify_topic_dlg').dialog('open').dialog('setTitle', '编辑专题');
+        initModifyResourceLibrary();
     } else {
         $.messager.alert("提示", "请选择要编辑的行！", "info");
         return;
     }
 }
 
+function initModifyResourceLibrary() {
+    $('#modify_topic_dlg #resourceTree').tree({
+        url: "/bcms/proxy?url=resourcelibrary/&method=GET",
+        lines: true,
+        onBeforeLoad: function (node, param) {
+            ajaxLoading();
+        },
+        loadFilter: function (data) {
+            return formatTreeData(data.rows);
+        },
+        onLoadSuccess: function (node, data) {
+            ajaxLoadEnd();
+        }, onClick: function (node) {
+        	initModifyResourceListByResourceLibrary(node);
+        }
+    });
+}
+
+function initModifyResourceListByResourceLibrary(node) {
+    $.post("/bcms/proxy", {method: "get", url: "resource/",library_id: node.id,page:1,rows:10000}, function (result) {
+        var obj = jQuery.parseJSON(result);
+        if (obj.success==false) {
+            alert(obj.msg);
+        } else {
+            var rows = $('#modify_topic_form #select_resource_list').datalist("getData").rows;
+            for (var j = 0; j < rows.length; j++) {
+                for (var x = 0; x < obj.rows.length; x++) {
+                    if (rows[j].id == obj.rows[x].id) {
+                    	obj.rows[x].checked = true;
+                    }
+                }
+            }
+            $("#modify_topic_form #resource_list").datalist({
+                checkbox: true,
+                singleSelect:false,
+                textField: 'name',
+                valueField: 'id',
+                data: obj,
+                onCheck: function (index, row) {
+                    $("#modify_topic_form #select_resource_list").datalist('appendRow', {'id': row.id, 'text': row.name});
+                },
+                onUncheck:function(index,row) {
+                	var rows = $('#modify_topic_form #select_resource_list').datalist("getData").rows;
+                    for (var i = 0; i < rows.length; i++) {
+                        if (rows[i].id == row.id) {
+                            var sIndex = $("#modify_topic_form #select_resource_list").datalist('getRowIndex', rows[i]);
+                            $("#modify_topic_form #select_resource_list").datalist('deleteRow', sIndex);
+                        }
+                    }
+                }
+            });
+        }
+    });
+}
+
 function initModify(row) {
 	 $("#modify_topic_form").form("clear");
+	 $("#modify_topic_form #resource_list").datalist('loadData', { total: 0, rows: [] });
+	 $("#modify_topic_form #select_resource_list").datalist('loadData', { total: 0, rows: [] });
 	 $("#modify_topic_dlg input[name=name]").val(row.name);
 	 $('#modify_topic_dlg input[name=description]').val(row.description);
 	 $("#modify_topic_dlg .publish_combobox").combobox('loadData', [{"id": true, "text": "启用"}, {"id": false, "text": "禁用"}]);
 	 $("#modify_topic_dlg .publish_combobox").combobox('setValues', [row.is_published]);
-	/* 
-    $.post("/bcms/proxy", {method: "put", url: "special/"}, function (result) {
-        var obj = $.parseJSON(result);
-        if (obj.success == false) {
-            alert(obj.msg);
-        } else {
-            $("#modify_topic_dlg .group_tree").combotree('loadData', formatGroupListData(obj));
-            var t = [];
-            for (var i = 0; i < row.groups.length; i++) {
-                t[i] = row.groups[i].id;
-            }
-            $("#modify_topic_dlg .group_tree").combotree('setValues', t);
-        }
-    });*/
-
-
+	 
+	 for (var i = 0; i < row.resource_ids.length; i++) {
+		 $.post("/bcms/proxy", {method: "get", url: "resource/" + row.resource_ids[i]}, function (result) {
+		        var obj = jQuery.parseJSON(result);
+		        if (obj.success==false) {
+		            alert(obj.msg);
+		        } else {
+		        	 $("#modify_topic_form #select_resource_list").datalist('appendRow', {'id': obj.id, 'text': obj.name});
+		        }
+		 });
+	 }
+	 
 }
 
 
-function modifyTopic(){
-	var name = $("#name10").textbox("getValue");
-    var description = $("#descr").textbox("getValue");
-    var node = $("#resourceTree").combotree("getValue");
-    var is_published = $("#is_published").combotree("getValue");
-    $.post("/bcms/proxy", {method:"put",url: "special/",
-    	name: name,
-        description: description,
-        resource_ids: parseInt(node),
-        is_published: parseInt(is_published)
-    	}, function (result) {
-        var obj= $.parseJSON(result)
-        if (obj.success==false) {
-            $('#modify_topic_dlg').dialog('close');
-            alert(obj.msg);
-        } else {
-            $('#modify_topic_dlg').dialog('close');
-            $("#rGrid").datagrid('reload');
-        }
-    });
+function modifyTopic() {
+	var name = $("#modify_topic_dlg input[name=name]").val();
+	var description = $('#modify_topic_dlg input[name=description]').val();
+	var rows = $('#modify_topic_form #select_resource_list').datalist("getData").rows;
+	var is_published = $("#is_published").combotree("getValue");
+	var resource_ids = [];
+	for (var i = 0; i < rows.length; i++) {
+		resource_ids.push(rows[i].id);
+	}
+	$.post("/bcms/proxy", {
+		method : "post",
+		url : "special/",
+		name : name,
+		description : description,
+		resource_ids : JSON.stringify(resource_ids),
+		is_published : is_published
+	}, function(result) {
+		var obj = $.parseJSON(result)
+		if (obj.success == false) {
+			$('#modify_topic_dlg').dialog('close');
+			alert(obj.msg);
+		} else {
+			$('#modify_topic_dlg').dialog('close');
+			$("#rGrid").datagrid('reload');
+		}
+	});
 }
 
 
