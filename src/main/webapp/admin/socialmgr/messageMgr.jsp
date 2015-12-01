@@ -26,8 +26,9 @@
   </div> -->
   <div id="tb" style="padding:5px">
     <div style="float:left;">
-      <a href="#" onclick=" newMessage();" class="easyui-linkbutton" data-options="iconCls:'icon-add'">添加</a>&nbsp;<span>|</span>
-   		<a href="javascript:void(0)" onclick="deleteMegs();" class="easyui-linkbutton" data-options="iconCls:'icon-remove'">删除</a>
+      <a href="#" onclick=" newMessage();" class="easyui-linkbutton" data-options="iconCls:'icon-add'">添加</a>
+      <!-- &nbsp;<span>|</span>
+   		<a href="javascript:void(0)" onclick="deleteMegs();" class="easyui-linkbutton" data-options="iconCls:'icon-remove'">删除</a> -->
     </div>
     <div style="float:right;">
      <!--  标题: <input class="easyui-textbox" style="width:150px" id="name">

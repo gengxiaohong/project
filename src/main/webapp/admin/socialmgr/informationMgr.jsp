@@ -31,8 +31,9 @@
  </div>  -->
   <div id="tb" style="padding:5px">
    		<div style="float:left;">
-   		<a href="javascript:void(0)" onclick="newInformation();" class="easyui-linkbutton" data-options="iconCls:'icon-add'">添加</a>&nbsp;<span>|</span>
-   		<a href="javascript:void(0)" onclick="deleteInfos();" class="easyui-linkbutton" data-options="iconCls:'icon-remove'">删除</a>
+   		<a href="javascript:void(0)" onclick="newInformation();" class="easyui-linkbutton" data-options="iconCls:'icon-add'">添加</a>
+   		<!-- &nbsp;<span>|</span>
+   		<a href="javascript:void(0)" onclick="deleteInfos();" class="easyui-linkbutton" data-options="iconCls:'icon-remove'">删除</a> -->
    		</div>
       	<div style="float:right;">
       	<input class="easyui-searchbox" style="width:200px;height:24px;" id="name" prompt="请输入资讯名称..." searcher="reloadgrid">
