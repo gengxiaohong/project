@@ -109,7 +109,7 @@ function newMessage(){
     }*/
 	$("#add_message_form").form('clear');
 	$("#add_message_dialog").window('open').window('resize',{
-		top:$(window).height()-400,
+		top:$(window).height()-430,
 		left:$(window).width()-800
 	});
     initDepartmentTree();
@@ -212,8 +212,8 @@ function formatTreeData(data){
     return fin;
 }
 function ajaxLoading(){
-    $("<div class=\"datagrid-mask\"></div>").css({display:"block",width:"100%",height:$("#deptList").height()}).appendTo("#deptList");
-    $("<div class=\"datagrid-mask-msg\"></div>").html("正在处理，请稍候。。。").appendTo("#deptList").css({display:"block",left:($(document.body).outerWidth(true) - 190) / 2,top:($(window).height() - 45) / 2});
+    $("<div class=\"datagrid-mask\"></div>").css({display:"block",width:"100%",height:"100%"}).appendTo("#deptList");
+    $("<div class=\"datagrid-mask-msg\"></div>").html("正在处理，请稍候。。。").appendTo('#deptList').css({display:"block",left:($('#deptList').width() - 190) / 2,top:($('#deptList').height() - 45) / 2});
 }
 function ajaxLoadEnd(){
     $(".datagrid-mask").remove();

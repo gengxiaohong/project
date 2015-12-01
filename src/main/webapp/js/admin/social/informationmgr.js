@@ -41,6 +41,9 @@ $(function () {
             }
         ]]
     });
+    $("#newInformationDialog").scroll(function(){
+    	$('.easyui-combotree').combotree('hide');
+    });
 });
 // 批量删除资讯
 function deleteInfos(){
@@ -127,7 +130,7 @@ function newInformation() {
 	$("#add_information_form").form('clear');
 	$("#newInformationDialog").window('open').window('resize',{
 		left:$(window).width()-800,
-		top:$(window).height()-400
+		top:$(window).height()-430
 	});
         initAddDepartmentTree();
         initAddRoleTree();
@@ -216,7 +219,7 @@ function editInformation(index) {
         initModifyRoleTree(row.role_id);
         $("#editInformationDialog").window('open').window('resize',{
         	left:$(window).width()-800,
-    		top:$(window).height()-400
+    		top:$(window).height()-430
         });
     } else {
         $.messager.alert("提示", "请选择要编辑的行！", "info");
