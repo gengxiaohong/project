@@ -697,9 +697,6 @@ function searchMetaData() {
 	}
 	queryParams.url = "metatype";
 	queryParams.method = "GET";
-	queryParams.kind = "3";
-	queryParams.structure_type = "0";
-	queryParams.parent_id = "0";
 	
     //重新加载treegrid的数据  
     $("#metaGrid").treegrid('reload');
