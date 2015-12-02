@@ -51,17 +51,17 @@ $(function () {
                     field: "zh_name", title: "项", width: 50
                 },
                 {
-                    field: "value", title: "值", width: 200, formatter: function (value, row, idx) {
+                    field: "domain", title: "值", width: 200, formatter: function (value, row, idx) {
                     if (row.kind == 0) {
-                        return "<input type='text' class='easyui-textbox etextbox' id='fill-" + row.id + "'>";
+                        return "<input type='text' class='easyui-textbox etextbox' id='fill-" + row.id + "' value = '" + row.domain + "'>";
                     } else if (row.kind == 1) {
-                        return "<input type='text' class='easyui-textbox etextbox' id='fill-" + row.id + "'>";
+                        return "<input type='text' class='easyui-textbox etextbox' id='fill-" + row.id + "' value = '" + row.domain + "'>";
                     } else if (row.kind == 2) {
-                        return "<select editable='false' style='width:200px;' class='easyui-combobox ecombobox' id='fill-" + row.id + "'></select>";
+                        return "<select editable='false' style='width:200px;' class='easyui-combobox ecombobox' id='fill-" + row.id + "' value = '" + row.domain + "'></select>";
                     } else if (row.kind == 3) {
                         return "";
                     } else if (row.kind == 4) {
-                        return "<input type='text' class='easyui-datebox edatebox' id='fill-" + row.id + "'>";
+                        return "<input type='text' class='easyui-datebox edatebox' id='fill-" + row.id + "' value = '" + row.domain + "'>";
                     }
                 }
                 },
@@ -106,21 +106,21 @@ $(function () {
                 //console.log(dt[i].id);
             }
 
-            $.post("/bcms/proxy", {method: "GET", url: "resource/" + resourceId + "/meta"}, function (data2) {
-                console.log(data2.data);
-                    for (var i = 0; i < dt.length; i++) {
-                        var kind = dt[i].kind;
-                        var rowId = dt[i].id;
-                        var node = dt[i];
-                        var vBox = $("#fill-" + rowId);
-                        if(kind==0||kind==4)
-                            vBox.textbox("setValue", data2.data[rowId]);
-                        if(kind==2)
-                            vBox.combobox("setValue", data2.data[rowId]);
-                        if(kind==3)
-                            dataSet(node,"#fill",data2.data[rowId]);
-                    }
-             }, "json");
+//            $.post("/bcms/proxy", {method: "GET", url: "resource/" + resourceId + "/meta"}, function (data2) {
+//                console.log(data2.data);
+//                    for (var i = 0; i < dt.length; i++) {
+//                        var kind = dt[i].kind;
+//                        var rowId = dt[i].id;
+//                        var node = dt[i];
+//                        var vBox = $("#fill-" + rowId);
+//                        if(kind==0||kind==4)
+//                            vBox.textbox("setValue", data2.data[rowId]);
+//                        if(kind==2)
+//                            vBox.combobox("setValue", data2.data[rowId]);
+//                        if(kind==3)
+//                            dataSet(node,"#fill",data2.data[rowId]);
+//                    }
+//             }, "json");
             //var data = $('#metaGrid').treegrid("getData");
             //$('#metaGrid').treegrid("loading");
             //loadDatas(data);
@@ -355,7 +355,7 @@ function updateMeta(id, value) {
     var params = {
         method: "POST",
         url: "resource/" + id + "/meta",
-        value:value
+        domain:value
     };
     $.post("/bcms/proxy", params, function (data2) {
         if (data2.success!=false) {
