@@ -6,15 +6,12 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<%@ taglib uri="http://www.rapid-framework.org.cn/rapid" prefix="rapid" %>
-<rapid:override name="title">元数据管理</rapid:override>
-<rapid:override name="head">
-    <script src="../../js/admin/metadata/metadataMgr.js" type="text/javascript"></script>
-</rapid:override>
-<rapid:override name="mainName">元数据管理</rapid:override>
-<rapid:override name="mainIcon">icon-page_world</rapid:override>
-<rapid:override name="body">
-    <div data-options="region:'center',title:'字段列表'" iconCls="icon-page_world">
+<head>
+	<jsp:include page="../../layout/admin/adminheader.jsp"/>
+	<script src="../../js/admin/metadata/metadataMgr.js" type="text/javascript"></script>
+</head>
+<body>
+	<div data-options="region:'center',title:'字段列表'" iconCls="icon-page_world">
         <div id="tbr" style="height:30px;line-height:30px;">
             <a class="easyui-linkbutton" plain="true" iconCls="icon-add" onclick="showAddStructureItemDlg()">增加结构类型元数据</a>
             <a class="easyui-linkbutton" plain="true" iconCls="icon-add" onclick="showAddDicItemDlg()">增加词汇表类型元数据</a>
@@ -468,7 +465,4 @@
             </table>
         </form>
     </div>
-</rapid:override>
-
-<!-- extends from base.jsp -->
-<%@ include file="../../layout/admin/metadatamgr-base.jsp" %>
+</body>

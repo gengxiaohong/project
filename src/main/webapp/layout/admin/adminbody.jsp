@@ -63,7 +63,7 @@
 			<li><a  href="../../admin/resourcemgr/rmgr.jsp"><span><img
 						src="../../images/menu/sources.png" /></span><br />
 					<span>资源管理</span></a></li>
-			<li><a href="../../admin/metadata/metadataMgr.jsp"><span><img
+			<li><a href="../../layout/admin/metadatamgr-base.jsp"><span><img
 						src="../../images/menu/data.png" /></span><br />
 					<span>元数据管理</span></a></li>
 			<li><a href="../../admin/appmgr/topicmgr.jsp"><span><img

@@ -6,10 +6,9 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<%@ taglib uri="http://www.rapid-framework.org.cn/rapid" prefix="rapid" %>
-<rapid:override name="title">流媒体配置</rapid:override>
-<rapid:override name="head">
-    <script type="text/javascript" src="../../js/Highcharts-4.1.7/js/highcharts.js"></script>
+<head>
+	<jsp:include page="../../layout/admin/adminheader.jsp"/>
+	<script type="text/javascript" src="../../js/Highcharts-4.1.7/js/highcharts.js"></script>
     <script type="text/javascript">
         /**
          * Created with IntelliJ IDEA.
@@ -180,11 +179,9 @@
         }
         setInterval(getCpuInfo, 1000);
     </script>
-</rapid:override>
-<rapid:override name="mainName">流媒体配置</rapid:override>
-<rapid:override name="mainIcon">icon-page_world</rapid:override>
-<rapid:override name="body">
-    <div id="mediaTabs">
+</head>
+<body>
+	<div id="mediaTabs">
         <div title="CPU" style="padding:10px;">
             <div id="container">
             </div>
@@ -233,8 +230,4 @@
             </table>
         </div>
     </div>
-
-</rapid:override>
-
-<!-- extends from base.jsp -->
-<%@ include file="../../layout/admin/systemmgr-base.jsp" %>
+</body>
