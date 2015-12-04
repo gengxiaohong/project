@@ -264,6 +264,7 @@ function initModify(row) {
 	 $("#modify_topic_form").form("clear");
 	 $("#modify_topic_form #resource_list").datalist('loadData', { total: 0, rows: [] });
 	 $("#modify_topic_form #select_resource_list").datalist('loadData', { total: 0, rows: [] });
+	 $("#modify_topic_dlg input[name=id]").val(row.id);
 	 $("#modify_topic_dlg input[name=name]").val(row.name);
 	 $('#modify_topic_dlg input[name=description]').val(row.description);
 	 $("#modify_topic_dlg .publish_combobox").combobox('loadData', [{"id": true, "text": "启用"}, {"id": false, "text": "禁用"}]);
@@ -284,17 +285,18 @@ function initModify(row) {
 
 
 function modifyTopic() {
+	var id=$('#modify_topic_form input[name=id]').val();
 	var name = $("#modify_topic_dlg input[name=name]").val();
 	var description = $('#modify_topic_dlg input[name=description]').val();
 	var rows = $('#modify_topic_form #select_resource_list').datalist("getData").rows;
-	var is_published = $("#is_published").combotree("getValue");
+	var is_published = $("#modify_topic_form .publish_combobox").combotree("getValue");
 	var resource_ids = [];
 	for (var i = 0; i < rows.length; i++) {
 		resource_ids.push(rows[i].id);
 	}
 	$.post("/bcms/proxy", {
-		method : "post",
-		url : "special/",
+		method : "put",
+		url : "special/" + id,
 		name : name,
 		description : description,
 		resource_ids : JSON.stringify(resource_ids),

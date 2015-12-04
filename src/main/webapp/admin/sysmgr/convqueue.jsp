@@ -6,18 +6,17 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<%@ taglib uri="http://www.rapid-framework.org.cn/rapid" prefix="rapid" %>
-<rapid:override name="title">转码队列</rapid:override>
-<rapid:override name="head">
-</rapid:override>
-<rapid:override name="mainName">转码队列</rapid:override>
-<rapid:override name="mainIcon">icon-page_world</rapid:override>
-<rapid:override name="body">
-<div data-options="region:'center',title:'转码队列'" iconCls="icon-cdr_go">
+<head>
+	<jsp:include page="../../layout/admin/adminheader.jsp"/>
+	<script src="../../js/admin/sysmgr/convqueue.js" type="text/javascript"></script>
+</head>
+<body>
+	<div data-options="region:'center',title:'转码队列'" iconCls="icon-cdr_go">
   <div id="container">
-    <table class="easyui-datagrid" title="转码队列"
-           data-options="rownumbers:true,singleSelect:true">
-      <thead>
+    <table id="metaGrid" class="easyui-datagrid" title="转码队列"
+           data-options="rownumbers:true,singleSelect:true" rownumbers="true"
+               pagination="true">
+      <!-- <thead>
       <tr>
         <th data-options="field:'itemid',width:'25%'">文件HASH</th>
         <th data-options="field:'productid',width:'40%'">文件名</th>
@@ -93,12 +92,9 @@
           <td>移除</td>
         </tr>
 
-      </tbody>
+      </tbody> -->
     </table>
 
     </div>
   </div>
-</rapid:override>
-
-<!-- extends from base.jsp -->
-<%@ include file="../../layout/admin/systemmgr-base.jsp" %>
+</body>

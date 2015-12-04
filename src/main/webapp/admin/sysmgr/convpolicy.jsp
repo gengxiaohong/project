@@ -6,15 +6,12 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<%@ taglib uri="http://www.rapid-framework.org.cn/rapid" prefix="rapid" %>
-<rapid:override name="title">转码策略管理</rapid:override>
-<rapid:override name="head">
-  <script type="text/javascript" src="../../js/admin/rmgr.js"></script>
-</rapid:override>
-<rapid:override name="mainName">转码策略管理</rapid:override>
-<rapid:override name="mainIcon">icon-page_world</rapid:override>
-<rapid:override name="body">
-<div data-options="region:'center',title:'转码策略管理'" iconCls="icon-cdr_go">
+<head>
+	<jsp:include page="../../layout/admin/adminheader.jsp"/>
+	<script type="text/javascript" src="../../js/admin/rmgr.js"></script>
+</head>
+<body>
+	<div data-options="region:'center',title:'转码策略管理'" iconCls="icon-cdr_go">
   <div id="container">
     <table class="easyui-datagrid" title="转码策略"
            data-options="rownumbers:true,singleSelect:true,toolbar:'#tb'">
@@ -201,8 +198,4 @@
     </div>
   </form>
 </div>
-
-</rapid:override>
-
-<!-- extends from base.jsp -->
-<%@ include file="../../layout/admin/systemmgr-base.jsp" %>
+</body>

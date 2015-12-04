@@ -101,6 +101,7 @@
         编辑标签
     </div>
     <form id="modify_topic_form" method="post">
+        <input type="hidden" name="id"/>
         <div class="fitem">
             <label>
                 专题名称
@@ -117,7 +118,10 @@
             <label>
                 状态
             </label>
-            <input class="easyui-combobox publish_combobox" data-options="valueField:'id',textField:'text',panelHeight:'auto'" required="true" name="is_published">
+            <select class="easyui-combobox publish_combobox" name="is_published" data-options="valueField:'id',textField:'text',panelHeight:'auto'">
+                <option value="1">启用</option>
+                <option value="0">禁用</option>
+            </select>
         </div>
         <div class="fitem">
             <label>
