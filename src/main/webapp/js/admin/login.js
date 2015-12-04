@@ -20,7 +20,7 @@ $(function () {
                     }else{
                         $.cookie("bcms_user_id", obj.id,{path:'/'});
                         $.cookie("bcms_user_name", obj.username,{path:'/'});
-                        location.href = "/bcms/admin/usermgr/userMgr.jsp";
+                        location.href = "/bcms/layout/admin/umgr-base.jsp";
                     }
                 });
             }
