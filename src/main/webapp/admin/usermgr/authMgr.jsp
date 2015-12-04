@@ -7,16 +7,10 @@
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib uri="http://www.rapid-framework.org.cn/rapid" prefix="rapid" %>
-<%-- <rapid:override name="title">权限管理</rapid:override>
-<rapid:override name="head"> --%>
 <head>
 <jsp:include page="../../layout/admin/adminheader.jsp"/>
     <script type="text/javascript" src="../../js/admin/user/auth.js"></script>
 </head>
-<%-- </rapid:override> --%>
-<%-- <rapid:override name="mainName">权限管理</rapid:override>
-<rapid:override name="mainIcon">icon-page_world</rapid:override> 
-<rapid:override name="body">--%>
 <body>
     <div data-options="region:'center',title:'权限管理'">
      <div style="margin-bottom: 5px;">
@@ -107,8 +101,5 @@
        iconcls="icon-cancel">取消</a>
 </div>
 
-<%-- </rapid:override> --%>
 </body>
 
-<!-- extends from base.jsp -->
-<%-- <%@ include file="../../layout/admin/umgr-base.jsp" %> --%>

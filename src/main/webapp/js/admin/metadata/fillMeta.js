@@ -38,7 +38,7 @@ $(function () {
         $(this).next().toggle();
     });
     $("#metaGrid").treegrid({
-    	url: "/bcms/proxy?url=metatype&method=GET",
+    	url: "/bcms/resouceMetaQuery?id=" + resourceId,
         idField: "id",
         treeField: "zh_name",
         fitColumns: true,
@@ -51,17 +51,17 @@ $(function () {
                     field: "zh_name", title: "项", width: 50
                 },
                 {
-                    field: "domain", title: "值", width: 200, formatter: function (value, row, idx) {
+                    field: "value", title: "值", width: 200, formatter: function (value, row, idx) {
                     if (row.kind == 0) {
-                        return "<input type='text' class='easyui-textbox etextbox' id='fill-" + row.id + "' value = '" + row.domain + "'>";
+                        return "<input type='text' class='easyui-textbox etextbox' id='fill-" + row.id + "'>";
                     } else if (row.kind == 1) {
-                        return "<input type='text' class='easyui-textbox etextbox' id='fill-" + row.id + "' value = '" + row.domain + "'>";
+                        return "<input type='text' class='easyui-textbox etextbox' id='fill-" + row.id + "'>";
                     } else if (row.kind == 2) {
-                        return "<select editable='false' style='width:200px;' class='easyui-combobox ecombobox' id='fill-" + row.id + "' value = '" + row.domain + "'></select>";
+                        return "<select editable='false' style='width:200px;' class='easyui-combobox ecombobox' id='fill-" + row.id + "'></select>";
                     } else if (row.kind == 3) {
                         return "";
                     } else if (row.kind == 4) {
-                        return "<input type='text' class='easyui-datebox edatebox' id='fill-" + row.id + "' value = '" + row.domain + "'>";
+                        return "<input type='text' class='easyui-datebox edatebox' id='fill-" + row.id + "'>";
                     }
                 }
                 },
@@ -106,21 +106,21 @@ $(function () {
                 //console.log(dt[i].id);
             }
 
-//            $.post("/bcms/proxy", {method: "GET", url: "resource/" + resourceId + "/meta"}, function (data2) {
-//                console.log(data2.data);
-//                    for (var i = 0; i < dt.length; i++) {
-//                        var kind = dt[i].kind;
-//                        var rowId = dt[i].id;
-//                        var node = dt[i];
-//                        var vBox = $("#fill-" + rowId);
-//                        if(kind==0||kind==4)
-//                            vBox.textbox("setValue", data2.data[rowId]);
-//                        if(kind==2)
-//                            vBox.combobox("setValue", data2.data[rowId]);
-//                        if(kind==3)
-//                            dataSet(node,"#fill",data2.data[rowId]);
-//                    }
-//             }, "json");
+            $.post("/bcms/proxy", {method: "GET", url: "resource/" + resourceId + "/meta"}, function (data2) {
+                console.log(data2.data);
+                    for (var i = 0; i < dt.length; i++) {
+                        var kind = dt[i].kind;
+                        var rowId = dt[i].id;
+                        var node = dt[i];
+                        var vBox = $("#fill-" + rowId);
+                        if(kind==0||kind==4)
+                            vBox.textbox("setValue", data2.data[rowId]);
+                        if(kind==2)
+                            vBox.combobox("setValue", data2.data[rowId]);
+                        if(kind==3)
+                            dataSet(node,"#fill",data2.data[rowId]);
+                    }
+             }, "json");
             //var data = $('#metaGrid').treegrid("getData");
             //$('#metaGrid').treegrid("loading");
             //loadDatas(data);
@@ -352,12 +352,13 @@ function submitMetaForm() {
 }
 
 function updateMeta(id, value) {
-    var params = {
-        method: "POST",
-        url: "resource/" + id + "/meta",
-        domain:value
-    };
-    $.post("/bcms/proxy", params, function (data2) {
+//    var params = {
+//        method: "POST",
+//        id:id,
+//        value:value
+//    };
+//    $.post("/bcms/editMetaValue", params, function (data2) {
+    $.post("/bcms/proxy", {method:"post",url: "editMetaValue/"+id,value:value}, function (data2) {
         if (data2.success!=false) {
             alert("更新成功");
             window.location.href = "/bcms/admin/resourcemgr/rmgr.jsp";

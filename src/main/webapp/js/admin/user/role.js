@@ -10,7 +10,7 @@ $(function () {
             {
                 field: '_operate', width: '15%', align: 'center', title: '操作',
                 formatter: function (value, row, index) {
-                    return '<a class="tablelink" href="#" onclick="clickDeleteRole(' + index + ');">移除权限</a>';
+                    return '<a class="tablelink" href="#" onclick="clickModifyRole();">移除权限</a>';
                 }
             }
         ]],
@@ -23,6 +23,7 @@ $(function () {
 function clickAddRole(){
     initAuthCombobox();
     $('#add_role_dlg').dialog('open').dialog('setTitle','添加角色');
+    $("#add_role_form").form("clear");
 }
 
 function clickModifyRole(){
@@ -32,37 +33,6 @@ function clickModifyRole(){
         $('#modify_role_dlg').dialog('open').dialog('setTitle', '编辑角色');;
     }else{
         $.messager.alert("提示", "请选择要编辑的行！", "info");
-        return;
-    }
-}
-
-function clickDeleteRole(index){
-    var node=$('#role_tree').tree('getSelected');
-    $('#role_auth_grid').datagrid('selectRow',index);
-    var row = $('#role_auth_grid').datagrid('getSelected');
-    if(node) {
-        if (row) {
-            $.messager.confirm('确认', '确认删除?', function (data) {
-                if (data) {
-                    $.post("/bcms/proxy", {
-                        method: "delete",
-                        url: "role/" + node.id + "/permission/" + row.id
-                    }, function (result) {
-                        var obj = jQuery.parseJSON(result);
-                        if (obj.success==false) {
-                            $.messager.alert("提示", obj.msg, "info");
-                        } else {
-                            $("#role_auth_grid").datagrid('reload');
-                        }
-                    });
-                }
-            });
-        } else {
-            $.messager.alert("提示", "请选择要移除的行！", "info");
-            return;
-        }
-    }else {
-        $.messager.alert("提示", "请选择左侧角色后再操作！", "info");
         return;
     }
 }
@@ -230,6 +200,3 @@ function handleChildren(childrenMap , map) {
     }
     return null;
 }
-
-
-

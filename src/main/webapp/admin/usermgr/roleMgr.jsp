@@ -7,16 +7,10 @@
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib uri="http://www.rapid-framework.org.cn/rapid" prefix="rapid" %>
-<%-- <rapid:override name="title">角色管理</rapid:override>
-<rapid:override name="head"> --%>
 <head>
 <jsp:include page="../../layout/admin/adminheader.jsp"/>
     <script type="text/javascript" src="../../js/admin/user/role.js"></script>
 </head>
-<%-- </rapid:override> --%>
-<%-- <rapid:override name="mainName">角色管理</rapid:override>
-<rapid:override name="mainIcon">icon-page_world</rapid:override>
-<rapid:override name="body"> --%>
 <body>
     <div class="easyui-layout" fit="true">
         <div region="west" title="角色列表" style="width: 200px;">
@@ -90,7 +84,3 @@
        iconcls="icon-cancel">取消</a>
 </div>
 </body>
-<%-- </rapid:override> --%>
-
-<!-- extends from base.jsp -->
-<%-- <%@ include file="../../layout/admin/umgr-base.jsp" %> --%>

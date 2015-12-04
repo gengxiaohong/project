@@ -6,17 +6,15 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<%@ taglib uri="http://www.rapid-framework.org.cn/rapid" prefix="rapid" %>
-<rapid:override name="title">专题管理</rapid:override>
-<rapid:override name="head">
+<head>
+	<jsp:include page="../../layout/admin/adminheader.jsp"/>
+    <script type="text/javascript" src="../../js/admin/social/commentmgr.js"></script>
     <script type="text/javascript" src="../../js/spark-md5.js"></script>
     <script type="text/javascript" src="../../js/common/fileutils.js"></script>
     <script type="text/javascript" src="http://42.62.52.40:8000/static/flow.js"></script>
     <script type="text/javascript" src="../../js/admin/topicmgr.js"></script>
-</rapid:override>
-<rapid:override name="mainName">专题管理</rapid:override>
-<rapid:override name="mainIcon">icon-page_world</rapid:override>
-<rapid:override name="body">
+</head>
+<body>
 <div id="rGridTbr" style="height:30px;line-height:30px;">
     <a href="javascript:void(0)" class="easyui-linkbutton" onclick="addTopic()" plain="true"
        iconCls="icon-add"
@@ -150,10 +148,7 @@
 
 <div id="modify_topic_dlg_buttons">
     <a href="javascript:void(0)" class="easyui-linkbutton" onclick="modifyTopic()" iconcls="icon-save">保存</a>
-    <a href="javascript:void(0)" class="easyui-linkbutton" onclick="javascript:$('#modify_tag_dlg').dialog('close')"
+    <a href="javascript:void(0)" class="easyui-linkbutton" onclick="javascript:$('#modify_topic_dlg').dialog('close')"
        iconcls="icon-cancel">取消</a>
 </div>
-</rapid:override>
-
-<!-- extends from base.jsp -->
-<%@ include file="../../layout/admin/appmgr-base.jsp" %>
+</body>
