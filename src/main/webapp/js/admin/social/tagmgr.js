@@ -5,8 +5,14 @@ $(function () {
         method: 'get',
         valueField: 'id',
         textField: 'text',
+        mode:'local',
+    	filter: function(q, row){
+    		var opts = $(this).combobox('options');
+    		return row[opts.textField].indexOf(q) == 0;
+    	},
         onSelect: function (tag) {
             var id = $('#search_tag').combobox('getValue');
+            console.log($("#tag_tree_grid").tree("find", id).target);
             $("#tag_tree_grid").tree("expand", $("#tag_tree_grid").tree("find", id).target);
             $('#tag_tree_grid').tree('select', $("#tag_tree_grid").tree("find", id).target);
         }

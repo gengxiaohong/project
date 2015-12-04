@@ -57,7 +57,7 @@
 		<ul class="logo-right">
 
 			<li><a
-				href="../../admin/usermgr/userMgr.jsp"><span><img
+				href="../../layout/admin/umgr-base.jsp"><span><img
 						src="../../images/menu/user.png" /></span><br />
 					<span>用户管理</span></a></li>
 			<li><a  href="../../admin/resourcemgr/rmgr.jsp"><span><img

@@ -7,13 +7,17 @@
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib uri="http://www.rapid-framework.org.cn/rapid" prefix="rapid" %>
-<rapid:override name="title">角色管理</rapid:override>
-<rapid:override name="head">
+<%-- <rapid:override name="title">角色管理</rapid:override>
+<rapid:override name="head"> --%>
+<head>
+<jsp:include page="../../layout/admin/adminheader.jsp"/>
     <script type="text/javascript" src="../../js/admin/user/role.js"></script>
-</rapid:override>
-<rapid:override name="mainName">角色管理</rapid:override>
+</head>
+<%-- </rapid:override> --%>
+<%-- <rapid:override name="mainName">角色管理</rapid:override>
 <rapid:override name="mainIcon">icon-page_world</rapid:override>
-<rapid:override name="body">
+<rapid:override name="body"> --%>
+<body>
     <div class="easyui-layout" fit="true">
         <div region="west" title="角色列表" style="width: 200px;">
             <div style="padding:5px;background:#fafafa;width:100%;border:1px solid #ccc">
@@ -85,8 +89,8 @@
     <a href="javascript:void(0)" class="easyui-linkbutton" onclick="javascript:$('#modify_role_dlg').dialog('close')"
        iconcls="icon-cancel">取消</a>
 </div>
-
-</rapid:override>
+</body>
+<%-- </rapid:override> --%>
 
 <!-- extends from base.jsp -->
-<%@ include file="../../layout/admin/umgr-base.jsp" %>
+<%-- <%@ include file="../../layout/admin/umgr-base.jsp" %> --%>

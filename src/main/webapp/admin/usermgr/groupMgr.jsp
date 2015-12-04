@@ -7,13 +7,17 @@
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib uri="http://www.rapid-framework.org.cn/rapid" prefix="rapid" %>
-<rapid:override name="title">用户组管理</rapid:override>
-<rapid:override name="head">
+<%-- <rapid:override name="title">用户组管理</rapid:override>
+<rapid:override name="head"> --%>
+<head>
+<jsp:include page="../../layout/admin/adminheader.jsp"/>
     <script type="text/javascript" src="../../js/admin/user/group.js"></script>
-</rapid:override>
-<rapid:override name="mainName">用户组管理</rapid:override>
+</head>
+<%-- </rapid:override> --%>
+<%-- <rapid:override name="mainName">用户组管理</rapid:override>
 <rapid:override name="mainIcon">icon-page_world</rapid:override>
-<rapid:override name="body">
+<rapid:override name="body"> --%>
+<body>
        <div class="easyui-layout" fit="true">
            <div region="west" title="用户组列表" style="width: 200px;">
                <div style="padding:5px;background:#fafafa;width:100%;border:1px solid #ccc">
@@ -129,7 +133,8 @@
            iconcls="icon-cancel">取消</a>
     </div>
 </div>
-</rapid:override>
+<%-- </rapid:override> --%>
+</body>
 
 <!-- extends from base.jsp -->
-<%@ include file="../../layout/admin/umgr-base.jsp" %>
+<%-- <%@ include file="../../layout/admin/umgr-base.jsp" %> --%>
