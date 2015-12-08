@@ -11,11 +11,11 @@ $(function () {
         onClick: function (node) {
             if (window.location.href.indexOf("metadataMgr.jsp") == -1) {
                 $.cookie("meteMenuState", "open");
-                window.location.href = "/bcms/admin/metadata/metadataMgr.jsp";
+                window.location.href = "/bcms/admin/metadataMgr.jsp";
             }
             var mg = $("#metaGrid");
             if (mg) {
-                mg.treegrid({url: "/bcms/metaTypeList?id=" + node.id});
+            	mg.treegrid({url:"/bcms/metaTypeList?id=" + node.id});
             }
         },
         loadFilter: function (data, parent) {
