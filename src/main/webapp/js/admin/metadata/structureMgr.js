@@ -291,7 +291,7 @@ function delStructure() {
 function searchStructure() {
 	var searchCondition = $('#searchCondition').combobox('getValue');
 	var searchContent = $('#searchContent').val();
-	var queryParams = $('#metaGrid').treegrid('options').queryParams;  
+	var queryParams = $('#metaGrid').treegrid('options').queryParams={};  
 	if(searchCondition == 'zh_name') {
 		queryParams.zh_name = searchContent;
 	} else if(searchCondition == 'en_name') {

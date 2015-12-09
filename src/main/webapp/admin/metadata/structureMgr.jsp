@@ -18,7 +18,6 @@
             <a class="easyui-linkbutton" plain="true" iconCls="icon-remove" onclick="delStructure();">删除</a>
             <select class="easyui-combobox" editable="false" id="searchCondition">
                <option value="zh_name">按中文名</option>
-                <option value="en_name">按英文名</option>
                 <option value="lom_id">按LOM编码</option>
             </select>
             <input type="text" class="easyui-textbox" id="searchContent"/>

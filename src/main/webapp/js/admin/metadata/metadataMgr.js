@@ -687,7 +687,7 @@ function searchMetaData() {
 	var searchCollection= $('#searchCollection').combobox('getValue');
 	var searchCondition = $('#searchCondition').combobox('getValue');
 	var searchContent = $('#searchContent').val();
-	var queryParams = $('#metaGrid').treegrid('options').queryParams;  
+	var queryParams = $('#metaGrid').treegrid('options').queryParams={};  
 	
 	queryParams.collection = searchCollection;
 	if(searchCondition == 'zh_name') {

@@ -80,7 +80,7 @@ $(function () {
 function searchDicItem() {
 	var searchCondition = $('#searchCondition').combobox('getValue');
 	var searchContent = $('#searchContent').val();
-	var queryParams = $('#metaGrid').datagrid('options').queryParams;  
+	var queryParams = $('#metaGrid').datagrid('options').queryParams={};  
 	if(searchCondition == 'name') {
 		queryParams.zh_name = searchContent;
 	} else if(searchCondition == 'code') {

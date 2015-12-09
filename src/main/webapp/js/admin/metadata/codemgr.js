@@ -117,7 +117,7 @@ function submitModifyEncodeItem(){
 function searchEncode() {
 	var searchCondition = $('#searchCondition').combobox('getValue');
 	var searchContent = $('#searchContent').val();
-	var queryParams = $('#metaGrid').treegrid('options').queryParams;  
+	var queryParams = $('#metaGrid').treegrid('options').queryParams={};  
 	if(searchCondition == 'name') {
 		queryParams.name = searchContent;
 	} else if(searchCondition == 'code') {
