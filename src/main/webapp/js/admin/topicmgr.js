@@ -351,6 +351,19 @@ function reloadgrid() {
     $("#rGrid").datagrid('reload');
 }
 
+function reloadResource() {
+//    var queryParams = $("#add_tag_form #resource_list").datalist('options').queryParams;
+    var name=$("#sourcename").val();
+//    queryParams.name=name;
+//    $("#add_tag_form #resource_list").datalist('options').queryParams = queryParams;
+//    $("#add_tag_form #resource_list").datalist('reload');
+    
+    $("#add_tag_form #resource_list").datalist('load',{
+    	name: name
+    });
+//    $("#add_tag_form #resource_list").datalist('reload');
+}
+
 var flow;
 function startUpload() {
     if (waitFile.file && waitFile.hash) {

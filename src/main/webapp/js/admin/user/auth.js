@@ -255,6 +255,7 @@ function saveAuth() {
             alert(obj.msg);
         } else {
             $('#add_auth_dlg').dialog('close');
+            $("#auth_table").datagrid('reload');
         }
     });
 
