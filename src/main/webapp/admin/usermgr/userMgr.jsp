@@ -25,7 +25,7 @@
             姓名: <input class="easyui-textbox" style="width:150px" id="username">
             教工号: <input class="easyui-textbox" style="width:150px" id="number">
             部门:
-            <input class="easyui-combotree" panelHeight="200px" style="width:150px" id="department_id" />
+            <input class="easyui-combotree" panelHeight="200px" style="width:150px" id="department_id"/>
             身份:
             <select class="easyui-combobox" panelHeight="auto" style="width:100px" id="identity">
                 <option value="">全部</option>
@@ -46,7 +46,7 @@
             <label>
                 账号
             </label>
-            <input name="name"  class="easyui-validatebox" required="true" type="text"  />
+            <input name="name" id="name" class="easyui-validatebox" missingMessage="账号必须填写" required="true" type="text"  />
         </div>
         <div class="fitem">
             <label>
@@ -58,13 +58,13 @@
             <label>
                 密码
             </label>
-            <input name="password" class="easyui-validatebox" required="true" type="text" />
+            <input name="password" class="easyui-validatebox" missingMessage="账号必须填写" required="true" type="text" />
         </div>
         <div class="fitem">
             <label>
                 邮箱
             </label>
-            <input name="email" class="easyui-validatebox" type="text" />
+            <input name="email" class="easyui-validatebox" validType="email" invalidMessage="请填写正确的邮件格式" />
         </div>
         <div class="fitem">
             <label>
@@ -92,7 +92,7 @@
         <div class="fitem">
             <label>
                 部门</label>
-            <input class="easyui-combotree department_tree" name="department"/>
+            <input class="easyui-combotree department_tree" name="department_id"/>
         </div>
         <div class="fitem">
             <label>

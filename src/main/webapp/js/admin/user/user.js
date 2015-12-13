@@ -1,18 +1,11 @@
 var department_tree;
 $(function () {
-    $.post("/bcms/proxy", {method: "get", url: "department/"}, function (result) {
-        var obj = $.parseJSON(result);
-        if (obj.success==false) {
-            alert(obj.msg);
-        } else {
-           department_tree= formatDepartmentTreeData(obj);
-            $('#department_id').combotree ({
-                data:department_tree,
-                lines: true
-            });
-        }
-    });
-
+	var url = "/bcms/departmentTree";
+	$.getJSON(url, function(json) {
+	department_tree= formatDepartmentTreeData(json)
+	$("#department_id").combotree('loadData', formatDepartmentTreeData(json));
+	});
+    
     $('#user_table').datagrid({
         rownumbers: true,
         singleSelect: false,
@@ -44,8 +37,6 @@ $(function () {
             }
         ]]
     });
-
-
 
 });
 
@@ -88,15 +79,47 @@ function saveUser(){
     var identity=$('#add_user_dlg .identity_combobox').combobox("getValue");
     var number=$('#add_user_dlg input[name=number]').val();
     var department_id=$('#add_user_dlg .department_tree').combotree("getValue");
-    $.post("/bcms/proxy", {method:"post",url: "user/",number:number,identity:identity,department_id:department_id, username: username,cn_name:cn_name, password:password,email:email,phone:phone,group_ids:JSON.stringify(groups),gender:gender,disk_size:disk_size,description:description}, function (result) {
-        var obj= $.parseJSON(result);
-        $('#add_user_dlg').dialog('close');
-        if (obj.success==false) {
-            alert(obj.msg);
-        } else {
-            $("#user_table").datagrid('reload');
-        }
-    });
+    var result = validateForm(username,password);
+     if (result) {
+    	 $.post("/bcms/proxy", {method:"post",url: "user/",number:number,identity:identity,department_id:department_id, username: username,cn_name:cn_name, password:password,email:email,phone:phone,group_ids:JSON.stringify(groups),gender:gender,disk_size:disk_size,description:description}, function (result) {
+    	        var obj= $.parseJSON(result);
+    	        if (obj.success==false) {
+    	            alert(obj.msg);
+    	        } else {
+    	        	$('#add_user_dlg').dialog('close');
+    	            $("#user_table").datagrid('reload');
+    	        }
+    	    });
+     }
+    
+}
+
+var flag = true;
+
+$('#add_user_form input').each(function () {
+    if ($(this).attr('required') || $(this).attr('validType')) {
+    if (!$(this).validatebox('isValid')) {
+        flag = false;
+        return;
+    }
+    }
+})
+
+if (flag)
+    alert('验证通过！');
+else
+    alert('验证失败！');
+
+function validateForm(username,password){
+	
+	
+	
+	if (username == "" || username == null){
+		alert("username不能为空");
+		$('#name').focus(); 
+		return false;
+	}
+	return true;
 }
 
 function editUser(index){
@@ -184,7 +207,11 @@ function initAddGroupCombotree() {
 }
 
 function initAddDepartmentCombotree() {
-    $("#add_user_dlg .department_tree").combotree('loadData', department_tree);
+    var url = "/bcms/departmentTree";
+	$.getJSON(url, function(json) {
+	department_tree= formatDepartmentTreeData(json)
+	$("#add_user_dlg .department_tree").combotree('loadData', formatDepartmentTreeData(json));
+	});
 }
 
 function delUsers() {
