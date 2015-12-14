@@ -24,12 +24,12 @@
         <table class="table">
             <tr>
                 <td class="col-md-2"><label>资源名:</label></td>
-                <td class="col-md-10"><input id="name10" type="text" class="easyui-textbox" required="true"/></td>
+                <td class="col-md-10"><input id="name10" type="text" class="easyui-textbox" required="true" style="width:200px;"/></td>
             </tr>
             <tr>
                 <td><label>类型:</label></td>
                 <td>
-                    <select id="kind10" class="easyui-combobox" editable="false">
+                    <select id="kind10" class="easyui-combobox" editable="false" required="true" style="width:200px;">
                         <option value="0">普通</option>
                         <option value="1">课程</option>
                         <option value="2">课时</option>
@@ -39,8 +39,8 @@
             </tr>
             <tr>
                 <td><label>资源库</label></td>
-                <td><select id="resourceTree" url="/bcms/proxy?url=resourcelibrary/&method=GET" class="easyui-combotree"
-                            data-options="method:'POST',required:true"
+                <td><select id="resourceTree"  class="easyui-combotree"
+                            data-options="required:true"
                             style="width:200px;"></select></td>
             </tr>
                 <%-- <tr id="parentResource">
@@ -86,7 +86,7 @@
             </tr>--%>
             <tr>
                 <td colspan="2" style="text-align: center;padding:10px;">
-                    <a class="easyui-linkbutton" onclick="submitForm()">提交</a>
+                    <a id="newResources" class="easyui-linkbutton" iconCls="icon-ok" onclick="submitForm()">提交</a>
                 </td>
             </tr>
         </table>

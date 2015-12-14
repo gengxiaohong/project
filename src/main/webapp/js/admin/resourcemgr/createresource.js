@@ -22,14 +22,37 @@ function startUpload() {
 
 var waitFile = {status: false};
 $(function () {
-    $("#resourceTree").combotree({
+    /*$("#resourceTree").combotree({
         loadFilter: function (data) {
             for (var i = 0; i < data.rows.length; i++) {
                 data.rows[i].text = data.rows[i].name;
             }
             return data.rows;
+        	
+        }
+    });*/
+    
+
+    $.post("/bcms/proxy", {method: "get", url: "resourcelibrary/"}, function (result) {
+        var obj = jQuery.parseJSON(result);
+        if (obj.success==false) {
+            alert(obj.msg);
+        } else {
+            $("#resourceTree").combotree({data: formatTreeData(obj.rows)});
         }
     });
+    function formatTreeData(data){
+        var fin = [];
+        for (var i = 0; i < data.length; i++) {
+            var obj = data[i];
+            obj.text = obj.name;
+            if (obj.children && obj.children.length > 0) {
+                obj.children = formatTreeData(obj.children);
+            }
+            fin.push(obj);
+        }
+        return fin;
+    }
 
     flow = new Flow({
         target: 'http://42.62.52.40:8000/file/upload',
@@ -163,6 +186,7 @@ function submitForm() {
         }, function (data) {
             if (data.id != undefined) {
                 //alert("ok........");
+            	$("#newResources").linkbutton("disable");
                 if (waitFile.fileId != null) {
                     $.post("/bcms/proxy", {
                         url: "file/detail/" + data.id,
