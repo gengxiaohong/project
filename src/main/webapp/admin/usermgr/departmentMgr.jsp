@@ -38,7 +38,7 @@
       <label>
         部门名称
       </label>
-      <input name="name" class="easyui-validatebox" required="true" type="text" />
+      <input name="name" class="easyui-validatebox" required="true" type="text"  />
     </div>
     <div class="fitem">
       <label>

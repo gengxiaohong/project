@@ -58,7 +58,7 @@
             <label>
                 密码
             </label>
-            <input name="password" class="easyui-validatebox" missingMessage="账号必须填写" required="true" type="text" />
+            <input name="password" class="easyui-validatebox" missingMessage="账号必须填写" required="true" type="text" id="password"/>
         </div>
         <div class="fitem">
             <label>
