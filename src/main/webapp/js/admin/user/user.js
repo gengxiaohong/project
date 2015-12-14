@@ -1,10 +1,24 @@
 var department_tree;
 $(function () {
-	var url = "/bcms/departmentTree";
+	/*var url = "/bcms/departmentTree";
 	$.getJSON(url, function(json) {
 	department_tree= formatDepartmentTreeData(json)
 	$("#department_id").combotree('loadData', formatDepartmentTreeData(json));
 	});
+	*/
+	
+	$.post("/bcms/departmentTree", function (result) {
+        var obj = $.parseJSON(result);
+        if (obj.success==false) {
+            alert(obj.msg);
+        } else {
+           department_tree= formatDepartmentTreeData(obj);
+            $('#department_id').combotree ({
+                data:department_tree,
+                lines: true
+            });
+        }
+    });
     
     $('#user_table').datagrid({
         rownumbers: true,
@@ -94,21 +108,6 @@ function saveUser(){
     
 } 
 
-var flag = true;
-
-$('#add_user_form input').each(function () {
-    if ($(this).attr('required') || $(this).attr('validType')) {
-    if (!$(this).validatebox('isValid')) {
-        flag = false;
-        return;
-    }
-    }
-})
-
-if (flag)
-    alert('验证通过！');
-else
-    alert('验证失败！');
 
 function validateForm(username,password,email,phone,number,gender){
 	if (username == "" || username == null){
@@ -231,11 +230,13 @@ function initAddGroupCombotree() {
 }
 
 function initAddDepartmentCombotree() {
-    var url = "/bcms/departmentTree";
+    /*var url = "/bcms/departmentTree";
 	$.getJSON(url, function(json) {
 	department_tree= formatDepartmentTreeData(json)
 	$("#add_user_dlg .department_tree").combotree('loadData', formatDepartmentTreeData(json));
-	});
+	});*/
+	$("#add_user_dlg .department_tree").combotree('loadData', department_tree);
+
 }
 
 function delUsers() {

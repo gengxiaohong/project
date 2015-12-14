@@ -3,7 +3,7 @@
  */
 $(function () {
     $("#department_tree").tree({
-        url: "/bcms/proxy?url=department&method=GET",
+    	url: "/bcms/departmentTree",
         lines: true,
         onBeforeLoad:function(node,param){
             ajaxLoading();

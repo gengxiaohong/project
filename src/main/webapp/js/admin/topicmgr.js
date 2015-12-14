@@ -13,6 +13,7 @@ $(function () {
     $("#rGrid").datagrid({
     	rownumbers: true,
         singleSelect: true,
+        toolbar: "#rGridTbr",
         url: "/bcms/proxy?url=special&method=GET",
         pagination: true,
         columns: [
@@ -20,29 +21,40 @@ $(function () {
                 {
                     field: 'id',
                     title: 'id',
-                    width: 100,
+                    width: "10%",
                     sortable: true
                 }, {
                 field: 'name',
                 title: '专题名称',
-                width: 100,
+                width: "10%",
                 sortable: true
             }, {
                 field: 'description',
                 title: '描述',
-                width: 100,
+                width: "20%",
                 sortable: true
             }, {
                 field: 'is_published',
                 title: '状态',
-                width: 100,
+                width: "5%",
                 sortable: true,
                 formatter:function(value){
-                    if(value)
-                    return '发布';
+                    if(value == true)
+                    return '启用';
                     else
-                    return '不发布';
+                    return '禁用';
                     }
+            },
+            {
+                field: 'created_at',
+                title: '创建时间',
+                width:"10%",
+                formatter: function (value, row, index) {
+                    return new Date(value).format("yyyy-MM-dd HH:mm:ss");
+                }
+            }, {
+                field: 'click_number',
+                title: '点击量'
             }
             ]
         ]
