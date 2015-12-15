@@ -12,13 +12,15 @@ $(function () {
     $("#rGrid").datagrid({
         url: "/bcms/proxy?url=resource&method=GET",
         fitColumns: true,
+        rownumbers: false,
+        singleSelect:false,
         autoRowHeight: true,
         fit: true,
         columns: [
             [
-                {field: 'id', title: 'id', width: 100},
-                {field: 'name', title: '名称', width: 100, sortable: true},
-                {field: 'resourcelibrary_id', title: '库id', width: 100, sortable: true,
+                {field: 'id',checkbox:true, title: 'id', width: 100},
+                {field: 'name', title: '名称',align:'center',width: 100, sortable: true},
+                {field: 'resourcelibrary_id', title: '库id',align:'center', width: 100, sortable: true,
 		             formatter: function (value, row, index) {
                         var data = $('#categoryTree').tree("find", value);
                         return data==null?"null(id:"+value+")":data.name+"(id:"+value+")";
@@ -26,6 +28,7 @@ $(function () {
                 {
                     field: 'created_at',
                     title: '创建日期',
+                    align:'center',
                     width: 100,
                     sortable: true,
                     formatter: function (value, row, index) {
@@ -33,7 +36,7 @@ $(function () {
                         return date.format("yyyy-MM-dd HH:mm:ss");
                     }
                 },
-                {field: 'kind', title: '类型', width: 100, sortable: true,
+                {field: 'kind', title: '类型',align:'center', width: 100, sortable: true,
                 	formatter: function (value, row, idx) {
                     // 0 # 普通 1 # 课程 2 # 课时 3 # 素材
                     if (row.kind == 0) {
@@ -48,7 +51,7 @@ $(function () {
                         return row.kind;
                     }
                 		}},
-                {field: 'status', title: '状态', width: 100, sortable: true,
+                {field: 'status', title: '状态',align:'center', width: 100, sortable: true,
                 	formatter: function (value, row, idx) {
                     //默认是0 STATUS_EDIT = 0 STATUS_AUDIT = 1 STATUS_PASSED = 2 STATUS_REJECT = 3
                     if (row.status == 0) {
@@ -63,19 +66,19 @@ $(function () {
                         return row.status;
                     }
                         }},
-                {
+                /*{
                     field: 'delOpt', title: '删除', width: 100, formatter: function (value, row, index) {
                     return "<a class='easyui-linkbutton' onclick='delResource(" + row.id + ")'>删除</a>";
                 }
-                },
+                },*/
                 {
-                    field: 'editOpt', title: '基本信息', width: 100, formatter: function (value, row, index) {
+                    field: 'editOpt', title: '类库信息',align:'center', width: 100, formatter: function (value, row, index) {
                     var href = "/bcms/admin/resourcemgr/editresource.jsp?id=" + row.id;
                     return "<a class='easyui-linkbutton' href='" + href + "'>编辑</a>";
                 }
                 },
                 {
-                    field: "editMeta", title: "元数据", width: 100, formatter: function (value, row, index) {
+                    field: "editMeta", title: "元数据",align:'center', width: 100, formatter: function (value, row, index) {
                     var href = "/bcms/admin/resourcemgr/editmeta.jsp?id=" + row.id;
                     return "<a class='easyui-linkbutton' href='" + href + "'>编辑</a>";
                 }

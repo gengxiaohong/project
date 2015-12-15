@@ -3,7 +3,7 @@
  */
 $(function () {
     $("#department_tree").tree({
-        url: "/bcms/proxy?url=department&method=GET",
+    	url: "/bcms/departmentTree",
         lines: true,
         onBeforeLoad:function(node,param){
             ajaxLoading();
@@ -113,23 +113,26 @@ function saveDepartment(){
     ajaxLoading();
     var name = $("#add_department_dlg input[name=name]").val();
     var parent_id=$("#add_department_dlg .department_tree").combotree("getValue");
-    $.post("/bcms/proxy", {method:"post",url: "department/", name: name,parent_id:parent_id}, function (result) {
-        var obj = jQuery.parseJSON(result);
-        if (obj.success==false) {
-            $('#add_department_dlg').dialog('close');
-            alert("添加失败,请稍候再试试!");
-        } else {
-            $('#add_department_dlg').dialog('close');
-            $('#modify_department_dlg').dialog('close');
-            $.post("/bcms/departmentTree", {type:1}, function (result) {
-                if (obj.success==false) {
-
-                }else{
-                    $("#department_tree").tree("reload");
-                }
-            });
-        }
-    });
+    var result = validateForm(name);
+    if (result) {
+    	$.post("/bcms/proxy", {method:"post",url: "department/", name: name,parent_id:parent_id}, function (result) {
+            var obj = jQuery.parseJSON(result);
+            if (obj.success==false) {
+                $('#add_department_dlg').dialog('close');
+                alert("添加失败,请稍候再试试!");
+                $("#department_tree").tree("reload");
+            } else {
+                $('#add_department_dlg').dialog('close');
+                $.post("/bcms/departmentTree", {type:1}, function (result) {
+                    if (obj.success==false) {
+                    	alert("添加失败,请稍候再试试!");
+                    }else{
+                        $("#department_tree").tree("reload");
+                    }
+                });
+            }
+        });
+    }
 }
 
 function modifyDepartment(){
@@ -137,26 +140,36 @@ function modifyDepartment(){
     var id= $("#modify_department_dlg input[name=id]").val();
     var name = $("#modify_department_dlg input[name=name]").val();
     var parent_id=$("#modify_department_dlg .department_tree").combotree("getValue");
-    $.post("/bcms/proxy", {method:"put",url: "department/"+id, name: name,parent_id:parent_id}, function (result) {
-        var obj = jQuery.parseJSON(result);
-        if (obj.success==false) {
-            $('#modify_department_dlg').dialog('close');
-            alert("修改失败,请稍候再试试!");
-        } else {
-            $('#modify_department_dlg').dialog('close');
-            $.post("/bcms/departmentTree", {type:1}, function (result) {
-                if (obj.success==false) {
+    var result = validateForm(name);
+    if (result) {
+    	$.post("/bcms/proxy", {method:"put",url: "department/"+id, name: name,parent_id:parent_id}, function (result) {
+            var obj = jQuery.parseJSON(result);
+            if (obj.success==false) {
+                $('#modify_department_dlg').dialog('close');
+                alert("修改失败,请稍候再试试!");
+            } else {
+                $('#modify_department_dlg').dialog('close');
+                $.post("/bcms/departmentTree", {type:1}, function (result) {
+                    if (obj.success==false) {
+                    	 alert("修改失败,请稍候再试试!");
+                    }else{
+                        $("#department_tree").tree("reload");
+                    }
 
-                }else{
-                    $("#department_tree").tree("reload");
-                }
-
-            });
-        }
-    });
+                });
+            }
+        });
+    }
 }
 
-
+function validateForm(name){
+	if (name == "" || name == null){
+		alert("部门名称不能为空");
+		$('#add_department_dlg input[name=name]').focus(); 
+		return false;
+	}
+	return true;
+}
 
 function delDepartment(){
     var node = $('#department_tree').tree('getSelected');

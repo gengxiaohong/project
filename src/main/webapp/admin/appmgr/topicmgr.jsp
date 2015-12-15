@@ -71,6 +71,8 @@
                      <div id="resourceTree"></div>
                 </div>
                 <div data-options="region:'center',title:'待选资源'" style="padding:5px;">
+<!--                               资源名称： <input class="easyui-textbox" style="width:150px" id="sourcename"> -->
+<!--                     <a href="#" class="easyui-linkbutton" iconCls="icon-search" onclick="reloadResource();">搜索</a> -->
                     <ul id="resource_list" class="easyui-datalist"></ul>
                 </div>
                 <div data-options="region:'east',title:'已选资源',split:true" style="width:210px;">

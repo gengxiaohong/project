@@ -1,6 +1,13 @@
 var department_tree;
 $(function () {
-    $.post("/bcms/proxy", {method: "get", url: "department/"}, function (result) {
+	/*var url = "/bcms/departmentTree";
+	$.getJSON(url, function(json) {
+	department_tree= formatDepartmentTreeData(json)
+	$("#department_id").combotree('loadData', formatDepartmentTreeData(json));
+	});
+	*/
+	
+	$.post("/bcms/departmentTree", function (result) {
         var obj = $.parseJSON(result);
         if (obj.success==false) {
             alert(obj.msg);
@@ -12,7 +19,7 @@ $(function () {
             });
         }
     });
-
+    
     $('#user_table').datagrid({
         rownumbers: true,
         singleSelect: false,
@@ -44,8 +51,6 @@ $(function () {
             }
         ]]
     });
-
-
 
 });
 
@@ -88,15 +93,53 @@ function saveUser(){
     var identity=$('#add_user_dlg .identity_combobox').combobox("getValue");
     var number=$('#add_user_dlg input[name=number]').val();
     var department_id=$('#add_user_dlg .department_tree').combotree("getValue");
-    $.post("/bcms/proxy", {method:"post",url: "user/",number:number,identity:identity,department_id:department_id, username: username,cn_name:cn_name, password:password,email:email,phone:phone,group_ids:JSON.stringify(groups),gender:gender,disk_size:disk_size,description:description}, function (result) {
-        var obj= $.parseJSON(result);
-        $('#add_user_dlg').dialog('close');
-        if (obj.success==false) {
-            alert(obj.msg);
-        } else {
-            $("#user_table").datagrid('reload');
-        }
-    });
+    var result = validateForm(username,password,email,phone,number,gender);
+     if (result) {
+    	 $.post("/bcms/proxy", {method:"post",url: "user/",number:number,identity:identity,department_id:department_id, username: username,cn_name:cn_name, password:password,email:email,phone:phone,group_ids:JSON.stringify(groups),gender:gender,disk_size:disk_size,description:description}, function (result) {
+    	        var obj= $.parseJSON(result);
+    	        if (obj.success==false) {
+    	            alert(obj.msg);
+    	        } else {
+    	        	$('#add_user_dlg').dialog('close');
+    	            $("#user_table").datagrid('reload');
+    	        }
+    	    });
+     }
+    
+} 
+
+
+function validateForm(username,password,email,phone,number,gender){
+	if (username == "" || username == null){
+		alert("用户名不能为空");
+		$('#add_user_dlg input[name=name]').focus(); 
+		return false;
+	}
+	if (password == "" || password == null){
+		alert("密码不能为空");
+		$('#add_user_dlg input[name=password]').focus(); 
+		return false;
+	}
+	if (number == "" || number == null){
+		alert("编号不能为空");
+		return false;
+	}
+	if (gender == "" || gender == null){
+		alert("性别不能为空");
+		return false;
+	}
+	var reg = new RegExp('^[a-zA-Z0-9]+@[a-zA-Z0-9]+.[a-z][a-z.]{2,8}$');
+	if (!reg.test(email)) {
+		alert("邮箱格式不正确，请重新输入");
+		return false;
+	}
+	// 匹配13，14，15，18开头的手机号码！
+	var reg = /^0?1[3|4|5|8][0-9]\d{8}$/;
+	if (!reg.test(phone)) {
+		alert("电话号码格式不正确！");
+		return false;
+	}
+	return true;
 }
 
 function editUser(index){
@@ -158,16 +201,19 @@ function modifyUser(){
     var identity=$('#modify_user_dlg .identity_combobox').combobox("getValue");
     var number=$('#modify_user_dlg input[name=number]').val();
     var department_id=$('#modify_user_dlg .department_tree').combotree("getValue");
-    $.post("/bcms/proxy", {method:"put",url: "user/"+id,cn_name:cn_name,identity:identity,department_id:department_id, email:email,phone:phone,group_ids:JSON.stringify(groups),number:number,gender:gender,disk_size:disk_size,description:description}, function (result) {
-        var obj= $.parseJSON(result);
-        if (obj.success==false) {
-            $('#modify_user_dlg').dialog('close');
-            alert(obj.msg);
-        } else {
-            $('#modify_user_dlg').dialog('close');
-            $("#user_table").datagrid('reload');
-        }
-    });
+    var result = validateForm(username,password,email,phone,number,gender);
+    if (result) { 
+        $.post("/bcms/proxy", {method:"put",url: "user/"+id,cn_name:cn_name,identity:identity,department_id:department_id, email:email,phone:phone,group_ids:JSON.stringify(groups),number:number,gender:gender,disk_size:disk_size,description:description}, function (result) {
+            var obj= $.parseJSON(result);
+            if (obj.success==false) {
+                $('#modify_user_dlg').dialog('close');
+                alert(obj.msg);
+            } else {
+                $('#modify_user_dlg').dialog('close');
+                $("#user_table").datagrid('reload');
+            }
+        });
+    }
 }
 
 function initAddGroupCombotree() {
@@ -184,7 +230,13 @@ function initAddGroupCombotree() {
 }
 
 function initAddDepartmentCombotree() {
-    $("#add_user_dlg .department_tree").combotree('loadData', department_tree);
+    /*var url = "/bcms/departmentTree";
+	$.getJSON(url, function(json) {
+	department_tree= formatDepartmentTreeData(json)
+	$("#add_user_dlg .department_tree").combotree('loadData', formatDepartmentTreeData(json));
+	});*/
+	$("#add_user_dlg .department_tree").combotree('loadData', department_tree);
+
 }
 
 function delUsers() {

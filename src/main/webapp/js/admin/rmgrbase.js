@@ -220,12 +220,12 @@ $(function () {
                         var name = $("#name13").textbox("getValue");
                         var description = $("#description13").textbox("getValue");
                         var metalibrary_id = $("#metatypetree").combobox("getValue");
-                        var tag_ids = $("#tagTree13").combobox("getValues");
+                        /*var tag_ids = $("#tagTree13").combobox("getValues");*/
                         var params = {
                             name: name,
                             description: description,
                             metalibrary_id: metalibrary_id,
-                            tag_ids:"["+tag_ids+"]",
+                            /*tag_ids:"["+tag_ids+"]",*/
                             url: "resourcelibrary/",
                             method: "POST"
                         };
