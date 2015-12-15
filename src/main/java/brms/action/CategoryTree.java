@@ -1,19 +1,22 @@
 package brms.action;
 
-import java.io.IOException;
-
-import javax.servlet.ServletException;
-import javax.servlet.http.HttpServlet;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
 import org.apache.http.HttpResponse;
+import org.apache.http.client.config.RequestConfig;
 import org.apache.http.client.methods.HttpGet;
+import org.apache.http.client.utils.DateUtils;
 import org.apache.http.util.EntityUtils;
 import org.apache.log4j.Logger;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by ligson on 2015/9/10.
@@ -30,6 +33,7 @@ public class CategoryTree extends HttpServlet {
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String id = req.getParameter("id");
         String type = req.getParameter("type");
+        req.setCharacterEncoding("UTF-8");
         resp.setCharacterEncoding("UTF-8");
         if (id == null) {
             String url = Proxy.BASE_URL + "metalibrarycategory/";
