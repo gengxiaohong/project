@@ -37,14 +37,15 @@
 </head>
 <body class="easyui-layout">
 <jsp:include page="../../layout/admin/adminbody.jsp"/>
-<div class="easyui-accordion" data-options="region:'west',split:true" title="系统管理" style="width:240px;">
+<div data-options="region:'west',split:true" title="系统管理" style="width:240px;">
+<div class="easyui-accordion" data-options="fit:true">
     <div title="资源管理" id="treeMenu" iconCls="icon-cd_magnify">
             <div id="categoryTreeTbr">
                 <a href="#" class="easyui-linkbutton" iconCls="icon-add" title="增加资源库" plain="true"
                    onclick="addCategory()">增加</a>
                 <a href="#" class="easyui-linkbutton" iconCls="icon-remove" title="删除资源库" plain="true" onclick="removeCategory()">删除</a>
                 <a href="./createresource.jsp" class="easyui-linkbutton" iconCls="icon-folder_up" title="上传"
-                   plain="true">上传</a>
+                   plain="true">上传资源</a>
             </div>
 
             <ul class="easyui-tree" url="/bcms/proxy?url=resourcelibrary/&method=GET" id="categoryTree" toolbar="#categoryTreeTbr">
@@ -62,6 +63,7 @@
                  <li iconCls="icon-star"><span><a href="myfilelist.jsp">我的文件</a></span></li>
              </ul>
          </div>--%>
+    </div>
 </div>
 <div id="addCategoryDlg" class="easyui-dialog" title="添加类库" data-options="iconCls:'icon-save'"
      style="width:400px;height:250px" closed="true">

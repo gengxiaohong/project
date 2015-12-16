@@ -14,16 +14,19 @@
 <rapid:override name="mainName">资源库统计</rapid:override>
 <rapid:override name="mainIcon">icon-page_world</rapid:override>
 <rapid:override name="body">
-    <div id="rGridTbr" style="height:30px;line-height:30px;">
-        <a href="javascript:void(0)" class="easyui-linkbutton" onclick="publishResource()" plain="true"
-           iconCls="icon-application_side_expand"
+    <div id="rGridTbr" style="height:30px;line-height:30px;padding-bottom:3px;">
+        <div style="float:left;">
+        	<a href="javascript:void(0)" class="easyui-linkbutton" onclick="publishResource()" iconCls="icon-application_side_expand"
            title="发布">发布</a>
-        <a href="javascript:void(0)" class="easyui-linkbutton" onclick="passResource()" plain="true" iconCls="icon-ok"
-           title="审核">审核</a>
-        <a href="javascript:void(0)" class="easyui-linkbutton" onclick="delResource()" plain="true" iconCls="icon-remove"
-           title="删除">删除</a>|<label>名称:<input type="text" class="easyui-textbox" id="name"/></label>
-        <a href="javascript:void(0)" class="easyui-linkbutton" onclick="reloadgrid()" plain="true" iconCls="icon-search"
-           title="搜索"></a>
+	        <a href="javascript:void(0)" class="easyui-linkbutton" onclick="passResource()" iconCls="icon-ok" title="审核">审核</a>
+	        <a href="javascript:void(0)" class="easyui-linkbutton" onclick="delResource()"  iconCls="icon-remove" title="删除">删除</a>
+        </div>
+        <div style="float:right;">
+        	<input class="easyui-searchbox" prompt="按名称过滤..." searcher="reloadgrid" id="name" style="width:200px;height:24px;"/>
+        </div>
+        <div style="clear:both;"></div>
+        <!-- <a href="javascript:void(0)" class="easyui-linkbutton" onclick="reloadgrid()" plain="true" iconCls="icon-search"
+           title="搜索"></a> -->
     </div>
     <table id="rGrid" class="easyui-datagrid"
            data-options="rownumbers:true,singleSelect:true,method:'post'"

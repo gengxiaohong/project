@@ -2,6 +2,9 @@
  * Created by ligson on 2015/8/28.
  */
 $(function () {
+	//alert(window.location.search);
+	var urlparam = window.location.search;
+	var resourceId = urlparam.substring(urlparam.lastIndexOf('=')+1, urlparam.length);
     $.post("/bcms/proxy",{method:"GET",url:"resource/"+resourceId},function(data){
         $("#name10").textbox("setValue",data.name);
         $("#kind10").combobox("setValue",data.kind);
@@ -15,14 +18,34 @@ $(function () {
         $("#click_number10").val(data.click_number);
         $("#id10").val(data.id);
     },"json");
-    $("#resourceTree").combotree({
+    /*$("#resourceTree").combotree({
         loadFilter: function (data) {
             for (var i = 0; i < data.rows.length; i++) {
                 data.rows[i].text = data.rows[i].name;
             }
             return data.rows;
         }
+    });*/
+    $.post("/bcms/proxy", {method: "get", url: "resourcelibrary/"}, function (result) {
+        var obj = jQuery.parseJSON(result);
+        if (obj.success==false) {
+            alert(obj.msg);
+        } else {
+            $("#resourceTree").combotree({data: formatTreeData(obj.rows)});
+        }
     });
+    function formatTreeData(data){
+        var fin = [];
+        for (var i = 0; i < data.length; i++) {
+            var obj = data[i];
+            obj.text = obj.name;
+            if (obj.children && obj.children.length > 0) {
+                obj.children = formatTreeData(obj.children);
+            }
+            fin.push(obj);
+        }
+        return fin;
+    }
     $("#tagTree").combotree({
         loadFilter: function (data) {
             for (var i = 0; i < data.rows.length; i++) {

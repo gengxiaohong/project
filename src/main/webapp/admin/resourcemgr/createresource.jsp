@@ -17,7 +17,7 @@
     <script type="text/javascript" src="http://42.62.52.40:8000/static/flow.js"></script>
     <script type="text/javascript" src="../../js/admin/resourcemgr/createresource.js"></script>
 </rapid:override>
-<rapid:override name="mainName">操作日志</rapid:override>
+<rapid:override name="mainName">创建资源</rapid:override>
 <rapid:override name="mainIcon">icon-page_world</rapid:override>
 <rapid:override name="body">
     <form id="createResourceForm">
