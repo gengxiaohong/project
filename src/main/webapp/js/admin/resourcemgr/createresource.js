@@ -1,6 +1,13 @@
 /**
  * Created by ligson on 2015/8/28.
  */
+
+var href = window.location.href;
+var idx = href.indexOf("id=");
+var resourceId = undefined;
+if (idx > 0) {
+    resourceId = href.substring(idx + 3);
+}
 var flow;
 function startUpload() {
     if (waitFile.file && waitFile.hash) {
@@ -19,43 +26,38 @@ function startUpload() {
         }, "json");
     }
 }
-
+function setData(data) {
+    if (data != undefined) {
+        for (var i = 0; i < data.length; i++) {
+            data[i].text = data[i].name;
+            setData(data[i].children);
+        }
+    }
+}
 var waitFile = {status: false};
 $(function () {
-    /*$("#resourceTree").combotree({
+
+    $("#resourceTree").combotree({
         loadFilter: function (data) {
             for (var i = 0; i < data.rows.length; i++) {
                 data.rows[i].text = data.rows[i].name;
+                setData(data.rows[i].children);
             }
             return data.rows;
-        	
-        }
-    });*/
-    
-
-    $.post("/bcms/proxy", {method: "get", url: "resourcelibrary/"}, function (result) {
-        var obj = jQuery.parseJSON(result);
-        if (obj.success==false) {
-            alert(obj.msg);
-        } else {
-            $("#resourceTree").combotree({data: formatTreeData(obj.rows)});
         }
     });
-    function formatTreeData(data){
-        var fin = [];
-        for (var i = 0; i < data.length; i++) {
-            var obj = data[i];
-            obj.text = obj.name;
-            if (obj.children && obj.children.length > 0) {
-                obj.children = formatTreeData(obj.children);
+    $("#tagTree").combotree({
+        loadFilter: function (data) {
+            for (var i = 0; i < data.rows.length; i++) {
+                data.rows[i].text = data.rows[i].name;
+                setData(data.rows[i].children);
             }
-            fin.push(obj);
+            return data.rows;
         }
-        return fin;
-    }
-
+    });
+    $("#subMeta10").val(resourceId);
     flow = new Flow({
-        target: 'http://42.62.52.40:8000/file/upload',
+        target: 'http://42.62.77.189:8000/file/upload',
         chunkSize: 1024 * 1024,
         testChunks: false,
         simultaneousUploads: 1,
@@ -71,7 +73,7 @@ $(function () {
             waitFile.hash = hash.toUpperCase();
             waitFile.file = source;
             waitFile.fileId = fileId;
-            fileList.append("<li class=\"list-group-item\">" + source.name + "(文件大小:" + source.size + "字节,hash:" + hash.toUpperCase() + ",已上传:<span class=\"label label-info\" id=\"upload-" + fileId + "\">0%</span>)</li>");
+            fileList.append("<li class=\"list-group-item\">" + source.name + "(文件大小:" + source.size + "字节,hash:" + hash.toUpperCase() + ",已上传 :<span class=\"label label-info\" id=\"upload-" + fileId + "\">0%</span>)</li>");
         });
     });
     flow.on("fileProgress", function (file, chunk) {
@@ -83,13 +85,13 @@ $(function () {
         //console.log(file,message);
         waitFile.status = true;
         var fileId = file.uniqueIdentifier;
-        $("#upload-" + fileId).empty().append("上传成功!");
+        $("#upload-" + fileId).empty().append("上传完成!");
     });
 
     flow.on('fileError', function (file, message) {
         //console.log(file, message);
         waitFile.status = false;
-        //alert(file.name + "上传失败!" + message);
+        //alert(file.name + "涓婁紶澶辫触!" + message);
         var fileId = file.uniqueIdentifier;
         $("#upload-" + fileId).empty().append("上传失败!");
     });
@@ -168,7 +170,7 @@ function formatTagLibTreeGridData(data) {
 function submitForm() {
     var ff = $("#createResourceForm");
     if (!(waitFile.status && waitFile.hash)) {
-        alert("请上传文件");
+        alert("请上传文件!");
         return;
     }
     if (ff.form("validate")) {
@@ -176,20 +178,27 @@ function submitForm() {
         var kind10 = $("#kind10").combobox("getValue");
         var node = $("#resourceTree").combotree("getValue");
         var committer = $.cookie("bcms_user_id");
-        $.post("/bcms/proxy", {
+        var parent_id = $("#subMeta10").val();
+        var tag = $("#tagTree").combobox("getValues");
+
+        var params = {
             method: "POST",
             url: "resource/",
             name: name,
             kind: kind10,
             resourcelibrary_id: parseInt(node),
+            tag_ids: "["+tag+"]",
             committer: parseInt(committer)
-        }, function (data) {
+        };
+        if (parent_id) {
+            params.parent_id = parent_id;
+        }
+        $.post("/bcms/proxy", params, function (data) {
             if (data.id != undefined) {
                 //alert("ok........");
-            	$("#newResources").linkbutton("disable");
-                if (waitFile.fileId != null) {
+                if (waitFile.id != null) {
                     $.post("/bcms/proxy", {
-                        url: "file/detail/" + data.id,
+                        url: "file/detail/" + waitFile.id,
                         method: "POST",
                         resource_id: data.id
                     }, function (data3) {
@@ -225,7 +234,7 @@ function submitForm() {
 
 function submitSuccess(data3, resourceId) {
     if (data3.id != undefined) {
-        alert("资源创建成功!");
+        //alert("资源创建成功 !");
         window.location.href = "/bcms/admin/resourcemgr/editmeta.jsp?id=" + resourceId;
     } else {
         alert("资源创建失败!");

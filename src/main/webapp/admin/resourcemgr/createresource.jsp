@@ -20,16 +20,17 @@
 <rapid:override name="mainName">创建资源</rapid:override>
 <rapid:override name="mainIcon">icon-page_world</rapid:override>
 <rapid:override name="body">
-    <form id="createResourceForm">
-        <table class="table">
+     <form id="createResourceForm">
+     	<input id="subMeta10" type="hidden" value=""/>
+        <table >
             <tr>
-                <td class="col-md-2"><label>资源名:</label></td>
-                <td class="col-md-10"><input id="name10" type="text" class="easyui-textbox" required="true" style="width:200px;"/></td>
+                <td><label>资源名:</label></td>
+                <td><input id="name10" type="text" class="easyui-textbox" required="true" style="width:200px;"/></td>
             </tr>
             <tr>
                 <td><label>类型:</label></td>
                 <td>
-                    <select id="kind10" class="easyui-combobox" editable="false" required="true" style="width:200px;">
+                    <select id="kind10" class="easyui-combobox" editable="false" style="width:200px;">
                         <option value="0">普通</option>
                         <option value="1">课程</option>
                         <option value="2">课时</option>
@@ -39,32 +40,20 @@
             </tr>
             <tr>
                 <td><label>资源库</label></td>
-                <td><select id="resourceTree"  class="easyui-combotree"
-                            data-options="required:true"
+                <td><select id="resourceTree" url="/bcms/proxy?url=resourcelibrary/&method=GET" class="easyui-combotree"
+                            data-options="method:'POST',required:true"
                             style="width:200px;"></select></td>
             </tr>
-                <%-- <tr id="parentResource">
-                     <td><label>父资源:</label></td>
-                     <td><input class="easyui-combotree" data-options="url:'./lefttree.json',method:'get',required:true"
-                                style="width:200px;"/></td>
-                 </tr>--%>
-
-
-                <%--<tr>
-                    <td><label>资源标签:</label></td>
-                    <td><input data-role="tagsinput" style="width:200px;" placeholder="回车输入" title="输入后点击回车键添加"/></td>
-                </tr>--%>
-            <%--<tr>
-                <td><label>转码策略:</label></td>
-                <td>
-                    <select id="cc" class="easyui-combobox" name="dept" style="width:200px;" editable="editable">
-                        <option>默认</option>
-                        <option>策略1</option>
-                        <option>策略2</option>
-                        <option>策略3</option>
-                    </select>
-                </td>
-            </tr>--%>
+            <tr>
+                <td><label>资源分类</label></td>
+                <td><select id="tagTree" url="/bcms/proxy?url=tag/&method=GET" class="easyui-combotree" multiple="true"
+                            data-options="method:'POST',required:true"
+                            style="width:200px;"></select></td>
+            </tr>
+            <tr>
+                <td><label>标签:</label></td>
+                <td><input id="tagname" type="text" class="easyui-textbox" style="width:200px;"/></td>
+            </tr>
             <tr>
                 <td><label>文件:</label></td>
                 <td><input type="text" class="easyui-filebox" buttonText="选择文件" id="fileIpt">&nbsp;&nbsp;<a class="easyui-linkbutton" onclick="startUpload()">上传</a></td>
@@ -76,17 +65,10 @@
                     </ul>
                 </td>
             </tr>
-           <%-- <tr>
-                <td><label>横版海报:</label></td>
-                <td><input type="text" class="easyui-filebox" buttonText="选择文件">(建议尺寸:120x90)</td>
-            </tr>
-            <tr>
-                <td><label>竖版海报:</label></td>
-                <td><input type="text" class="easyui-filebox" buttonText="选择文件">(建议尺寸:121x161)</td>
-            </tr>--%>
+           
             <tr>
                 <td colspan="2" style="text-align: center;padding:10px;">
-                    <a id="newResources" class="easyui-linkbutton" iconCls="icon-ok" onclick="submitForm()">提交</a>
+                    <a class="easyui-linkbutton" iconCls="icon-ok" onclick="submitForm()">提交</a>
                 </td>
             </tr>
         </table>

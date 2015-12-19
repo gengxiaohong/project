@@ -7,7 +7,7 @@
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib uri="http://www.rapid-framework.org.cn/rapid" prefix="rapid" %>
-<rapid:override name="title">创建资源</rapid:override>
+<rapid:override name="title">编辑资源</rapid:override>
 <rapid:override name="head">
     <link type="text/css" rel="stylesheet" href="../../js/bootstrap-tagsinput/bootstrap-tagsinput.css">
     <script type="text/javascript" src="../../js/bootstrap-tagsinput/bootstrap-tagsinput.min.js"></script>
@@ -20,16 +20,16 @@
 <rapid:override name="mainName">编辑资源</rapid:override>
 <rapid:override name="mainIcon">icon-page_world</rapid:override>
 <rapid:override name="body">
-    <form id="createResourceForm">
+    <form id="editResourceForm">
         <table class="table">
             <tr>
                 <td class="col-md-2"><label>资源名:</label></td>
-                <td class="col-md-10"><input id="name10" type="text" class="easyui-textbox" data-options="required:true"/></td>
+                <td class="col-md-10"><input id="name10" type="text" class="easyui-textbox" required="true"/></td>
             </tr>
             <tr>
                 <td><label>类型:</label></td>
                 <td>
-                    <select id="kind10" class="easyui-combobox" data-options="editable:false,required:true" style="width:200px;">
+                    <select id="kind10" class="easyui-combobox" editable="false" style="width:200px;">
                         <option value="0">普通</option>
                         <option value="1">课程</option>
                         <option value="2">课时</option>
@@ -39,25 +39,32 @@
             </tr>
             <tr>
                 <td><label>资源库</label></td>
-                <td><select id="resourceTree" class="easyui-combotree"
+                <td><select id="resourceTree" style="width:200px;" url="/bcms/proxy?url=resourcelibrary/&method=GET" class="easyui-combotree"
                             data-options="method:'POST',required:true"
                             style="width:200px;"></select></td>
             </tr>
-
             <tr>
-                <td><label>标签</label></td>
-                <td><select id="tagTree" url="/bcms/proxy?url=tag/&method=GET" class="easyui-combotree" multiple="true" 
-                            data-options="method:'POST',required:true" 
-                            style="width: 200px;"></select></td>
+                <td><label>资源分类</label></td>
+                <td><select id="tagTree" url="/bcms/proxy?url=tag/&method=GET" class="easyui-combotree" multiple="true"
+                            data-options="method:'POST',required:true"
+                            style="width:200px;"></select></td>
             </tr>
-
+            <tr>
+                <td><label>标签:</label></td>
+                <td><input id="tagname" type="text" class="easyui-textbox" style="width:200px;"/></td>
+            </tr>
             <tr>
                 <td colspan="2" style="text-align: center;padding:10px;">
-                    <a class="easyui-linkbutton" onclick="submitForm()">提交</a>
+                    <a class="easyui-linkbutton" iconCls="icon-ok" onclick="submitForm()">提交</a>
                 </td>
             </tr>
         </table>
-        <input type="hidden" id="id10" value="<%=request.getParameter("id")%>">
+        <input type="hidden" id="status10" value="">
+        <input type="hidden" id="resourcelibrary_id10" value="">
+        <input type="hidden" id="parent_id10" value="">
+        <input type="hidden" id="recommend_number10" value="">
+        <input type="hidden" id="click_number10" value="">
+        <input type="hidden" id="id10" value="">
     </form>
 </rapid:override>
 

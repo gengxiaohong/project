@@ -14,8 +14,8 @@ $(function () {
         fitColumns: true,
         rownumbers: false,
         singleSelect:false,
-        autoRowHeight: true,
-        fit: true,
+        pagination: true,
+        toolbar:"#rGridTbr",
         columns: [
             [
                 {field: 'id',checkbox:true, title: 'id', width: 100},

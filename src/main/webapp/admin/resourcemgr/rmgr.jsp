@@ -25,14 +25,8 @@
         	<input class="easyui-searchbox" prompt="按名称过滤..." searcher="reloadgrid" id="name" style="width:200px;height:24px;"/>
         </div>
         <div style="clear:both;"></div>
-        <!-- <a href="javascript:void(0)" class="easyui-linkbutton" onclick="reloadgrid()" plain="true" iconCls="icon-search"
-           title="搜索"></a> -->
     </div>
-    <table id="rGrid" class="easyui-datagrid"
-           data-options="rownumbers:true,singleSelect:true,method:'post'"
-           pagination="true" toolbar="#rGridTbr">
-        <thead>
-        </thead>
+    <table id="rGrid" class="easyui-datagrid" data-options="fit:true">
     </table>
 </rapid:override>
 
