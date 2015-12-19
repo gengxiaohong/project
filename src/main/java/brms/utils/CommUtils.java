@@ -1,15 +1,20 @@
 package brms.utils;
 
+import java.io.IOException;
+import java.util.Properties;
+
 /**
- * Created by Administrator on 2015/9/19 0019.
+ * Created by Administrator on 2015/12/9.
  */
 public class CommUtils {
-    public static String readUrl(String url){
-    	if("BASE_URL".equals(url)) {
-    		return "http://42.62.77.189/api/";
-    	} else if("STATISTICAL_URL".equals(url)) {
-    		return "http://42.62.77.189/api/";
-    	}
-    	return null;
-    }
+
+	public static String getProperty(String propertiesFileName, String key) {  
+        Properties props = new Properties();  
+        try {  
+            props.load(CommUtils.class.getResourceAsStream("/" + propertiesFileName));  
+        } catch (IOException e) {  
+            e.printStackTrace();  
+        }  
+        return (String) props.get(key);  
+    } 
 }

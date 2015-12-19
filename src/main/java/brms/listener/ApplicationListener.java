@@ -25,8 +25,8 @@ public class ApplicationListener implements ServletContextListener {
     @Override
     public void contextInitialized(ServletContextEvent sce) {
         logger.info("系统正常启动!");
-        Proxy.BASE_URL= CommUtils.readUrl("BASE_URL");
-        Proxy.STATISTICAL_URL=CommUtils.readUrl("STATISTICAL_URL");
+        Proxy.BASE_URL= CommUtils.getProperty("config.properties", "BASE_URL");
+        Proxy.STATISTICAL_URL=CommUtils.getProperty("config.properties", "STATISTICAL_URL");
         //10分钟清理一下httpclean的dateformate线程池
         Timer timer = new Timer();
         long delay = 1000;
