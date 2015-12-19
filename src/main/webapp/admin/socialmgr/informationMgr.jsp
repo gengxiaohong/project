@@ -6,9 +6,6 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<%-- <%@ taglib uri="http://www.rapid-framework.org.cn/rapid" prefix="rapid" %>
-<rapid:override name="title">社会化功能管理</rapid:override>
-<rapid:override name="head"> --%>
 <head>
 <jsp:include page="../../layout/admin/adminheader.jsp"/>
 <style type="text/css">
@@ -19,30 +16,19 @@
   <script type="text/javascript" src="../../js/admin/social/informationmgr.js"></script>
   <script type="text/javascript" src="../../js/ckeditor/ckeditor.js"></script>
 </head>
-<%-- </rapid:override> --%>
-<%-- <rapid:override name="mainName">社会化功能管理</rapid:override>
-<rapid:override name="mainIcon">icon-page_world</rapid:override> --%>
-<%-- <rapid:override name="body"> --%>
 <body style="padding:0px;margin:0px;">
- <!-- <div id="information_tabs" class="easyui-tabs" fit="true"> 
-   <div title="资讯列表" style="padding:0px">  -->
     <table id="information_table" fit="true"></table>
-  <!--  </div> 
- </div>  -->
   <div id="tb" style="padding:5px">
    		<div style="float:left;">
    		<a href="javascript:void(0)" onclick="newInformation();" class="easyui-linkbutton" data-options="iconCls:'icon-add'">添加</a>
-   		<!-- &nbsp;<span>|</span>
-   		<a href="javascript:void(0)" onclick="deleteInfos();" class="easyui-linkbutton" data-options="iconCls:'icon-remove'">删除</a> -->
    		</div>
       	<div style="float:right;">
       	<input class="easyui-searchbox" style="width:200px;height:24px;" id="name" prompt="请输入资讯名称..." searcher="reloadgrid">
-     <!--  <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-search" onclick="reloadgrid();">搜索</a> <span style="color:silver;">|</span> --> 
       	</div>
       <div style="clear:both;"></div>
   </div>
   <div class="easyui-dialog" id="newInformationDialog" style="width:800px;height:400;padding-top:5px;overflow:auto;"
-   data-options="title:'添加资讯',collapsible:true,modal:true,closed:true" buttons="#add-dlg-buttons">
+   data-options="title:'添加资讯',collapsible:true,modal:true,closed:true,buttons:'#add-dlg-buttons'">
   	<form id="add_information_form" method="post">
   		<table>
   			<tr>
@@ -68,7 +54,7 @@
   	</form>
   </div>
   <div class="easyui-dialog" id="editInformationDialog" style="width:800px;height:400;overflow:auto;" closed="true"
-   data-options="title:'添加资讯',collapsible:true" buttons="#edit-dlg-buttons">
+   data-options="title:'编辑资讯',collapsible:true,buttons:'#edit-dlg-buttons'">
   	<form id="edit_information_form" method="post">
   		<table>
   			<tr>
@@ -94,18 +80,12 @@
   		</table>
   	</form>
   </div>
-  <div id="add-dlg-buttons">
+   <div id="add-dlg-buttons">
 		<a href="#" class="easyui-linkbutton" iconCls="icon-ok" onclick="saveInformation();">保存</a>
 		<a href="#" class="easyui-linkbutton" iconCls="icon-cancel" onclick="javascript:$('#newInformationDialog').dialog('close')">Cancel</a>
-	</div>
+	</div> 
 	<div id="edit-dlg-buttons">
 		<a href="#" class="easyui-linkbutton" iconCls="icon-ok" onclick="modifyInformation();">保存</a>
 		<a href="#" class="easyui-linkbutton" iconCls="icon-cancel" onclick="javascript:$('#editInformationDialog').dialog('close')">Cancel</a>
 	</div>
 </body>
-<%-- </rapid:override> --%>
-
-<!-- extends from base.jsp -->
-<%-- <%@ include file="../../layout/admin/socialmgr-base.jsp" %> --%>
-
-

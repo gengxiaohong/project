@@ -88,45 +88,6 @@ function closeTab(title) {
 }
 
 function newInformation() {
-	/*alert('111');
-    var tab= $('#information_tabs').tabs('getTab', "添加资讯");
-    if(!tab) {
-        var html = "";
-        html += '<div title="添加资讯">';
-        html += '<div class="ftitle">添加资讯</div>';
-        html += '<form id="add_information_form" method="post">';
-        html += '<div class="fitem">';
-        html += '<label>标题</label>';
-        html += '<input id="name1" class="easyui-validatebox" required="true" type="text" />';
-        html += '</div><div class="fitem">';
-        html += '<label>开始时间</label>';
-        html += '<input id="published_at1" class="easyui-datetimebox" required="true" type="text" />';
-        html += '</div>';
-        html += '<div class="fitem"><label>结束时间</label>';
-        html += '<input id="end_at1" class="easyui-datetimebox" required="true" type="text" />';
-        html += '</div>';
-        html += '<div class="fitem">';
-        html += '<label>查看部门</label>';
-        html += '<input class="easyui-combotree add_department_tree" required="true" type="text" />';
-        html += '</div>';
-        html += '<div class="fitem"><label>查看角色</label>';
-        html += '<input class="easyui-combotree add_role_tree" required="true" type="text" />';
-        html += '</div>';
-        html += '<div class="fitem"><label>内容</label>';
-        html += '<input id="content1" class="easyui-validatebox" required="true" type="text" />';
-        html += '<script type=\"text/javascript\">CKEDITOR.replace(\"content1\");</script>';
-        html += '</div>';
-        html += '</form>';
-        html += '<div id="add_information_dlg_buttons">';
-        html += '<a href="javascript:void(0)" class="easyui-linkbutton" onclick="saveInformation();" iconcls="icon-save">保存</a>';
-        html += "<a href=\"javascript:void(0)\" class=\"easyui-linkbutton\" onclick=\"closeTab('添加资讯');\" iconcls=\"icon-cancel\">取消</a>";
-        html += '</div>';
-        html += '</div>';
-        $('#information_tabs').tabs('add', {
-            title: '添加资讯',
-            content: html,
-            closable: true
-        });*/
 	$("#add_information_form").form('clear');
 	$("#newInformationDialog").window('open').window('resize',{
 		left:$(window).width()-800,
@@ -136,7 +97,43 @@ function newInformation() {
         initAddRoleTree();
     }
 
-function saveInformation(){
+  function saveInformation(){
+
+      if ($("#newInformationDialog").find("form").form("validate")) {
+      	  var name=$("#name1").val();
+          var content=CKEDITOR.instances.content1.getData();
+          var published_at =$('#published_at1').datebox('getValue');
+          var end_at=$("#end_at1").datebox('getValue');
+          var departments=$(".add_department_tree").combotree("getValues");
+          var roles=$(".add_role_tree").combotree("getValues");
+          var user_id=$.cookie("bcms_user_id");
+          var create_date=new Date().format("yyyy-MM-dd HH:mm:ss");
+          var params = {
+                  method: "post",
+                  url: "/information/",
+                  user_id:user_id,
+                  name: name,
+                  content: content,
+                  created_at: create_date,
+                  published_at: published_at,
+                  end_at: end_at,
+                  department_id:departments.toString(),
+                  role_id:roles.toString()
+              };
+          $.post("/bcms/proxy", params, function (data) {
+             /* var result = JSON.parse(data);*/
+              if (data.id) {
+                  $("#information_table").datagrid("reload");
+                  $('#newInformationDialog').dialog('close');
+              } else {
+              	$.messager.alert("提示", data.msg);
+              }
+          }, "json");
+      }
+    
+	  
+	  
+	  /*
     var name=$("#name1").val();
     var content=CKEDITOR.instances.content1.getData();
     var published_at =$('#published_at1').datebox('getValue');
@@ -165,51 +162,58 @@ function saveInformation(){
         	$.messager.alert("提示", result.msg);
         }
     });
-}
-
+*/}
+//调用带form验证的dialog
+/*$("#newInformationDialog").dialog({
+    buttons: [
+        {
+            text: "提交",
+            handler: function () {
+                if ($("#newInformationDialog").find("form").form("validate")) {
+                	var name=$("#name1").val();
+                    var content=CKEDITOR.instances.content1.getData();
+                    var published_at =$('#published_at1').datebox('getValue');
+                    var end_at=$("#end_at1").datebox('getValue');
+                    var departments=$(".add_department_tree").combotree("getValues");
+                    var roles=$(".add_role_tree").combotree("getValues");
+                    var user_id=$.cookie("bcms_user_id");
+                    var create_date=new Date().format("yyyy-MM-dd HH:mm:ss");
+                    var params = {
+                            method: "post",
+                            url: "/information/",
+                            user_id:user_id,
+                            name: name,
+                            content: content,
+                            created_at: create_date,
+                            published_at: published_at,
+                            end_at: end_at,
+                            department_id:departments.toString(),
+                            role_id:roles.toString()
+                        };
+                    $.post("/bcms/proxy", params, function (data) {
+                        var result = JSON.parse(data);
+                        if (result.id) {
+                            $("#information_table").datagrid("reload");
+                            $('#newInformationDialog').dialog('close');
+                        } else {
+                        	$.messager.alert("提示", result.msg);
+                        }
+                    }, "json");
+                }
+            }
+        },
+        {
+            text: "取消",
+            handler: function () {
+                $("#newInformationDialog").dialog("close");
+            }
+        }
+    ]
+});*/
 function editInformation(index) {
     $('#information_table').datagrid('selectRow', index);
     var row = $('#information_table').datagrid('getSelected');
     if (row) {
-    	
-        /*$('#information_tabs').tabs('close', "编辑资讯");
-        var html = "";
-        html += '<div title="编辑资讯">';
-        html += '<div class="ftitle">编辑资讯</div>';
-        html += '<form id="add_information_form" method="post">';
-        html += '<input id="id" type="hidden" value="' + row.information_id + '"/>';
-        html += '<div class="fitem">';
-        html += '<label>标题</label>';
-        html += '<input id="name2" class="easyui-validatebox" value="' + row.name + '" required="true" type="text" />';
-        html += '</div><div class="fitem">';
-        html += '<label>开始时间</label>';
-        html += '<input id="published_at2" class="easyui-datetimebox" value="' + row.name + '" required="true" type="text" />';
-        html += '</div>';
-        html += '<div class="fitem"><label>结束时间</label>';
-        html += '<input id="end_at2" class="easyui-datetimebox" value="' + row.name + '" required="true" type="text" />';
-        html += '</div>';
-        html += '<div class="fitem">';
-        html += '<label>查看部门</label>';
-        html += '<input class="easyui-combotree modify_department_tree" required="true" type="text" />';
-        html += '</div>';
-        html += '<div class="fitem"><label>查看角色</label>';
-        html += '<input class="easyui-combotree modify_role_tree" required="true" type="text" />';
-        html += '</div>';
-        html += '<div class="fitem"><label>内容</label>';
-        html += '<input id="content2" class="easyui-validatebox" value="' + row.name + '" required="true" type="text" />';
-        html += '<script type=\"text/javascript\">CKEDITOR.replace(\"content2\");</script>';
-        html += '</div>';
-        html += '</form>';
-        html += '<div id="add_information_dlg_buttons">';
-        html += '<a href="javascript:void(0)" class="easyui-linkbutton" onclick="modifyInformation();" iconcls="icon-save">保存</a>';
-        html += "<a href=\"javascript:void(0)\" class=\"easyui-linkbutton\" onclick=\"closeTab('编辑资讯');\" iconcls=\"icon-cancel\">取消</a>";
-        html += '</div>';
-        html += '</div>';
-        $('#information_tabs').tabs('add', {
-            title: '编辑资讯',
-            content: html,
-            closable: true
-        });*/
     	$("#id").val(row.information_id);
     	$("#name2").val(row.name);
         CKEDITOR.instances.content2.setData(row.content);
@@ -228,34 +232,37 @@ function editInformation(index) {
 }
 
 function modifyInformation(){
-    var id = $("#id").val();
-    var name=$("#name2").val();
-    var content=CKEDITOR.instances.content2.getData();
-    var published_at =$('#published_at2').datebox('getValue');
-    var end_at=$("#end_at2").datebox('getValue');
-    var departments=$(".modify_department_tree").combotree("getValues");
-    var roles=$(".modify_role_tree").combotree("getValues");
-    //var user_id=$.cookie("bcms_user_id");
-    var create_date=new Date().format("yyyy-MM-dd HH:mm:ss");
-    $.post("/bcms/proxy", {
-        method: "put",
-        url: "/information/"+id,
-        name: name,
-        content: content,
-        created_at: create_date,
-        published_at: published_at,
-        end_at: end_at,
-        department_id:departments.toString(),
-        role_id:roles.toString()
-    }, function (data) {
-        var result = JSON.parse(data);
-        if (result.id) {
-            $("#information_table").datagrid("reload");
-            $('#editInformationDialog').window('close');
-        } else {
-        	$.messager.alert("提示", result.msg);
-        }
-    });
+	if($("#editInformationDialog").find("form").form("validate")){
+	    var id = $("#id").val();
+	    var name=$("#name2").val();
+	    var content=CKEDITOR.instances.content2.getData();
+	    var published_at =$('#published_at2').datebox('getValue');
+	    var end_at=$("#end_at2").datebox('getValue');
+	    var departments=$(".modify_department_tree").combotree("getValues");
+	    var roles=$(".modify_role_tree").combotree("getValues");
+	    //var user_id=$.cookie("bcms_user_id");
+	    var create_date=new Date().format("yyyy-MM-dd HH:mm:ss");
+	    $.post("/bcms/proxy", {
+	        method: "put",
+	        url: "/information/"+id,
+	        name: name,
+	        content: content,
+	        created_at: create_date,
+	        published_at: published_at,
+	        end_at: end_at,
+	        department_id:departments.toString(),
+	        role_id:roles.toString()
+	    }, function (data) {
+	        var result = JSON.parse(data);
+	        if (result.id) {
+	            $("#information_table").datagrid("reload");
+	            $('#editInformationDialog').window('close');
+	        } else {
+	        	$.messager.alert("提示", result.msg);
+	        }
+	    });
+
+	}
 }
 
 
