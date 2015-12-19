@@ -52,6 +52,11 @@
             </ul>
 
         </div>
+        <div iconCls="icon-script" title="资源分类">
+            <ul class="easyui-tree">
+                <li><span><a href="resourceCateogryMgr.jsp">资源分类</a></span></li>
+            </ul>
+    </div>
     <div iconCls="icon-script" title="资源日志">
             <ul class="easyui-tree">
                 <li><span><a href="roplog.jsp">操作日志</a></span></li>
