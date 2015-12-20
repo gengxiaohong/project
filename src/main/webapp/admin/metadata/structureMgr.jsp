@@ -41,7 +41,7 @@
         <ul id="metadata_tree1" class="easyui-tree" url="./lefttree.json" checkbox="true"></ul>
     </div>
     <div id="addMetaItemDlg" title="增加结构类型" class="easyui-dialog" closed="true"
-         style="width:450px;height:650px;padding:10px;">
+         style="width:450px;height:auto;padding:10px;">
         <form id="addMetaItemForm">
             <input type="hidden" name="parent_id" value="">
             <table class="table">
@@ -130,7 +130,7 @@
         </form>
     </div>
     <div id="editMetaItemDlg" title="编辑结构类型" class="easyui-dialog" closed="true"
-         style="width:450px;height:450px;padding:10px;">
+         style="width:450px;height:auto;padding:10px;">
         <form>
             <input type="hidden" name="id" value="" id="id2">
             <table>

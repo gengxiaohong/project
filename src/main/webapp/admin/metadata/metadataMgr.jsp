@@ -53,7 +53,7 @@
 			            </div>
 			        </div>
 			        <table toolbar="#tbr" id="metaGrid" class="easyui-treegrid"
-			               data-options="singleSelect:true,collapsible:true,url:'./metalist.json',method:'post'" rownumbers="true"
+			               data-options="singleSelect:true,collapsible:true,method:'post'" rownumbers="true"
                pagination="true">
 			        </table>
 			    </div>
