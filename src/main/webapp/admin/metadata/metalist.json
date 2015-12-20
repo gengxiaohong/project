@@ -1,0 +1,167 @@
+{
+  "total": 28,
+  "rows": [
+    {
+      "id": "1",
+      "zh_name": "发布日期",
+      "en_name": "createDate",
+      "description": "字段描述",
+      "kind": "date",
+      "lom_id": "1.1",
+      "collection": 1,
+      "constraints": [
+        {
+          "type": "range",
+          "value": "201012121212,201112121212"
+        },
+        {
+          "type": "nullable",
+          "value": "true"
+        }
+      ],
+      "val_num": 10
+    },
+    {
+      "id": "2",
+      "zh_name": "采样格式",
+      "en_name": "createDate",
+      "description": "字段描述",
+      "kind": "vocabulary",
+      "lom_id": "1.1",
+      "collection": 1,
+      "val_num": 10
+    },
+    {
+      "id": "3",
+      "zh_name": "采样频率",
+      "en_name": "createDate",
+      "description": "字段描述",
+      "kind": "number",
+      "lom_id": "1.1",
+      "collection": 1,
+      "constraints": [
+        {
+          "type": "range",
+          "value": "0,10"
+        }
+      ],
+      "val_num": 10
+    },
+    {
+      "id": "10",
+      "zh_name": "来源",
+      "en_name": "createDate",
+      "description": "字段描述",
+      "kind": "langstring",
+      "lom_id": "1.1",
+      "collection": 1,
+      "constraints": [
+        {
+          "type": "length",
+          "value": "255"
+        },
+        {
+          "type": "nullable",
+          "value": "true"
+        }
+      ],
+      "val_num": 10
+    },
+    {
+      "id": "4",
+      "zh_name": "分辨率",
+      "en_name": "createDate",
+      "description": "字段描述",
+      "kind": "string",
+      "lom_id": "1.1",
+      "collection": 1,
+      "constraints": [
+        {
+          "type": "length",
+          "value": "255"
+        },
+        {
+          "type": "nullable",
+          "value": "true"
+        }
+      ],
+      "val_num": 10
+    },
+    {
+      "id": "5",
+      "zh_name": "关键帧",
+      "en_name": "createDate",
+      "description": "字段描述",
+      "kind": "structure",
+      "lom_id": "1.1",
+      "collection": 1,
+      "val_num": 10
+    },
+    {
+      "id": "6",
+      "zh_name": "标题",
+      "en_name": "createDate",
+      "description": "字段描述",
+      "kind": "langstring",
+      "lom_id": "1.1",
+      "collection": 1,
+      "constraints": [
+        {
+          "type": "length",
+          "value": "255"
+        },
+        {
+          "type": "nullable",
+          "value": "true"
+        }
+      ],
+      "val_num": 10
+    },
+    {
+      "id": "7",
+      "zh_name": "参考答案",
+      "en_name": "createDate",
+      "description": "字段描述",
+      "kind": "structure",
+      "lom_id": "1.1",
+      "collection": 1,
+      "val_num": 10
+    },
+    {
+      "id": "8",
+      "zh_name": "语种",
+      "en_name": "createDate",
+      "description": "字段描述",
+      "kind": "string",
+      "lom_id": "1.1",
+      "collection": 1,
+      "constraints": [
+        {
+          "type": "length",
+          "value": "255"
+        },
+        {
+          "type": "nullable",
+          "value": "true"
+        }
+      ],
+      "val_num": 10
+    },
+    {
+      "id": "9",
+      "zh_name": "平均区分名",
+      "en_name": "createDate",
+      "description": "字段描述",
+      "kind": "number",
+      "lom_id": "1.1",
+      "collection": 1,
+      "constraints": [
+        {
+          "type": "range",
+          "value": "0,255"
+        }
+      ],
+      "val_num": 10
+    }
+  ]
+}
