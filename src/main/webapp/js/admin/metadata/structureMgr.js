@@ -63,10 +63,23 @@ function addItemToDlg() {
     $("#selectItemDlg").dialog("close");
 }
 $(function () {
+    $("#metadata_tree1").tree({
+        onCheck: function (node, checked) {
+            if (!node.children) {
+                if (checked) {
+                    $("#ttbr p").append("<a about='" + node.id + "'>" + node.text + "</a>");
+                } else {
+                    $("#ttbr p").find("a[about='" + node.id + "']").remove();
+                }
+            }
+
+        }
+    });
+
     var isFirst = true;
     var loadCount = 0;
     $("#metaGrid").treegrid({
-        url: "/bcms/proxy?url=metatype&method=GET&kind=3&parent_id=0&structure_type_id=0",
+        url: "/bcms/structureQueryProxy",
         idField: 'id',
         treeField: 'zh_name',
         fitColumns: true,
@@ -74,9 +87,7 @@ $(function () {
             if (data.rows) {
                 for (var i = 0; i < data.rows.length; i++) {
                     var row = data.rows[i];
-                    if (row.kind == 3) {
-                        row.state = "closed";
-                    }
+                   row.children=[];
                 }
             }
             return data;
@@ -139,6 +150,7 @@ $(function () {
 
 });
 function showAddItemDlg(isTop) {
+	$("#addMetaItemForm").form('clear');
     if (isTop) {
         var dlg = $("#addMetaItemDlg");
         dlg.dialog("open");
