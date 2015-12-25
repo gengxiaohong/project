@@ -83,15 +83,17 @@ $(function () {
         idField: 'id',
         treeField: 'zh_name',
         fitColumns: true,
-        loadFilter: function (data, parentId) {
-            if (data.rows) {
-                for (var i = 0; i < data.rows.length; i++) {
-                    var row = data.rows[i];
-                   row.children=[];
-                }
-            }
-            return data;
-        },
+//        loadFilter: function (data, parentId) {
+//            if (data.rows) {
+//                for (var i = 0; i < data.rows.length; i++) {
+//                    var row = data.rows[i];
+//                    if (row.kind == 3) {
+//                        row.state = "closed";
+//                    }
+//                }
+//            }
+//            return data;
+//        },
         columns: [
             [
                /* {field: 'ckId', width: 30, checkbox: true},
@@ -235,7 +237,6 @@ function submitStructureForm() {
         } else {
             alert(data.msg);
         }
-        //console.log(data);
     }, "json");
 }
 
@@ -277,7 +278,6 @@ function submitModifyStructureForm() {
         } else {
             alert(data.msg);
         }
-        //console.log(data);
     }, "json");
 }
 

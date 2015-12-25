@@ -27,7 +27,7 @@
         <!--url:'./structure.json'-->
         <table toolbar="#tbr" id="metaGrid" class="easyui-treegrid"
                data-options="singleSelect:true,collapsible:true,method:'post'" rownumbers="true"
-               pagination="true">
+               pagination="true" style="width:auto;height:535px;">
         </table>
     </div>
     <div id="ttbr">
@@ -38,7 +38,6 @@
     </div>
     <div toolbar="#ttbr" id="selectItemDlg" title="选择字段" class="easyui-dialog" closed="true"
          style="width:450px;height:400px;padding:10px;">
-        <ul id="metadata_tree1" class="easyui-tree" url="./lefttree.json" checkbox="true"></ul>
     </div>
     <div id="addMetaItemDlg" title="增加结构类型" class="easyui-dialog" closed="true"
          style="width:450px;height:auto;padding:10px;">

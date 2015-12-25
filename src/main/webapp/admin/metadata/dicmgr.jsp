@@ -24,7 +24,7 @@
             <a class="easyui-linkbutton" plain="true" iconCls="icon-search" onclick="searchDicItem()">搜索</a>
 
         </div>
-        <table toolbar="#tbr" id="metaGrid" class="easyui-datagrid"
+        <table style="width:auto;height:535px;" toolbar="#tbr" id="metaGrid" class="easyui-datagrid"
                data-options="singleSelect:true,collapsible:true,method:'post'" rownumbers="true"
                pagination="true">
         </table>
@@ -37,7 +37,6 @@
     </div>
     <div toolbar="#ttbr" id="selectItemDlg" title="选择字段" class="easyui-dialog" closed="true"
          style="width:450px;height:400px;padding:10px;">
-        <ul id="metadata_tree1" class="easyui-tree" url="./lefttree.json" checkbox="true"></ul>
     </div>
 
     <div id="addDicTypeDlg" title="增加词汇" class="easyui-dialog" closed="true"
@@ -46,11 +45,11 @@
             <table class="table">
                 <tr>
                     <td><label>中文名称:</label></td>
-                    <td><input type="text" class="easyui-textbox" name="zh_name"></td>
+                    <td><input type="text" class="easyui-textbox" name="zh_name" required="true"></td>
                 </tr>
                 <tr>
                     <td><label>英文名称:</label></td>
-                    <td><input type="text" class="easyui-textbox" name="en_name"></td>
+                    <td><input type="text" class="easyui-textbox" name="en_name" required="true"></td>
                 </tr>
                 <tr>
                     <td><label>LOM编码</label></td>
@@ -58,11 +57,11 @@
                 </tr>
                 <tr>
                     <td><label>来源</label></td>
-                    <td><input type="text" class="easyui-textbox" name="source"></td>
+                    <td><input type="text" class="easyui-textbox" name="source" required="true"></td>
                 </tr>
                 <tr>
                     <td><label>词汇</label></td>
-                    <td><input type="text" class="easyui-textbox" name="words">(英文逗号(,)分隔)</td>
+                    <td><input type="text" class="easyui-textbox" name="words" required="true">(英文逗号(,)分隔)</td>
                 </tr>
             </table>
             <a class="easyui-linkbutton" plain="false" onclick="submitDicForm()">提交</a>

@@ -52,7 +52,7 @@
 				            <a class="easyui-linkbutton" plain="true" iconCls="icon-search"  onclick="searchMetaData()">搜索</a>
 			            </div>
 			        </div>
-			        <table toolbar="#tbr" id="metaGrid" class="easyui-treegrid"
+			        <table style="width:auto;height:505px;" toolbar="#tbr" id="metaGrid" class="easyui-treegrid"
 			               data-options="singleSelect:true,collapsible:true,method:'post'" rownumbers="true"
                pagination="true">
 			        </table>
