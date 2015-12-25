@@ -61,7 +61,7 @@ function deleteInfos(){
             $.post("/bcms/proxy", {method: "delete", url: "information/" + ids.toString() }, function (result) {
                 var obj= $.parseJSON(result);
                 if (obj.success==false) {
-                    alert("删除失败!");
+                    $.messager.alert('提示',"删除失败!",'error');
                 } else {
                     $("#information_table").datagrid("reload");
                 }
@@ -108,6 +108,10 @@ function newInformation() {
           var roles=$(".add_role_tree").combotree("getValues");
           var user_id=$.cookie("bcms_user_id");
           var create_date=new Date().format("yyyy-MM-dd HH:mm:ss");
+          if(content==null||content==''){
+        	  $.messager.alert('提示','请输入资讯内容.','error');
+        	  return false;
+          }
           var params = {
                   method: "post",
                   url: "/information/",
@@ -242,6 +246,10 @@ function modifyInformation(){
 	    var roles=$(".modify_role_tree").combotree("getValues");
 	    //var user_id=$.cookie("bcms_user_id");
 	    var create_date=new Date().format("yyyy-MM-dd HH:mm:ss");
+	    if(content==null||content==''){
+	    	$.messager.alert('提示','资讯内容不能为空.','error');
+	    	return false;
+	    }
 	    $.post("/bcms/proxy", {
 	        method: "put",
 	        url: "/information/"+id,

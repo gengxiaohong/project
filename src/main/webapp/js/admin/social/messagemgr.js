@@ -116,32 +116,43 @@ function newMessage(){
 }
 
 function saveMessage(){
-    var name=$("#name1").val();
-    var content=CKEDITOR.instances.content1.getData();
-    var user_id=$.cookie("bcms_user_id");
-    var create_at=new Date().format("yyyy-MM-dd HH:mm:ss");
-    var rows = $('#add_message_dialog #select_user_list').datalist("getData").rows;
-    var uids=[];
-    for(var i=0;i<rows.length;i++){
-        uids.push(rows[i].id);
-    }
-    $.post("/bcms/proxy", {
-        method: "post",
-        url: "/message/",
-        send_user_id:user_id,
-        name: name,
-        content: content,
-        created_at: create_at,
-        pick_user_id: uids.toString()
-    }, function (data) {
-        var result = JSON.parse(data);
-        if (!result.id) {
-        	$.messager.alert("提示", result.msg);
-        } else {
-        	 $("#message_table").datagrid("reload");
-             $('#add_message_dialog').dialog('close');
-        }
-    });
+	if($('#add_message_form').form('validate')){
+	    var name=$("#name1").val();
+	    var content=CKEDITOR.instances.content1.getData();
+	    var user_id=$.cookie("bcms_user_id");
+	    var create_at=new Date().format("yyyy-MM-dd HH:mm:ss");
+	    var rows = $('#add_message_dialog #select_user_list').datalist("getData").rows;
+	    var uids=[];
+	    for(var i=0;i<rows.length;i++){
+	        uids.push(rows[i].id);
+	    }
+	    if(content==null||content==''){
+	    	$.messager.alert('提示','请输入站内信内容!','error');
+	    	return false;
+	    }
+	    if(uids.length==0){
+	    	$.messager.alert('提示','请选择收信人!','error');
+	    	return false;
+	    }
+	    $.post("/bcms/proxy", {
+	        method: "post",
+	        url: "/message/",
+	        send_user_id:user_id,
+	        name: name,
+	        content: content,
+	        created_at: create_at,
+	        pick_user_id: uids.toString()
+	    }, function (data) {
+	        var result = JSON.parse(data);
+	        if (!result.id) {
+	        	$.messager.alert("提示", result.msg);
+	        } else {
+	        	 $("#message_table").datagrid("reload");
+	             $('#add_message_dialog').dialog('close');
+	        }
+	    });
+
+	}
 }
 
 function initDepartmentTree() {
