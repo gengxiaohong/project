@@ -35,6 +35,16 @@ function addItemToDlg() {
     }
     $("#selectItemDlg").dialog("close");
 }
+
+function dealData(children, pId) {
+    for (var i = 0; i < children.length; i++) {
+        children[i].node_id = children[i].id;
+        children[i].id = pId + "-" + children[i].id;
+        if (children[i].children) {
+            dealData(children[i].children, children[i].id);
+        }
+    }
+}
 $(function () {
     $("#metadata_tree1").tree({
         onCheck: function (node, checked) {
@@ -125,11 +135,20 @@ $(function () {
                  }
                  }*/, {
                 field: "edit", title: "编辑", formatter: function (value, row, index) {
-                    return "<a class='easyui-linkbutton' onclick='editMetaData(" + row.id + ")'>编辑</a>";
+                    return "<a class='easyui-linkbutton' onclick='editMetaData(\"" + row.id + "\")'>编辑</a>";
                 }
             }
             ]
-        ]
+        ],
+        loadFilter: function (data, parentId) {
+            for (var i = 0; i < data.rows.length; i++) {
+                data.rows[i].node_id = data.rows[i].id;
+                if (data.rows[i].children) {
+                    dealData(data.rows[i].children, data.rows[i].id);
+                }
+            }
+            return data;
+        }
     });
 
     $("#vocabulary_type_id12").combobox({
@@ -177,14 +196,13 @@ $(function () {
                     //addDocItem();
                     addStructureItem();
                 } else {
-                    alert("数据格式有误");
+                	alert("表单参数不完整!");
                 }
             }
         }, {
             text: '关闭',
             handler: function () {
                 $("#addStructureItemDlg").dialog("close");
-
             }
         }]
     });
@@ -198,7 +216,7 @@ $(function () {
                 if ($("#addDicItemDlg").find("form").form("validate")) {
                     addDocItem();
                 } else {
-                    alert("数据格式有误");
+                	alert("表单参数不完整!");
                 }
             }
         }, {
@@ -222,13 +240,13 @@ $(function () {
                     var mTypeId = $("#editDicItemDlg").find("form").find("input[name='metaTypeId']").val();
                     addDocItem(mTypeId);
                 } else {
-                    alert("数据格式有误");
+                	alert("表单参数不完整!");
                 }
             }
         }, {
             text: '关闭',
             handler: function () {
-                var dlg = $("#addDicItemDlg");
+                var dlg = $("#editDicItemDlg");
                 dlg.find("form").form("reset");
                 dlg.dialog("close");
 
@@ -246,7 +264,7 @@ $(function () {
                     //addDocItem();
                     addStructureItem(mtId);
                 } else {
-                    alert("数据格式有误");
+                	alert("表单参数不完整!");
                 }
             }
         }, {
@@ -266,7 +284,7 @@ $(function () {
                         var mtId = $("#editMetaItemDlg").find("form").find("input[name='metaTypeId']").val();
                         addNormalItem(mtId);
                     } else {
-                        alert("数据格式有误");
+                    	alert("表单参数不完整!");
                     }
                 }
 
@@ -289,7 +307,7 @@ $(function () {
                     if ($("#addMetaItemDlg").find("form").form("validate")) {
                         addNormalItem();
                     } else {
-                        alert("数据格式有误");
+                    	alert("表单参数不完整!");
                     }
                 }
 
@@ -377,6 +395,7 @@ function addNormalItem(mtypeId) {
                 }, function (data2) {
                     if (data2.result) {
                         alert("增加成功");
+                        $("#metaGrid").treegrid("reload");
                     } else {
                         alert("增加失败");
                     }
@@ -471,6 +490,7 @@ function addDocItem(mtypeId) {
                 }, function (data2) {
                     if (data2.result) {
                         alert("增加成功");
+                        $("#metaGrid").treegrid("reload");
                     } else {
                         alert("增加失败");
                     }
@@ -569,6 +589,7 @@ function addStructureItem(mtypeId) {
                 }, function (data2) {
                     if (data2.result) {
                         alert("增加成功");
+                        $("#metaGrid").treegrid("reload");
                     } else {
                         alert("增加失败");
                     }
@@ -587,7 +608,8 @@ function addStructureItem(mtypeId) {
 
 function showAddItemDlg() {
     var node = $("#metadata_tree").tree("getSelected");
-    if (node && (node.node_type == 2)) {
+    //TODO && (node.node_type != 1)
+    if (node) {
         $("#addMetaItemDlg").dialog("open");
     } else {
         alert("请选择元数据标准");
@@ -600,7 +622,7 @@ function showAddStructureItemDlg() {
 
 function showAddDicItemDlg() {
     var node = $("#metadata_tree").tree("getSelected");
-    if (node && (node.node_type == 2)) {
+    if (node && (node.node_type != 1)) {
         $("#addDicItemDlg").dialog("open");
     } else {
         alert("请选择元数据标准");
@@ -610,7 +632,7 @@ function showAddDicItemDlg() {
 function deleteMetaItem() {
     var node = $("#metaGrid").treegrid("getSelected");
     if (node) {
-        $.post("/bcms/proxy", {url: "/metatype/" + node.id, method: "DELETE"}, function (data) {
+        $.post("/bcms/proxy", {url: "/metatype/" + node.node_id, method: "DELETE"}, function (data) {
             if (data.id != undefined) {
                 $("#metaGrid").treegrid("reload");
             }
@@ -632,7 +654,7 @@ function editMetaData(rowId) {
 function showEditStructureItemDlg(node) {
     var dlg = $("#editStructureItemDlg");
     var mId = dlg.find("input[name='metaTypeId']");
-    mId.val(node.id);
+    mId.val(node.node_id);
     $("#zh_name24").textbox("setValue", node.zh_name);
     $("#en_name24").textbox("setValue", node.en_name);
     $("#lom_id24").textbox("setValue", node.lom_id);
@@ -650,7 +672,7 @@ function showEditStructureItemDlg(node) {
 function showEditDicItemDlg(node) {
     var dlg = $("#editDicItemDlg");
     var mId = dlg.find("input[name='metaTypeId']");
-    mId.val(node.id);
+    mId.val(node.node_id);
     $("#zh_name22").textbox("setValue", node.zh_name);
     $("#en_name22").textbox("setValue", node.en_name);
     $("#lom_id22").textbox("setValue", node.lom_id);
@@ -668,7 +690,7 @@ function showEditDicItemDlg(node) {
 function showEditMetaItemDlg(node) {
     var dlg = $("#editMetaItemDlg");
     var mId = dlg.find("input[name='metaTypeId']");
-    mId.val(node.id);
+    mId.val(node.node_id);
     $("#zh_name21").textbox("setValue", node.zh_name);
     $("#en_name21").textbox("setValue", node.en_name);
     $("#lom_id21").textbox("setValue", node.lom_id);

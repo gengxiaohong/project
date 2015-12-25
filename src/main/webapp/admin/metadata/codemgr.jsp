@@ -42,7 +42,7 @@
         <ul id="metadata_tree1" class="easyui-tree" url="./lefttree.json" checkbox="true"></ul>
     </div>
     <div id="addEncodeTypeDlg" title="增加编码分类" class="easyui-dialog" closed="true"
-         style="width:300px;height:200px;padding:10px;">
+         style="width:300px;height:auto;padding:10px;">
         <form id="addEncodeTypeForm">
             <table class="table">
                 <tr>
@@ -61,7 +61,7 @@
 
 
     <div id="addEncodeItemDlg" title="增加编码项" class="easyui-dialog" closed="true"
-         style="width:300px;height:150px;padding:10px;">
+         style="width:300px;height:auto;padding:10px;">
         <form>
             <table>
                 <tr>

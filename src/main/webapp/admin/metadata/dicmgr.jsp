@@ -72,7 +72,7 @@
 
 
     <div id="addDicItemDlg" title="增加词汇" class="easyui-dialog" closed="true"
-         style="width:300px;height:150px;padding:10px;">
+         style="width:300px;height:auto;padding:10px;">
         <form>
             <table>
                 <tr>
@@ -86,7 +86,7 @@
     </div>
 
     <div id="editDicItemDlg" title="编辑词汇" class="easyui-dialog" closed="true"
-         style="width:450px;height:350px;padding:10px;">
+         style="width:450px;height:auto;padding:10px;">
         <form>
             <table class="table">
                 <tr>

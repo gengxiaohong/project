@@ -16,6 +16,14 @@ $(function () {
         toolbar: "#rGridTbr",
         url: "/bcms/proxy?url=special&method=GET",
         pagination: true,
+        loadFilter: function (data) {
+        	var datalist = {};
+        	if(data != null && data.length>0) {
+        		datalist.total = data[0];
+        		datalist.rows = data[1];
+        	}
+            return datalist;
+        },
         columns: [
             [
                 {
@@ -209,8 +217,12 @@ function editTopic(){
     var row = $('#rGrid').datagrid('getSelected');
     if (row) {
         initModify(row);
-        $('#modify_topic_dlg').dialog('open').dialog('setTitle', '编辑专题');
+        //$('#modify_topic_dlg').dialog('open');
         initModifyResourceLibrary();
+        $("#modify_topic_dlg").window('open').window('resize',{
+        	left:$(window).width()-1000,
+    		top:$(window).height()-530
+        });
     } else {
         $.messager.alert("提示", "请选择要编辑的行！", "info");
         return;
@@ -273,12 +285,14 @@ function initModifyResourceListByResourceLibrary(node) {
 }
 
 function initModify(row) {
+	console.log(row.description);
 	 $("#modify_topic_form").form("clear");
 	 $("#modify_topic_form #resource_list").datalist('loadData', { total: 0, rows: [] });
 	 $("#modify_topic_form #select_resource_list").datalist('loadData', { total: 0, rows: [] });
 	 $("#modify_topic_dlg input[name=id]").val(row.id);
 	 $("#modify_topic_dlg input[name=name]").val(row.name);
-	 $('#modify_topic_dlg input[name=description]').val(row.description);
+	 $('#modify_topic_dlg input[name=description]').val(row.description).text(row.description);
+	 $('#modify_topic_dlg textarea').html(row.description).val(row.description).text(row.description);
 	 $("#modify_topic_dlg .publish_combobox").combobox('loadData', [{"id": true, "text": "启用"}, {"id": false, "text": "禁用"}]);
 	 $("#modify_topic_dlg .publish_combobox").combobox('setValues', [row.is_published]);
 	 

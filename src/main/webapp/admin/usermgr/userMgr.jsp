@@ -22,8 +22,8 @@
     <a href="#" onclick="delUsers();" class="easyui-linkbutton" data-options="iconCls:'icon-cancel'">删除</a>
         </div>
         <div>
-            姓名: <input class="easyui-textbox" style="width:150px" id="username">
-            教工号: <input class="easyui-textbox" style="width:150px" id="number">
+            用户名: <input class="easyui-textbox" style="width:150px" id="username">
+            学号/教工号: <input class="easyui-textbox" style="width:150px" id="number">
             部门:
             <input class="easyui-combotree" panelHeight="200px" style="width:150px" id="department_id"/>
             身份:
@@ -58,7 +58,7 @@
             <label>
                 密码
             </label>
-            <input name="password" class="easyui-validatebox" missingMessage="账号必须填写" required="true" type="text" id="password"/>
+            <input name="password" type="password" class="easyui-validatebox" missingMessage="账号必须填写" required="true" type="text" id="password"/>
         </div>
         <div class="fitem">
             <label>

@@ -24,6 +24,7 @@
 function showAddEncodeItemDlg() {
     var row = $('#metaGrid').treegrid('getSelected');
     if (row) {
+    	$("#addEncodeTypeForm").form('clear');
         $("#addEncodeItemDlg").dialog("open");
     }else{
         alert("请选择编码分类后再操作");

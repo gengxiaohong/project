@@ -29,26 +29,32 @@
            </div>
            <div region="center" title="元数据列表" >
                <div data-options="region:'center',title:'元数据列表'" iconCls="icon-page_world">
-			        <div id="tbr" style="height:40px;line-height:40px;">
-			            <a class="easyui-linkbutton" plain="true" iconCls="icon-add" onclick="showAddStructureItemDlg()">增加结构类型元数据</a>
-			            <a class="easyui-linkbutton" plain="true" iconCls="icon-add" onclick="showAddDicItemDlg()">增加词汇表类型元数据</a>
-			            <a class="easyui-linkbutton" plain="true" iconCls="icon-add" onclick="showAddItemDlg()">增加普通类型元数据</a>
-			            <a class="easyui-linkbutton" plain="true" iconCls="icon-remove" onclick="deleteMetaItem()">删除</a>
-			            <select class="easyui-combobox" editable="false" id="searchCollection">
-			                <option value="0">必须数据</option>
-			                <option value="1">通用可选数据</option>
-			                <option value="2">分类数据</option>
-			            </select>
-			            <select class="easyui-combobox" editable="false" id="searchCondition">
-			                <option value="zh_name">按中文名称</option>
-			                <option value="lom_id">按LOM编码</option>
-			            </select>
-			            <input type="text" class="easyui-textbox" id="searchContent"/>
-			            <a class="easyui-linkbutton" plain="true" iconCls="icon-search"  onclick="searchMetaData()">搜索</a>
-			
+			        <div id="tbr" style="padding:5px;height:auto">
+			        	<div style="margin-bottom:5px">
+			        		<a class="easyui-linkbutton" plain="true" iconCls="icon-add" onclick="showAddStructureItemDlg()">增加结构类型元数据</a>
+				            <a class="easyui-linkbutton" plain="true" iconCls="icon-add" onclick="showAddDicItemDlg()">增加词汇表类型元数据</a>
+				            <a class="easyui-linkbutton" plain="true" iconCls="icon-add" onclick="showAddItemDlg()">增加普通类型元数据</a>
+				            <a class="easyui-linkbutton" plain="true" iconCls="icon-remove" onclick="deleteMetaItem()">删除</a>
+			        	</div>
+			            <div>
+			            	<select class="easyui-combobox" editable="false" id="searchCollection">
+				                <option value="0">必须数据</option>
+				                <option value="1">通用可选数据</option>
+				                <option value="2">分类数据</option>
+	                			<option value="3">结构类型</option>
+	               				<option value="4">自定义数据</option>
+				            </select>
+				            <select class="easyui-combobox" editable="false" id="searchCondition">
+				                <option value="zh_name">按中文名称</option>
+				                <option value="lom_id">按LOM编码</option>
+				            </select>
+				            <input type="text" class="easyui-textbox" id="searchContent"/>
+				            <a class="easyui-linkbutton" plain="true" iconCls="icon-search"  onclick="searchMetaData()">搜索</a>
+			            </div>
 			        </div>
 			        <table toolbar="#tbr" id="metaGrid" class="easyui-treegrid"
-			               data-options="singleSelect:true,collapsible:true," rownumbers="true" pagination="true">
+			               data-options="singleSelect:true,collapsible:true,method:'post'" rownumbers="true"
+               pagination="true">
 			        </table>
 			    </div>
 			    <div id="ttbr">
@@ -59,12 +65,12 @@
 			    </div>
 			    <div toolbar="#ttbr" id="selectItemDlg" title="选择字段" class="easyui-dialog" closed="true"
 			         style="width:450px;height:400px;padding:10px;">
-			    </div>
+   			 </div>
            </div>
        </div>
        
        <div id="addMetaItemDlg" title="增加元数据" class="easyui-dialog" closed="true"
-	         style="width:450px;">
+	         style="width:400px;height:auto;padding:10px;"  modal="true">
 	        <form>
 	            <table class="table">
 	                <tr>
@@ -135,7 +141,7 @@
 	        </form>
 	    </div>
 	    <div id="addStructureItemDlg" class="easyui-dialog" title="选择结构类型" closed="true"
-	         style="width:400px;height:600px;padding:10px;">
+	         style="width:400px;height:auto;padding:10px;"  modal="true">
 	        <form>
 	            <table class="table">
 	                <tr>
@@ -204,7 +210,7 @@
 	        </form>
 	    </div>
 	    <div id="addDicItemDlg" class="easyui-dialog" title="添加词汇表类型" closed="true"
-	         style="width:400px;height:600px;padding:10px;">
+	         style="width:400px;height:auto;padding:10px;"  modal="true">
 	        <form>
 	            <table class="table">
 	                <tr>
@@ -273,7 +279,7 @@
 	        </form>
 	    </div>
 	    <div id="editMetaItemDlg" title="编辑字段" class="easyui-dialog" closed="true"
-	         style="width:450px;">
+	         style="width:400px;height:auto;padding:10px;"  modal="true">
 	        <form>
 	            <input type="hidden" name="metaTypeId" value=""/>
 	            <table class="table">
@@ -345,7 +351,7 @@
 	        </form>
 	    </div>
 	    <div id="editDicItemDlg" class="easyui-dialog" title="编辑词汇表类型" closed="true"
-	         style="width:400px;height:600px;padding:10px;">
+	         style="width:400px;height:auto;padding:10px;"  modal="true">
 	        <form>
 	            <input type="hidden" name="metaTypeId" value="">
 	            <table class="table">
@@ -416,7 +422,7 @@
 	    </div>
 	
 	    <div id="editStructureItemDlg" class="easyui-dialog" title="编辑结构类型" closed="true"
-	         style="width:400px;height:600px;padding:10px;">
+	         style="width:400px;height:auto;padding:10px;"  modal="true">
 	        <form>
 	            <input type="hidden" name="metaTypeId" value="">
 	            <table class="table">
@@ -487,8 +493,8 @@
 	    </div>
        
        
-       <div id="addMetaLibDlg" class="easyui-dialog" title="添加元数据标准" style="width:300px;height:280px;" closed="true">
-		    <form>
+       <div id="addMetaLibDlg" class="easyui-dialog" title="添加元数据标准" style="width:300px;height:auto;padding:10px;" closed="true">
+		    <form id="add_metaLib_form" method="post">
 		        <input type="hidden" name="category_id" value="" id="categoryId10">
 		        <table class="table">
 		            <tr>
@@ -517,7 +523,7 @@
 		    </form>
 		</div>
 		
-		<div id="editMetaLibDlg" class="easyui-dialog" title="编辑元数据标准" style="width:300px;height:350px;" closed="true">
+		<div id="editMetaLibDlg" class="easyui-dialog" title="编辑元数据标准" style="width:300px;height:auto;padding:10px;" closed="true">
 		    <form>
 		        <input type="hidden" name="category_id" value="" id="categoryId11">
 		        <input type="hidden" name="id11" id="id11">
@@ -548,8 +554,8 @@
 		    </form>
 		</div>
 		
-		<div id="addMetaCategoryDlg" class="easyui-dialog" title="添加元数据标准分类" style="width:350px;height:250px;" closed="true">
-		    <form>
+		<div id="addMetaCategoryDlg" class="easyui-dialog" title="添加元数据标准分类" style="width:350px;height:auto;padding:10px;" closed="true">
+		    <form id="add_metaCategory_form" method="post">
 		        <input type="hidden" name="parent_id" value="">
 		        <table class="table">
 		            <tr>
@@ -573,7 +579,7 @@
 		    </form>
 		</div>
 		
-		<div id="editMetaCategoryDlg" class="easyui-dialog" title="编辑元数据标准分类" style="width:350px;height:auto;" closed="true">
+		<div id="editMetaCategoryDlg" class="easyui-dialog" title="编辑元数据标准分类" style="width:350px;height:auto;padding:10px;" closed="true">
 		    <form>
 		        <input type="hidden" id="parent_id2" value="">
 		        <input type="hidden" id="id2" value="">
