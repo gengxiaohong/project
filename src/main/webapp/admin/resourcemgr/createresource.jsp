@@ -30,7 +30,7 @@
             <tr>
                 <td><label>类型:</label></td>
                 <td>
-                    <select id="kind10" class="easyui-combobox" editable="false" style="width:200px;">
+                    <select id="kind10" class="easyui-combobox" data-options="editable:false,required:true" style="width:200px;">
                         <option value="0">普通</option>
                         <option value="1">课程</option>
                         <option value="2">课时</option>

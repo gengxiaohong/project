@@ -19,7 +19,7 @@
         	<a href="javascript:void(0)" class="easyui-linkbutton" onclick="publishResource()" iconCls="icon-application_side_expand"
            title="发布">发布</a>
 	        <a href="javascript:void(0)" class="easyui-linkbutton" onclick="passResource()" iconCls="icon-ok" title="审核">审核</a>
-	        <a href="javascript:void(0)" class="easyui-linkbutton" onclick="delResource()"  iconCls="icon-remove" title="删除">删除</a>
+	        <a href="javascript:void(0)" class="easyui-linkbutton" onclick="delResource()"  iconCls="icon-remove" title="删除">批量删除</a>
         </div>
         <div style="float:right;">
         	<input class="easyui-searchbox" prompt="按名称过滤..." searcher="reloadgrid" id="name" style="width:200px;height:24px;"/>

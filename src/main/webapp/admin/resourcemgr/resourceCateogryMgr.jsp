@@ -16,7 +16,7 @@
 <rapid:override name="mainIcon">icon-page_world</rapid:override>
 <rapid:override name="body">
       <div id="tb" style="padding:5px;background:#fafafa;border:1px solid #ccc">
-        <input id="search_tag" style="width: 300px;align-items: center; display: none;">
+        <input id="search_tag" class="easyui-searchbox" prompt="输入标签名称搜索..." searcher="reloadTag" style="width: 300px;align-items: center; display: none;">
           <a href="#" onclick="clickAddTag();" class="easyui-linkbutton" plain="true" iconCls="icon-add">添加分类</a>
       </div>
       <div id="tag_tree_grid" fit="true"></div>

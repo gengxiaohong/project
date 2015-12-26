@@ -18,9 +18,10 @@ $(function () {
         toolbar:"#rGridTbr",
         columns: [
             [
-                {field: 'id',checkbox:true, title: 'id', width: 100},
+                {field: '',checkbox:true, width: 100},
+                {field: 'id', title: 'ID',align:'center', width: 100},
                 {field: 'name', title: '名称',align:'center',width: 100, sortable: true},
-                {field: 'resourcelibrary_id', title: '库id',align:'center', width: 100, sortable: true,
+                {field: 'resourcelibrary_id', title: '库ID',align:'center', width: 100, sortable: true,
 		             formatter: function (value, row, index) {
                         var data = $('#categoryTree').tree("find", value);
                         return data==null?"null(id:"+value+")":data.name+"(id:"+value+")";
@@ -151,62 +152,74 @@ function reloadgrid() {
 }
 
 function publishResource() {
-	var row = $('#rGrid').datagrid('getSelected');
-	if (row) {
+	var sutflag = true;
+	var rows = $('#rGrid').datagrid('getSelections');
+	if(rows.length==0){
+		$.messager.alert('提示','请选择要发布的资源!','warning');
+		sutflag = false;
+	}
+	if(rows.length>1){
+		$.messager.alert('提示','暂不支持批量发布,请仅选择一行!','warning');
+		sutflag = false;
+	}
+	if (sutflag) {
    	 $.post("/bcms/proxy", {
             method: "PUT",
-            url: "resource/"+row.id,
-            name: row.name,
-            kind: row.kind,
-            resourcelibrary_id: row.resourcelibrary_id,
-            tag_ids: "["+row.tag_ids+"]",
+            url: "resource/"+rows[0].id,
+            name: rows[0].name,
+            kind: rows[0].kind,
+            resourcelibrary_id: rows[0].resourcelibrary_id,
+            tag_ids: "["+rows[0].tag_ids+"]",
             status:1, //1 发布
-            parents:row.parents,
-            recommend_number:row.recommend_number,
-            click_number:row.click_number
+            parents:rows[0].parents,
+            recommend_number:rows[0].recommend_number,
+            click_number:rows[0].click_number
 //            committer: parseInt(committer)
         }, function (data) {
             if (data.id != undefined) {
                 //alert("ok........");
-                alert("发布资源成功!");
+                $.messager.alert('提示',"发布资源成功!",'success');
                 reloadgrid();
             } else {
-                alert("发布资源失败!");
+                $.messager.alert('提示',"发布资源失败!",'error');
             }
         }, "json");
-   } else {
-       $.messager.alert("提示", "请选择要发布的资源！", "info");
-       return;
-   }
+   } 
 }
 
 
 function passResource() {
-	var row = $('#rGrid').datagrid('getSelected');
-    if (row) {
+	var sutflag = true;
+	var rows = $('#rGrid').datagrid('getSelections');
+	if(rows.length==0){
+		$.messager.alert('提示','请选择要审核的资源!','warning');
+		sutflag = false;
+	}
+	if(rows.length>1){
+		$.messager.alert('提示','暂不支持批量审核,请仅选择一行!','warning');
+		sutflag = false;
+	}
+    if (sutflag) {
     	 $.post("/bcms/proxy", {
              method: "PUT",
-             url: "resource/"+row.id,
-             name: row.name,
-             kind: row.kind,
-             resourcelibrary_id: row.resourcelibrary_id,
-             tag_ids: "["+row.tag_ids+"]",
+             url: "resource/"+rows[0].id,
+             name: rows[0].name,
+             kind: rows[0].kind,
+             resourcelibrary_id: rows[0].resourcelibrary_id,
+             tag_ids: "["+rows[0].tag_ids+"]",
              status:2, //2 审核
-             parents:row.parents,
-             recommend_number:row.recommend_number,
-             click_number:row.click_number
+             parents:rows[0].parents,
+             recommend_number:rows[0].recommend_number,
+             click_number:rows[0].click_number
 //             committer: parseInt(committer)
          }, function (data) {
              if (data.id != undefined) {
                  //alert("ok........");
-                 alert("审批资源成功!");
+                 $.messager.alert('提示',"审批资源成功!",'success');
                  reloadgrid();
              } else {
-                 alert("审批资源失败!");
+                 $.messager.alert('提示',"审批资源失败!",'error');
              }
          }, "json");
-    } else {
-        $.messager.alert("提示", "请选择要审批的资源！", "info");
-        return;
-    }
+    } 
 }

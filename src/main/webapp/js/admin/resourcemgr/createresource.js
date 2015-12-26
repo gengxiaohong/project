@@ -170,7 +170,7 @@ function formatTagLibTreeGridData(data) {
 function submitForm() {
     var ff = $("#createResourceForm");
     if (!(waitFile.status && waitFile.hash)) {
-        alert("请上传文件!");
+        $.messager.alert('提示',"请上传资源文件!",'warning');
         return;
     }
     if (ff.form("validate")) {
@@ -227,9 +227,7 @@ function submitForm() {
                 alert("资源创建失败!");
             }
         }, "json");
-    } else {
-        alert("表单参数不完整!");
-    }
+    } 
 }
 
 function submitSuccess(data3, resourceId) {
