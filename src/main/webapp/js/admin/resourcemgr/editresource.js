@@ -1,6 +1,14 @@
 /**
  * Created by ligson on 2015/8/28.
  */
+function setData(data) {
+    if (data != undefined) {
+        for (var i = 0; i < data.length; i++) {
+            data[i].text = data[i].name;
+            setData(data[i].children);
+        }
+    }
+}
 $(function () {
     $.post("/bcms/proxy",{method:"GET",url:"resource/"+resourceId},function(data){
         $("#name10").textbox("setValue",data.name);
@@ -19,6 +27,7 @@ $(function () {
         loadFilter: function (data) {
             for (var i = 0; i < data.rows.length; i++) {
                 data.rows[i].text = data.rows[i].name;
+                setData(data.rows[i].children);
             }
             return data.rows;
         }
