@@ -258,7 +258,7 @@
         </tfoot>
     </table>--%>
     <!--url="../metadata/jsondata/fitmeta.json"-->
-    <table toolbar="#tbr" fit="true" id="metaGrid" class="easyui-treegrid">
+    <table toolbar="#tbr" style="width:auto;height:535px;" fit="true" id="metaGrid" class="easyui-treegrid">
     </table>
     <div id="tbr">
         <a class="easyui-linkbutton" onclick="submitMetaForm()">提交</a>
