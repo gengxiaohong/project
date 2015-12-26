@@ -104,7 +104,9 @@ $(function () {
                         return "分类数据";
                     } else if (row.collection == 1) {
                         return "通用可选数据";
-                    } else {
+                    } else if (row.collection == 4) {
+                        return "自定义数据";
+                    }  else {
                         return "必选数据";
                     }
                 }

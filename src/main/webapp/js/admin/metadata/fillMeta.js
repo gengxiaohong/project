@@ -12,22 +12,29 @@ function dealData(children, pId) {
     }
 }
 
-function displayVoc(node, boxId) {
+function displayStructure(node, boxId) {
     if (node.children && node.children.length > 0) {
 
         for (var i = 0; i < node.children.length; i++) {
-            displayVoc(node.children[i], boxId + "-" + node.children[i].id);
+        	displayStructure(node.children[i], boxId + "-" + node.children[i].id);
         }
     } else {
         if (node.kind == 2 && node.vocabulary_type_id != undefined) {
             $.post("/bcms/proxy", {method: "GET", url: "vocabulary/" + node.vocabulary_type_id}, function (data) {
                 if (data.id != undefined) {
-                    //console.log(data.words);
                     $(boxId).combobox("loadData", data.words);
                 }
             }, "json");
         }
     }
+}
+
+function displayVoc(node, boxId) {
+	$.post("/bcms/proxy", {method: "GET", url: "vocabulary/" + node.vocabulary_type_id}, function (data) {
+        if (data.id != undefined) {
+            $(boxId).combobox("loadData", data.words);
+        }
+    }, "json");
 }
 var href = window.location.href;
 var idx = href.indexOf("id=");
@@ -87,27 +94,21 @@ $(function () {
             for (var i = 0; i < dt.length; i++) {
                 var kind = dt[i].kind;
                 var rowId = dt[i].id;
-
+                var node = dt[i];
                 if (kind == 2) {
-                    var vId = dt[i].vocabulary_type_id;
-                    var vBox = $("#fill-" + rowId);
-                    vBox.combobox({valueField: "id", textField: "name", multiple: true});
-                    $.post("/bcms/proxy?url=vocabulary/" + vId + "&method=GET", {}, function (data1) {
-                        vBox.combobox("loadData", data1.words);
-                    }, "json");
+                    var boxId = "#fill-" + rowId;
+                    if(node.vocabulary_type_id != undefined) {
+                    	displayVoc(node, boxId);
+                    }
                 } else if (kind == 3) {
                     //var sId = dt[i].structure_type_id;
                     var stid = dt[i].structure_type_id;
-                    var node = dt[i];
                     var boxId = "#fill";
-                    displayVoc(node, boxId);
-
+                    displayStructure(node, boxId);
                 }
-                //console.log(dt[i].id);
             }
 
             $.post("/bcms/proxy", {method: "GET", url: "resource/" + resourceId + "/meta"}, function (data2) {
-                console.log(data2.data);
                     for (var i = 0; i < dt.length; i++) {
                         var kind = dt[i].kind;
                         var rowId = dt[i].id;
@@ -226,8 +227,6 @@ function removeMetaRow(id, zh_name, en_name, kind, val_num, collection, example)
 
 }
 function appendMetaRow(id, zh_name, en_name, kind, val_num, collection, example) {
-    //console.log(jsonString);
-
     var count = 0;
     for (var i = 0; i < datas.length; i++) {
         var data = datas[i];
@@ -243,11 +242,8 @@ function appendMetaRow(id, zh_name, en_name, kind, val_num, collection, example)
     var data1 = $('#metaGrid').treegrid("find", id);
 
     //if (data) {
-    //console.log(data);
     //data.id = id + "-" + idIndex;
     idIndex++;
-
-    //console.log(data1.children);
 
     var nodeId = id + "-" + idIndex;
     var clone1 = data1.children;
@@ -301,7 +297,6 @@ function append() {
 }
 var buffer = "";
 function dealRow(row, boxId) {
-    console.log(row.id + "---" + boxId);
     if (row.kind != 3 && boxId == "#fill") {
         boxId += "-" + row.id;
     }
@@ -343,7 +338,6 @@ function submitMetaForm() {
         buffer += "{";
         for (var i = 0; i < rows.length; i++) {
             var row = rows[i];
-            console.log(row.id + "==");
             dealRow(row, "#fill");
         }
         buffer += "}";

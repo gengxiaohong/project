@@ -24,7 +24,7 @@
             <a class="easyui-linkbutton" plain="true" iconCls="icon-search" onclick="searchEncode()">搜索</a>
 
         </div>
-        <table toolbar="#tbr" id="metaGrid" class="easyui-treegrid"
+        <table style="width:auto;height:535px;" toolbar="#tbr" id="metaGrid" class="easyui-treegrid"
                data-options="singleSelect:true,collapsible:true,method:'post'"
                rownumbers="true"
                pagination="true">
@@ -39,7 +39,6 @@
     </div>
     <div toolbar="#ttbr" id="selectItemDlg" title="选择字段" class="easyui-dialog" closed="true"
          style="width:450px;height:400px;padding:10px;">
-        <ul id="metadata_tree1" class="easyui-tree" url="./lefttree.json" checkbox="true"></ul>
     </div>
     <div id="addEncodeTypeDlg" title="增加编码分类" class="easyui-dialog" closed="true"
          style="width:300px;height:auto;padding:10px;">
