@@ -74,14 +74,23 @@ $(function () {
                 },*/
                 {
                     field: 'editOpt', title: '类库信息',align:'center', width: 100, formatter: function (value, row, index) {
-                    var href = "/bcms/admin/resourcemgr/editresource.jsp?id=" + row.id;
-                    return "<a class='easyui-linkbutton' href='" + href + "'>编辑</a>";
+                    	if(row.status == 0){
+                    		var href = "/bcms/admin/resourcemgr/editresource.jsp?id=" + row.id;
+                            return "<a class='easyui-linkbutton' href='" + href + "'>编辑</a>";
+                    	}else{
+                    		return	"<a class='easyui-linkbutton' href='javascript:void(0)'><span style='color:gray;'>编辑</span></a>";
+                    	}
+                    
                 }
                 },
                 {
                     field: "editMeta", title: "元数据",align:'center', width: 100, formatter: function (value, row, index) {
-                    var href = "/bcms/admin/resourcemgr/editmeta.jsp?id=" + row.id;
-                    return "<a class='easyui-linkbutton' href='" + href + "'>编辑</a>";
+                    	if(row.status == 0){
+                    		var href = "/bcms/admin/resourcemgr/editmeta.jsp?id=" + row.id;
+                            return "<a class='easyui-linkbutton' href='" + href + "'>编辑</a>";
+                    	}else{
+                    		return	"<a class='easyui-linkbutton' href='javascript:void(0)'><span style='color:gray;'>编辑</span></a>";
+                    	}
                 }
                 }
             ]
@@ -162,6 +171,16 @@ function publishResource() {
 		$.messager.alert('提示','暂不支持批量发布,请仅选择一行!','warning');
 		sutflag = false;
 	}
+	if(rows.length == 1){
+		if(rows[0].status==1){
+			$.messager.alert('提示','已发布的资源不能重复发布!','warning');
+			sutflag = false;
+		}else if(rows[0].status==2){
+			$.messager.alert('提示','审核通过的资源不能重新发布!','warning');
+			sutflag = false;
+		}
+		
+	}
 	if (sutflag) {
    	 $.post("/bcms/proxy", {
             method: "PUT",
@@ -198,6 +217,15 @@ function passResource() {
 	if(rows.length>1){
 		$.messager.alert('提示','暂不支持批量审核,请仅选择一行!','warning');
 		sutflag = false;
+	}
+	if(rows.length == 1){
+		if(rows[0].status==0){
+			$.messager.alert('提示','编辑状态的资源,请先发布再审核!','warning');
+			sutflag = false;
+		}else if(rows[0].status==2){
+			$.messager.alert('提示','已经审核通过的资源不能重复审核!','warning');
+			sutflag = false;
+		}
 	}
     if (sutflag) {
     	 $.post("/bcms/proxy", {
