@@ -16,14 +16,14 @@ $(function () {
         toolbar: "#rGridTbr",
         url: "/bcms/proxy?url=special&method=GET",
         pagination: true,
-        loadFilter: function (data) {
-        	var datalist = {};
-        	if(data != null && data.length>0) {
-        		datalist.total = data[0];
-        		datalist.rows = data[1];
-        	}
-            return datalist;
-        },
+//        loadFilter: function (data) {
+//        	var datalist = {};
+//        	if(data != null && data.rows.length>0) {
+//        		datalist.total = data[0];
+//        		datalist.rows = data[1];
+//        	}
+//            return datalist;
+//        },
         columns: [
             [
                 {

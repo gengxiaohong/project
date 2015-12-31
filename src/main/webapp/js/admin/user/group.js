@@ -6,7 +6,7 @@ $(function () {
         plain:true
     });
     $("#group_tree").tree({
-        url: "/bcms/proxy?url=group&method=GET",
+        url: "/bcms/proxy?url=group/&method=GET",
         lines: true,
         loadFilter: function (data) {
             return formatGroupListData(data);
@@ -14,7 +14,7 @@ $(function () {
         onClick: function (node) {
             $('#group_user_grid').datagrid({
                 rownumbers: true,
-                url: "/bcms/proxy?url=user&method=GET&group_id="+node.id,
+                url: "/bcms/proxy?url=user/&method=GET&group_id="+node.id,
                 singleSelect:false,
                 pagination:true,
                 columns:[[
@@ -50,7 +50,7 @@ $(function () {
                 rownumbers: true,
                 singleSelect:false,
                 pagination:true,
-                url: "/bcms/proxy?url=role&method=GET&group_id="+node.id,
+                url: "/bcms/proxy?url=role/&method=GET&group_id="+node.id,
                 columns:[[
                     {field:'id',width:'10%',checkbox:true,title:'ID'},
                     {field:'name',width:'10%',align:'center',title:'角色名'},
