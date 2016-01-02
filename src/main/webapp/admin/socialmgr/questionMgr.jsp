@@ -12,7 +12,7 @@
 <rapid:override name="head"> --%>
 <head>
 <jsp:include page="../../layout/admin/adminheader.jsp"/>
-  <script type="text/javascript" src="../../js/jquery-easyui-1.4.3/extension/datagrid-detailview.js"></script>
+  <script type="text/javascript" src="../../js/jquery-easyui-1.4.3/datagrid-detailview.js"></script>
   <script type="text/javascript" src="../../js/admin/social/questionmgr.js"></script>
   <script type="text/javascript" src="../../js/ckeditor/ckeditor.js"></script>
   </head>

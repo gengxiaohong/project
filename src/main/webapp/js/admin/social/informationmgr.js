@@ -26,7 +26,7 @@ $(function () {
                     return new Date(value).format("yyyy-MM-dd HH:mm:ss");
                 }
             },
-            {field: 'user_id', width: '10%', align: 'center', title: '发送人'},
+            {field: 'user_id', width: '8%', align: 'center', title: '发送人'},
             {
                 field: 'created_at', width: '15%', align: 'center', title: '创建时间',
                 formatter: function (value, row, index) {
@@ -34,12 +34,16 @@ $(function () {
                 }
             },
             {
-                field: '_operate', width: '10%', align: 'center', title: '操作',
+                field: '_operate', width: '12%', align: 'center', title: '操作',
                 formatter: function (value, row, index) {
-                    return '<a class="easyui-linkbutton" iconCls="icon-edit" href="javascript:void(0)" onclick="editInformation(' + index + ')">修改</a>&nbsp;&nbsp;<a class="easyui-linkbutton" iconCls="icon-remove" href="javascript:void(0)" onclick="delInformation(' + index + ')">删除</a>';
+                    return '<a class="easyui-linkbutton" iconCls="icon-edit" plain="true" href="javascript:void(0)" onclick="editInformation(' + index + ')">修改</a>&nbsp;&nbsp;<a class="easyui-linkbutton" iconCls="icon-remove" href="javascript:void(0)" plain="true" onclick="delInformation(' + index + ')">删除</a>';
                 }
             }
-        ]]
+        ]],
+        onLoadSuccess: function (data) {
+            $(".easyui-linkbutton").linkbutton();
+
+        }
     });
     $("#newInformationDialog").scroll(function(){
     	$('.easyui-combotree').combotree('hide');

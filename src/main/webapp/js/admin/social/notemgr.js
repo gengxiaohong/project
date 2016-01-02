@@ -24,10 +24,14 @@ $(function () {
             {
                 field: '_operate', width: '10%', align: 'center', title: '操作',
                 formatter: function (value, row, index) {
-                    return '<a class="tablelink" href="#" onclick="delNote(' + index + ')">删除</a>';
+                    return '<a class="easyui-linkbutton" href="javascript:void(0)" iconCls="icon-remove"  plain="true" onclick="delNote(' + index + ')">删除</a>';
                 }
             }
-        ]]
+        ]],
+        onLoadSuccess: function (data) {
+            $(".easyui-linkbutton").linkbutton();
+
+        }
     });
 });
 

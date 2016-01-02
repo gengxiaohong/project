@@ -82,9 +82,9 @@ $(function () {
                 {
                     field: 'editOpt', title: '类库信息',align:'center', width: 100, formatter: function (value, row, index) {
                     	if(row.status == 0){
-                            return "<a class='easyui-linkbutton' href='javascript:void(0)' onclick='editResourceById("+row.id+")'>编辑</a>";
+                            return "<a class='easyui-linkbutton' iconCls='icon-edit' plain='true' href='javascript:void(0)' onclick='editResourceById("+row.id+")'>编辑</a>";
                     	}else{
-                    		return	"<a class='easyui-linkbutton' href='javascript:void(0)'><span style='color:#999;'>编辑</span></a>";
+                    		return	"<a class='easyui-linkbutton' iconCls='icon-edit' plain='true' disable  href='javascript:void(0)'><span style='color:#999;'>编辑</span></a>";
                     	}
                     
                 }
@@ -93,16 +93,16 @@ $(function () {
                     field: "editMeta", title: "元数据",align:'center', width: 100, formatter: function (value, row, index) {
                     	if(row.status == 0){
                     		var href = "/bcms/admin/resourcemgr/editmeta.jsp?id=" + row.id;
-                            return "<a class='easyui-linkbutton' href='" + href + "'>编辑</a>";
+                            return "<a class='easyui-linkbutton' iconCls='icon-edit' plain='true' href='" + href + "'>编辑</a>";
                     	}else{
-                    		return	"<a class='easyui-linkbutton' href='javascript:void(0)'><span style='color:gray;'>编辑</span></a>";
+                    		return	"<a class='easyui-linkbutton' iconCls='icon-edit' plain='true' href='javascript:void(0)'><span style='color:gray;'>编辑</span></a>";
                     	}
                 }
                 },
                 {
-                    field: "subMeta", title: "子资源", width: 100, formatter: function (value, row, index) {
+                    field: "subMeta", title: "子资源",align:'center', width: 100, formatter: function (value, row, index) {
                     var href = "/bcms/admin/resourcemgr/childresourcemgr.jsp?id=" + row.id;
-                    return "<a class='easyui-linkbutton' iconCls='icon-edit' href='" + href + "'>管理</a>";
+                    return "<a class='easyui-linkbutton' iconCls='icon-edit' plain='true' href='" + href + "'>管理</a>";
                 }
                 }
             ]

@@ -22,7 +22,7 @@ $(function () {
                     {field:'is_adoptted',title:'是否采纳',width:'10%',align:'center'},
                     {field:'_operate',width:'14%',align:'center',title:'操作',
                         formatter: function (value, row,index) {
-                            return '<a class="tablelink" href="#" onclick="delAnswer('+row.question_id+',' + index + ')">删除</a>';
+                            return '<a class="easyui-linkbutton" href="javascript:void(0)" iconCls="icon-remove" plain="true" onclick="delAnswer('+row.question_id+',' + index + ')">删除</a>';
                         }
                     }
                 ]],
@@ -30,6 +30,7 @@ $(function () {
                     $('#question_table').datagrid('fixDetailRowHeight',index);
                 },
                 onLoadSuccess:function(){
+                	$(".easyui-linkbutton").linkbutton();
                     setTimeout(function(){
                         $('#question_table').datagrid('fixDetailRowHeight',index);
                     },0);

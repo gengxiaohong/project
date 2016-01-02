@@ -58,10 +58,14 @@ $(function () {
             {
                 field: '_operate', width: '20%', align: 'center', title: '操作',
                 formatter: function (value, row, index) {
-                    return '<a class="tablelink" href="javascript:void(0)" onclick="clickModifyTag(' + row.id + ')">修改</a>&nbsp;&nbsp;<a class="tablelink" href="javascript:void(0)" onclick="delTag(' + row.id + ')">删除</a>';
+                    return '<a class="easyui-linkbutton" href="javascript:void(0)" iconCls="icon-edit" plain="true" onclick="clickModifyTag(' + row.id + ')">修改</a>&nbsp;&nbsp;<a class="easyui-linkbutton" href="javascript:void(0)" iconCls="icon-remove" plain="true" onclick="delTag(' + row.id + ')">删除</a>';
                 }
             }
-        ]]
+        ]],
+        onLoadSuccess: function (data) {
+            $(".easyui-linkbutton").linkbutton();
+
+        }
     });
 });
 /*//js写文件
