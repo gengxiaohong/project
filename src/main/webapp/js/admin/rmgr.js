@@ -27,25 +27,6 @@ $(function () {
                         return data==null?"null(id:"+value+")":data.name+"(id:"+value+")";
                     }},
                 {
-                    field: 'children',
-                    title: '子资源',
-                    align:'center',
-                    width: 100,
-                    sortable: true,
-                    formatter:function(value,row,index){
-                    	if(row.children.length==0){
-                    		return "null";
-                    	}else{
-                    		var cnameArr = new Array();
-                        	for(var i=0;i<row.children.length;i++){
-                        		cnameArr.push(row.children[i].id);
-                        	}
-                        	return cnameArr;
-                    	}
-                    	
-                    }
-                },
-                {
                     field: 'created_at',
                     title: '创建日期',
                     align:'center',
@@ -120,10 +101,8 @@ $(function () {
                 },
                 {
                     field: "subMeta", title: "子资源", width: 100, formatter: function (value, row, index) {
-                    var href = "/bcms/admin/resourcemgr/createresource.jsp?id=" + row.id;
-                    var href1 = "/bcms/admin/resourcemgr/manageresource.jsp?id=" + row.id;
-                    return "<a class='easyui-linkbutton' href='" + href + "'>添加</a>"
-                        +"<a class='easyui-linkbutton' href='" + href1 + "'>管理</a>";
+                    var href = "/bcms/admin/resourcemgr/childresourcemgr.jsp?id=" + row.id;
+                    return "<a class='easyui-linkbutton' iconCls='icon-edit' href='" + href + "'>管理</a>";
                 }
                 }
             ]

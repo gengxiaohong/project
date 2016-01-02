@@ -31,6 +31,7 @@
         </div>
         <div style="clear:both;"></div>
     </div>
+    <!--创建资源  -->
     <div class="easyui-dialog" id="createResourcesDialog" style="width:400px;height:300px;padding-top:5px;overflow:auto;"
    data-options="title:'创建资源',collapsible:true,modal:true,closed:true,buttons:'#add-dlg-buttons'">
   	<form id="createResourceForm">
@@ -86,6 +87,7 @@
         </table>
     </form>
   </div>
+  <!--资源编辑  -->
   <div class="easyui-dialog" id="editResourcesDialog" style="width:400px;height:300px;padding-top:5px;overflow:auto;"
    data-options="title:'编辑资源',collapsible:true,modal:true,closed:true,buttons:'#edit-dlg-buttons'">
   	<form id="editResourceForm">
