@@ -79,7 +79,7 @@ $(function () {
     });
 	
 	$("#metaGrid").treegrid({
-        url: "/bcms/metaTypeList?id=" + node.id,
+		url: "/bcms/proxy?url=metatype&method=GET",
         idField: 'id',
         treeField: 'zh_name',
         fitColumns: true,
