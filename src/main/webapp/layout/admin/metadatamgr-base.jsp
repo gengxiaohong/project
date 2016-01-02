@@ -87,7 +87,7 @@
 
 <div data-options="region:'center'">
     <div id="tabs" class="easyui-tabs" data-options="border:false,fit:true">
-		<div title="元数据">
+		<div title="元数据管理">
 			<iframe id="contentPage" width="100%" height="100%"
 			 frameborder="0"  scrolling="no" marginheight="0" marginwidth="0" src="../../admin/metadata/metadataMgr.jsp"></iframe>
 		</div>
