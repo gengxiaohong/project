@@ -27,6 +27,25 @@ $(function () {
                         return data==null?"null(id:"+value+")":data.name+"(id:"+value+")";
                     }},
                 {
+                    field: 'children',
+                    title: '子资源',
+                    align:'center',
+                    width: 100,
+                    sortable: true,
+                    formatter:function(value,row,index){
+                    	if(row.children.length==0){
+                    		return "null";
+                    	}else{
+                    		var cnameArr = new Array();
+                        	for(var i=0;i<row.children.length;i++){
+                        		cnameArr.push(row.children[i].id);
+                        	}
+                        	return cnameArr;
+                    	}
+                    	
+                    }
+                },
+                {
                     field: 'created_at',
                     title: '创建日期',
                     align:'center',
@@ -36,6 +55,13 @@ $(function () {
                         var date = Date.parseFromText(row.created_at, "yyyy-MM-ddTHH:mm:ssZ");
                         return date.format("yyyy-MM-dd HH:mm:ss");
                     }
+                },
+                {
+                    field: 'committer',
+                    title: '上传者',
+                    align:'center',
+                    width: 100,
+                    sortable: true
                 },
                 {field: 'kind', title: '类型',align:'center', width: 100, sortable: true,
                 	formatter: function (value, row, idx) {
@@ -75,10 +101,9 @@ $(function () {
                 {
                     field: 'editOpt', title: '类库信息',align:'center', width: 100, formatter: function (value, row, index) {
                     	if(row.status == 0){
-                    		var href = "/bcms/admin/resourcemgr/editresource.jsp?id=" + row.id;
-                            return "<a class='easyui-linkbutton' href='" + href + "'>编辑</a>";
+                            return "<a class='easyui-linkbutton' href='javascript:void(0)' onclick='editResourceById("+row.id+")'>编辑</a>";
                     	}else{
-                    		return	"<a class='easyui-linkbutton' href='javascript:void(0)'><span style='color:gray;'>编辑</span></a>";
+                    		return	"<a class='easyui-linkbutton' href='javascript:void(0)'><span style='color:#999;'>编辑</span></a>";
                     	}
                     
                 }
@@ -92,9 +117,21 @@ $(function () {
                     		return	"<a class='easyui-linkbutton' href='javascript:void(0)'><span style='color:gray;'>编辑</span></a>";
                     	}
                 }
+                },
+                {
+                    field: "subMeta", title: "子资源", width: 100, formatter: function (value, row, index) {
+                    var href = "/bcms/admin/resourcemgr/createresource.jsp?id=" + row.id;
+                    var href1 = "/bcms/admin/resourcemgr/manageresource.jsp?id=" + row.id;
+                    return "<a class='easyui-linkbutton' href='" + href + "'>添加</a>"
+                        +"<a class='easyui-linkbutton' href='" + href1 + "'>管理</a>";
+                }
                 }
             ]
-        ]
+        ],
+        onLoadSuccess: function (data) {
+            $(".easyui-linkbutton").linkbutton();
+
+        }
     });
 });
 
@@ -250,4 +287,85 @@ function passResource() {
              }
          }, "json");
     } 
+}
+function editResourceById(resourceId){
+	$.post("/bcms/proxy",{method:"GET",url:"resource/"+resourceId},function(data){
+        $("#name11").textbox("setValue",data.name);
+        $("#kind11").combobox("setValue",data.kind);
+        $("#resourceTree2").combotree("setValue",data.resourcelibrary_id);
+        if(data.tag_ids!=undefined)
+        $("#tagTree2").combotree("setValues", data.tag_ids);
+        $("#status11").val(data.status);
+        if(data.parent_id!=undefined)
+        $("#parent_id11").val(data.parent_id);
+        $("#recommend_number11").val(data.recommend_number);
+        $("#click_number11").val(data.click_number);
+        $("#id11").val(data.id);
+    },"json");
+    $("#resourceTree").combotree({
+        loadFilter: function (data) {
+            for (var i = 0; i < data.rows.length; i++) {
+                data.rows[i].text = data.rows[i].name;
+                setData(data.rows[i].children);
+            }
+            return data.rows;
+        }
+    });
+    $("#tagTree").combotree({
+        loadFilter: function (data) {
+            for (var i = 0; i < data.rows.length; i++) {
+                data.rows[i].text = data.rows[i].name;
+                setData(data.rows[i].children);
+            }
+            return data.rows;
+        }
+
+    });
+    $("#editResourcesDialog").dialog("open");
+}
+function submitForm2() {
+    var ff = $("#editResourceForm");
+
+    if (ff.form("validate")) {
+        var name = $("#name11").textbox("getValue");
+        var kind10 = $("#kind11").combobox("getValue");
+        var node = $("#resourceTree2").combotree("getValue");
+        var tag = $("#tagTree2").combobox("getValues");
+        var committer = $.cookie("bcms_user_id");
+        var status = $("#status11").val();
+        var parent_id = $("#parent_id11").val();
+        var recommend_number = $("#recommend_number11").val();
+        var click_number = $("#click_number11").val();
+        var id = $("#id11").val();
+        $.post("/bcms/proxy", {
+            method: "PUT",
+            url: "resource/"+id,
+            name: name,
+            kind: kind10,
+            resourcelibrary_id: parseInt(node),
+            tag_ids: "["+tag+"]",
+            status:status,
+            parent_id:parent_id,
+            recommend_number:recommend_number,
+            click_number:click_number,
+            committer: parseInt(committer)
+        }, function (data) {
+            if (data.id != undefined) {
+            	$("#rGrid").datagrid('reload');
+               $("#editResourcesDialog").dialog("close");
+              
+            } else {
+                $.messager.alert('提示',"资源更新失败!",'error');
+            }
+        }, "json");
+    }
+}
+
+function setData(data) {
+    if (data != undefined) {
+        for (var i = 0; i < data.length; i++) {
+            data[i].text = data[i].name;
+            setData(data[i].children);
+        }
+    }
 }

@@ -67,13 +67,15 @@ $(function () {
         }
     });
     var fileList = $("#fileList");
+    var fileList2 = $("#fileList2");
     flow.on("fileAdded", function (file, event) {
         var fileId = file.uniqueIdentifier;
         calFile48Hash(file.file, function (source, hash) {
             waitFile.hash = hash.toUpperCase();
             waitFile.file = source;
             waitFile.fileId = fileId;
-            fileList.append("<li class=\"list-group-item\">" + source.name + "(文件大小:" + source.size + "字节,hash:" + hash.toUpperCase() + ",已上传 :<span class=\"label label-info\" id=\"upload-" + fileId + "\">0%</span>)</li>");
+            fileList.append("<p class=\"list-group-item\">" + source.name + "(文件大小:" + source.size + "字节,hash:" + hash.toUpperCase() + ",已上传 :<span class=\"label label-info\" id=\"upload-" + fileId + "\">0%</span>)</p>");
+            fileList2.append("<p class=\"list-group-item\">" + source.name + "(文件大小:" + source.size + "字节,hash:" + hash.toUpperCase() + ",已上传 :<span class=\"label label-info\" id=\"upload-" + fileId + "\">0%</span>)</p>");
         });
     });
     flow.on("fileProgress", function (file, chunk) {
@@ -91,7 +93,6 @@ $(function () {
     flow.on('fileError', function (file, message) {
         //console.log(file, message);
         waitFile.status = false;
-        //alert(file.name + "涓婁紶澶辫触!" + message);
         var fileId = file.uniqueIdentifier;
         $("#upload-" + fileId).empty().append("上传失败!");
     });
@@ -99,7 +100,7 @@ $(function () {
     $("#fileIpt").filebox({
         onChange: function () {
             //var file = $("#fileIpt").find("input[type='file']");
-            if (fileList.find("li").length > 0) {
+            if (fileList.find("p").length > 0) {
                 return;
             }
             var fileBoxId = $("#fileIpt").next().find("input[type='file']").attr("id");
@@ -135,6 +136,20 @@ $(function () {
                  alert(data2);
                  }
                  });*/
+            }
+        }
+    });
+    $("#fileIpt2").filebox({
+        onChange: function () {
+            if (fileList.find("p").length > 0) {
+                return;
+            }
+            var fileBoxId = $("#fileIpt").next().find("input[type='file']").attr("id");
+            var fileIpt = document.getElementById(fileBoxId);
+            var files = fileIpt.files;
+            for (var i = 0; i < files.length; i++) {
+                var file = files[i];
+                flow.addFile(file);
             }
         }
     });
@@ -233,8 +248,13 @@ function submitForm() {
 function submitSuccess(data3, resourceId) {
     if (data3.id != undefined) {
         //alert("资源创建成功 !");
-        window.location.href = "/bcms/admin/resourcemgr/editmeta.jsp?id=" + resourceId;
+    	$("#rGrid").datagrid('reload');
+        $("#createResourcesDialog").dialog("close");
     } else {
-        alert("资源创建失败!");
+        $.messager.alert('提示',"资源创建失败!",'error');
     }
 }
+function createResource() {
+	$("#createResourceForm").form('clear');
+	$("#createResourcesDialog").dialog('open');
+   }

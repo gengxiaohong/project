@@ -44,8 +44,7 @@
                 <a href="#" class="easyui-linkbutton" iconCls="icon-add" title="增加资源库" plain="true"
                    onclick="addCategory()">增加</a>
                 <a href="#" class="easyui-linkbutton" iconCls="icon-remove" title="删除资源库" plain="true" onclick="removeCategory()">删除</a>
-                <a href="./createresource.jsp" class="easyui-linkbutton" iconCls="icon-folder_up" title="上传"
-                   plain="true">上传资源</a>
+                
             </div>
 
             <ul class="easyui-tree" url="/bcms/proxy?url=resourcelibrary/&method=GET" id="categoryTree" toolbar="#categoryTreeTbr">

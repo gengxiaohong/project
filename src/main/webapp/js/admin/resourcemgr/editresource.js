@@ -43,8 +43,8 @@ $(function () {
 
     });
 });
-function submitForm() {
-    var ff = $("#createResourceForm");
+function submitForm2() {
+    var ff = $("#editResourceForm");
 
     if (ff.form("validate")) {
         var name = $("#name10").textbox("getValue");
@@ -71,10 +71,9 @@ function submitForm() {
             committer: parseInt(committer)
         }, function (data) {
             if (data.id != undefined) {
-                //alert("ok........");
-                alert("资源更新成功!");
+               $("#editResourcesDialog").dialog("close");
             } else {
-                alert("资源更新失败!");
+                $.messager.alert('提示',"资源更新失败!",'error');
             }
         }, "json");
     } else {
@@ -82,11 +81,3 @@ function submitForm() {
     }
 }
 
-function submitSuccess(data3, resourceId) {
-    if (data3.id != undefined) {
-        //alert("资源更新成功!");
-        window.location.href = "/bcms/admin/resourcemgr/editmeta.jsp?id=" + resourceId;
-    } else {
-        alert("资源更新失败!");
-    }
-}
