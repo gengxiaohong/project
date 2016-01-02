@@ -45,25 +45,47 @@ function dealData(children, pId) {
         }
     }
 }
+
+function ajaxLoadingforMetadata(){
+    $("<div class=\"datagrid-mask\"></div>").css({display:"block",width:"100%",height:"100%"}).appendTo("#metaGrid");
+    $("<div class=\"datagrid-mask-msg\"></div>").html("正在处理，请稍候。。。").appendTo('#metaGrid').css({display:"block",left:($('#metaGrid').width() - 190) / 2,top:($('#metaGrid').height() - 45) / 2});
+}
+function ajaxLoadEndforMetadata(){
+    $(".datagrid-mask").remove();
+    $(".datagrid-mask-msg").remove();
+}
+
 $(function () {
-    $("#metadata_tree1").tree({
-        onCheck: function (node, checked) {
-            if (!node.children) {
-                if (checked) {
-                    $("#ttbr p").append("<a about='" + node.id + "'>" + node.text + "</a>");
-                } else {
-                    $("#ttbr p").find("a[about='" + node.id + "']").remove();
+	$("#metadata_tree").tree({
+        url: "/bcms/categoryTree",
+        lines: true,
+        formatter: function (node) {
+            return node.name;
+        },
+        onClick: function (node) {
+            var mg = $("#metaGrid");
+            if (mg) {
+            	mg.treegrid({url:"/bcms/metaTypeList?id=" + node.id});
+            }
+        },
+        loadFilter: function (data, parent) {
+            for (var i = 0; i < data.length; i++) {
+                if (data[i].node_type == 1) {
+                    data[i].iconCls = "icon-06";
                 }
             }
-
+            return data;
         }
     });
-
-    $("#metaGrid").treegrid({
-        url: "/bcms/proxy?url=metatype&method=GET",
+	
+	$("#metaGrid").treegrid({
+        url: "/bcms/metaTypeList?id=" + node.id,
         idField: 'id',
         treeField: 'zh_name',
         fitColumns: true,
+        onBeforeLoad: function (node, param) {
+        	ajaxLoadingforMetadata();
+        },
         columns: [
             [
                 {field: 'id', title: 'id', width: 30},
@@ -71,71 +93,43 @@ $(function () {
                 {field: 'en_name', title: '英文名称', width: 100},
                 {
                     field: 'kind', title: '字段类型', width: 100, formatter: function (value, row, index) {
-                    for (var i = 0; i < dataTypes.length; i++) {
-                        var data = dataTypes[i];
-                        if (row.kind == data.name) {
-                            if (row.kind == 3) {
-                                return data.value + "(s_id:" + row.structure_type_id + ")";
-                            } else if (row.kind == 2) {
-                                return data.value + "(v_id:" + row.vocabulary_type_id + ")";
-                            } else {
-                                return data.value;
-                            }
+                        for (var i = 0; i < dataTypes.length; i++) {
+                            var data = dataTypes[i];
+                            if (row.kind == data.name) {
+                                if (row.kind == 3) {
+                                    return data.value + "(s_id:" + row.structure_type_id + ")";
+                                } else if (row.kind == 2) {
+                                    return data.value + "(v_id:" + row.vocabulary_type_id + ")";
+                                } else {
+                                    return data.value;
+                                }
 
+                            }
                         }
+                        return "未知数据类型";
                     }
-                    return "未知数据类型";
-                }
                 },
                 {field: 'lom_id', title: 'LOM编号', width: 100},
-                /*{field: 'code', title: '编码', width: 100},
-                 {field: 'innercode', title: '系统编码', width: 100, hidden: true},*/
                 {field: 'description', title: '解释', width: 100},
                 {field: 'is_sorted', title: '顺序', width: 50},
                 {field: 'example', title: '举例', width: 50},
                 {field: 'domain', title: '值域', width: 50},
                 {field: 'val_num', title: '取值数', width: 50},
-                /*{field: 'parent_id', title: 'parent_id', width: 50},*/
                 {
                     field: 'collection', title: '类别', width: 50, formatter: function (value, row, idx) {
-                    if (row.collection == 3) {
-                        return "结构";
-                    } else if (row.collection == 2) {
-                        return "分类数据";
-                    } else if (row.collection == 1) {
-                        return "通用可选数据";
-                    } else if (row.collection == 4) {
-                        return "自定义数据";
-                    }  else {
-                        return "必选数据";
+                        if (row.collection == 3) {
+                            return "结构";
+                        } else if (row.collection == 2) {
+                            return "分类数据";
+                        } else if (row.collection == 1) {
+                            return "通用可选数据";
+                        } else if (row.collection == 4) {
+                            return "自定义数据";
+                        }  else {
+                            return "必选数据";
+                        }
                     }
-                }
-                }
-                /* ,{
-                 field: 'constraints', title: '约束', width: 100, formatter: function (value, row, index) {
-                 if (row.constraints) {
-                 var dataType = row.datatype;
-                 //range,nullable,unique,length
-                 var hString = "";
-                 for (var i = 0; i < row.constraints.length; i++) {
-                 var con = row.constraints[i];
-                 var type = con.type;
-                 if (type == "range") {
-                 hString += "范围:" + con.value + "<br/>";
-                 } else if (type == "nullable") {
-                 hString += "必备元素:" + con.value + "<br/>";
-                 } else if (type == "unique") {
-                 hString += "唯一元素:" + con.value + "<br/>";
-                 } else {
-                 hString += "长度:" + con.value + "<br/>";
-                 }
-                 }
-                 return hString;
-                 } else {
-                 return "--";
-                 }
-                 }
-                 }*/, {
+                }, {
                 field: "edit", title: "编辑", formatter: function (value, row, index) {
                     return "<a class='easyui-linkbutton' onclick='editMetaData(\"" + row.id + "\")'>编辑</a>";
                 }
@@ -143,16 +137,23 @@ $(function () {
             ]
         ],
         loadFilter: function (data, parentId) {
-            for (var i = 0; i < data.rows.length; i++) {
-                data.rows[i].node_id = data.rows[i].id;
-                if (data.rows[i].children) {
-                    dealData(data.rows[i].children, data.rows[i].id);
+        	if(data.rows!= undefined && data.rows != null) {
+        		for (var i = 0; i < data.rows.length; i++) {
+                    data.rows[i].node_id = data.rows[i].id;
+                    if (data.rows[i].children) {
+                        dealData(data.rows[i].children, data.rows[i].id);
+                    }
                 }
+        		return data;
+        	} else if(data.success === false) {
+            	alert("数据不存在！");
             }
-            return data;
+        },
+        onLoadSuccess: function (node, data) {
+            ajaxLoadEndforMetadata();
         }
     });
-
+	
     $("#vocabulary_type_id12").combobox({
         url: "/bcms/proxy?url=vocabulary&&method=GET&&page=1&&rows=100",
         loadFilter: function (data) {
@@ -324,8 +325,6 @@ $(function () {
             }
         ]
     });
-
-
 });
 
 function addNormalItem(mtypeId) {
@@ -610,7 +609,6 @@ function addStructureItem(mtypeId) {
 
 function showAddItemDlg() {
     var node = $("#metadata_tree").tree("getSelected");
-    //TODO && (node.node_type != 1)
     if (node) {
         $("#addMetaItemDlg").dialog("open");
     } else {

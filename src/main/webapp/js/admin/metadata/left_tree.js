@@ -1,33 +1,15 @@
 /**
  * Created by Ruby on 2015/8/17.
  */
-$(function () {
-    $("#metadata_tree").tree({
-        url: "/bcms/categoryTree",
-        lines: true,
-        formatter: function (node) {
-            return node.name;
-        },
-        onClick: function (node) {
-            if (window.location.href.indexOf("metadataMgr.jsp") == -1) {
-                $.cookie("meteMenuState", "open");
-                window.location.href = "/bcms/admin/metadataMgr.jsp";
-            }
-            var mg = $("#metaGrid");
-            if (mg) {
-            	mg.treegrid({url:"/bcms/metaTypeList?id=" + node.id});
-            }
-        },
-        loadFilter: function (data, parent) {
-            for (var i = 0; i < data.length; i++) {
-                if (data[i].node_type == 1) {
-                    data[i].iconCls = "icon-06";
-                }
-            }
-            return data;
-        }
-    });
-});
+function ajaxLoadingforMetatree(){
+    $("<div class=\"datagrid-mask\"></div>").css({display:"block",width:"100%",height:"100%"}).appendTo("#metadata_tree");
+    $("<div class=\"datagrid-mask-msg\"></div>").html("正在处理，请稍候。。。").appendTo('#metadata_tree').css({display:"block",left:($('#metadata_tree').width() - 190) / 2,top:($('#metadata_tree').height() - 45) / 2});
+}
+function ajaxLoadEndforMetatree(){
+    $(".datagrid-mask").remove();
+    $(".datagrid-mask-msg").remove();
+}
+
 function addMetaLib() {
     var node = $("#metadata_tree").tree("getSelected");
     $("#add_metaLib_form").form('clear');

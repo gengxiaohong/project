@@ -19,33 +19,6 @@
 
  constraints:range,nullable,unique,length
  **********/
-
-
-/*{
- field: 'constraints', title: '约束', width: 100, formatter: function (value, row, index) {
- if (row.constraints) {
- var dataType = row.datatype;
- //range,nullable,unique,length
- var hString = "";
- for (var i = 0; i < row.constraints.length; i++) {
- var con = row.constraints[i];
- var type = con.type;
- if (type == "range") {
- hString += "范围:" + con.value + "<br/>";
- } else if (type == "nullable") {
- hString += "必备元素:" + con.value + "<br/>";
- } else if (type == "unique") {
- hString += "唯一元素:" + con.value + "<br/>";
- } else {
- hString += "长度:" + con.value + "<br/>";
- }
- }
- return hString;
- } else {
- return "--";
- }
- }
- }*/
 var dataTypes = [{name: "0", value: "多语言字符串"}, {name: "1", value: "数值"}, {
     name: "2",
     value: "词汇表"
@@ -63,19 +36,6 @@ function addItemToDlg() {
     $("#selectItemDlg").dialog("close");
 }
 $(function () {
-    $("#metadata_tree1").tree({
-        onCheck: function (node, checked) {
-            if (!node.children) {
-                if (checked) {
-                    $("#ttbr p").append("<a about='" + node.id + "'>" + node.text + "</a>");
-                } else {
-                    $("#ttbr p").find("a[about='" + node.id + "']").remove();
-                }
-            }
-
-        }
-    });
-
     var isFirst = true;
     var loadCount = 0;
     $("#metaGrid").treegrid({
@@ -112,14 +72,11 @@ $(function () {
                 }
                 },
                 {field: 'lom_id', title: 'LOM编号', width: 100},
-                /*{field: 'code', title: '编码', width: 100},*/
-                /*{field: 'innercode', title: '系统编码', width: 100, hidden: true},*/
                 {field: 'description', title: '解释', width: 100},
                 {field: 'is_sorted', title: '顺序', width: 50},
                 {field: 'example', title: '举例', width: 50},
                 {field: 'domain', title: '值域', width: 50},
                 {field: 'val_num', title: '取值数', width: 50},
-               /* {field: 'parent_id', title: '父类型id', width: 50}, */
                 {
                 field: "edit", title: "编辑", formatter: function (value, row, index) {
                     return "<a class='easyui-linkbutton' onclick='showEditItemDlg(" + row.id + ")'>编辑</a>";

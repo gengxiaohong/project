@@ -12,10 +12,9 @@
 	<script src="../../js/admin/metadata/metadataMgr.js" type="text/javascript"></script>
 </head>
 <body>
-	
 	<div class="easyui-layout" fit="true">
            <div region="west" title="元数据分类列表" style="width: 200px;">
-               <div style="padding:5px;background:#fafafa;width:100%;border:1px solid #ccc">
+               <div id="metatreebar" style="padding:5px;background:#fafafa;width:100%;border:1px solid #ccc">
                    <a href="#" class="easyui-linkbutton" plain="true" iconCls="icon-application_add"
 	               onclick="addMetaCategory()">分类</a>
 	            <a href="#" class="easyui-linkbutton" plain="true" iconCls="icon-add" onclick="addMetaLib()">标准</a>
@@ -29,7 +28,7 @@
            </div>
            <div region="center" title="元数据列表" >
                <div data-options="region:'center',title:'元数据列表'" iconCls="icon-page_world">
-			        <div id="tbr" style="padding:5px;height:auto">
+			        <div id="metatbr" style="padding:5px;height:auto">
 			        	<div style="margin-bottom:5px">
 			        		<a class="easyui-linkbutton" plain="true" iconCls="icon-add" onclick="showAddStructureItemDlg()">增加结构类型元数据</a>
 				            <a class="easyui-linkbutton" plain="true" iconCls="icon-add" onclick="showAddDicItemDlg()">增加词汇表类型元数据</a>
@@ -52,18 +51,18 @@
 				            <a class="easyui-linkbutton" plain="true" iconCls="icon-search"  onclick="searchMetaData()">搜索</a>
 			            </div>
 			        </div>
-			        <table style="width:auto;height:505px;" toolbar="#tbr" id="metaGrid" class="easyui-treegrid"
+			        <table style="width:auto;height:505px;" toolbar="#metatbr" id="metaGrid" class="easyui-treegrid"
 			               data-options="singleSelect:true,collapsible:true,method:'post'" rownumbers="true"
                pagination="true">
 			        </table>
 			    </div>
-			    <div id="ttbr">
+			    <div id="metattbr">
 			        <a class="easyui-linkbutton" plain="true" iconCls="icon-add" onclick="addItemToDlg()">提交</a>
 			        <a class="easyui-linkbutton" plain="true" iconCls="icon-remove">取消</a>
 			
 			        <p></p>
 			    </div>
-			    <div toolbar="#ttbr" id="selectItemDlg" title="选择字段" class="easyui-dialog" closed="true"
+			    <div toolbar="#metattbr" id="selectItemDlg" title="选择字段" class="easyui-dialog" closed="true"
 			         style="width:450px;height:400px;padding:10px;">
    			 </div>
            </div>
