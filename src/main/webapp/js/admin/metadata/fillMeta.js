@@ -62,7 +62,7 @@ $(function () {
                     if (row.kind == 0) {
                         return "<input type='text' class='easyui-textbox etextbox' id='fill-" + row.id + "'>";
                     } else if (row.kind == 1) {
-                        return "<input type='text' class='easyui-textbox etextbox' id='fill-" + row.id + "'>";
+                        return "<input type='text' class='easyui-textbox etextbox' validType='number' id='fill-" + row.id + "'>";
                     } else if (row.kind == 2) {
                         return "<select editable='false' style='width:200px;' class='easyui-combobox ecombobox' id='fill-" + row.id + "'></select>";
                     } else if (row.kind == 3) {
@@ -114,7 +114,7 @@ $(function () {
                         var rowId = dt[i].id;
                         var node = dt[i];
                         var vBox = $("#fill-" + rowId);
-                        if(kind==0||kind==4)
+                        if(kind==0||kind==4 || kind==1)
                             vBox.textbox("setValue", data2.data[rowId]);
                         if(kind==2)
                             vBox.combobox("setValue", data2.data[rowId]);
@@ -151,7 +151,7 @@ function dataSet(node, boxId,data){
         }
     } else {
 
-            if(node.kind==0||node.kind==4)
+            if(node.kind==0||node.kind==4 || node.kind==1)
                 $(boxId).textbox("setValue", data);
             if(node.kind==2)
                 $(boxId).combobox("setValue", data);
