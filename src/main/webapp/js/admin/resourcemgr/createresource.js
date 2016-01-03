@@ -67,7 +67,7 @@ $(function () {
         }
     });
     var fileList = $("#fileList");
-    var fileList2 = $("#fileList2");
+    /*var fileList2 = $("#fileList2");*/
     flow.on("fileAdded", function (file, event) {
         var fileId = file.uniqueIdentifier;
         calFile48Hash(file.file, function (source, hash) {
@@ -75,7 +75,7 @@ $(function () {
             waitFile.file = source;
             waitFile.fileId = fileId;
             fileList.append("<p class=\"list-group-item\">" + source.name + "(文件大小:" + source.size + "字节,hash:" + hash.toUpperCase() + ",已上传 :<span class=\"label label-info\" id=\"upload-" + fileId + "\">0%</span>)</p>");
-            fileList2.append("<p class=\"list-group-item\">" + source.name + "(文件大小:" + source.size + "字节,hash:" + hash.toUpperCase() + ",已上传 :<span class=\"label label-info\" id=\"upload-" + fileId + "\">0%</span>)</p>");
+            /*fileList2.append("<p class=\"list-group-item\">" + source.name + "(文件大小:" + source.size + "字节,hash:" + hash.toUpperCase() + ",已上传 :<span class=\"label label-info\" id=\"upload-" + fileId + "\">0%</span>)</p>");*/
         });
     });
     flow.on("fileProgress", function (file, chunk) {
@@ -139,7 +139,7 @@ $(function () {
             }
         }
     });
-    $("#fileIpt2").filebox({
+    /*$("#fileIpt2").filebox({
         onChange: function () {
             if (fileList.find("p").length > 0) {
                 return;
@@ -152,7 +152,7 @@ $(function () {
                 flow.addFile(file);
             }
         }
-    });
+    });*/
 
     //$("#.parentResource")
     $.post("/bcms/proxy", {url: "taglibrary/page/1", method: "GET"}, function (data) {
@@ -247,7 +247,7 @@ function submitForm() {
 
 function submitSuccess(data3, resourceId) {
     if (data3.id != undefined) {
-        //alert("资源创建成功 !");
+        alert("资源创建成功 !");
     	$("#rGrid").datagrid('reload');
         $("#createResourcesDialog").dialog("close");
     } else {
@@ -258,3 +258,6 @@ function createResource() {
 	$("#createResourceForm").form('clear');
 	$("#createResourcesDialog").dialog('open');
    }
+function forwardCldList(){
+	window.location.href="/bcms/admin/resourcemgr/childresourcemgr.jsp?id=" + resourceId;
+}

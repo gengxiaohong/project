@@ -73,17 +73,23 @@
                 <td><input type="text" class="easyui-filebox" buttonText="选择文件" id="fileIpt">&nbsp;&nbsp;<a class="easyui-linkbutton" onclick="startUpload()">上传</a></td>
             </tr>
             <tr>
-                <td colspan="2" id="fileList">
+                <td></td>
+                <td>
+                    <ul class="list-group" id="fileList">
+                    </ul>
                 </td>
             </tr>
-            <tr>
+            <!-- <tr>
                 <td><label>海报:</label></td>
                 <td><input type="text" class="easyui-filebox" buttonText="选择文件" id="fileIpt2">&nbsp;&nbsp;<a class="easyui-linkbutton" onclick="startUpload2()">上传</a></td>
             </tr>
             <tr>
-                <td colspan="2" id="fileList2">
+                <td></td>
+                <td>
+                    <ul class="list-group" id="fileList2">
+                    </ul>
                 </td>
-            </tr>
+            </tr> -->
         </table>
     </form>
   </div>

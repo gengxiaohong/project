@@ -22,7 +22,7 @@ function delResource(metaId) {
         }
     }, "json");
 }
-function delResource() {
+function delcldResource() {
     var rows = $('#rGrid').datagrid("getSelections");
     if (rows.length > 0) {
         $.messager.confirm('确认', '确认删除?', function (data) {
@@ -132,7 +132,6 @@ function loadChildResources(){
 	    	 $.messager.alert("提示", "获取资源明细失败！", "error");
 	    } else {
 	    	var ds = JSON.stringify(obj.children);
-	    	var dat = [{"id":"1","name":"abc"},{"id":"2","name":"abcd"}];
 	    	var childDs = {"rows":$.parseJSON(ds),"total":obj.children.length}
 	    	$("#rGrid").datagrid('loadData',childDs);
 	    }
