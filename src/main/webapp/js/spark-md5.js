@@ -1,5 +1,5 @@
 /**
- * Created by ligson on 2015/8/21.
+ * Created by libruy on 2015/8/21.
  */
 /** md5 file test for segmentfault
  *  library:https://github.com/satazor/SparkMD5
