@@ -114,6 +114,26 @@ $(function () {
 
         }
     });
+    
+    $("#resourceTree2").combotree({
+        loadFilter: function (data) {
+            for (var i = 0; i < data.rows.length; i++) {
+                data.rows[i].text = data.rows[i].name;
+                setData(data.rows[i].children);
+            }
+            return data.rows;
+        }
+    });
+    $("#tagTree2").combotree({
+        loadFilter: function (data) {
+            for (var i = 0; i < data.rows.length; i++) {
+                data.rows[i].text = data.rows[i].name;
+                setData(data.rows[i].children);
+            }
+            return data.rows;
+        }
+
+    });
 });
 
 
@@ -283,25 +303,7 @@ function editResourceById(resourceId){
         $("#click_number11").val(data.click_number);
         $("#id11").val(data.id);
     },"json");
-    $("#resourceTree").combotree({
-        loadFilter: function (data) {
-            for (var i = 0; i < data.rows.length; i++) {
-                data.rows[i].text = data.rows[i].name;
-                setData(data.rows[i].children);
-            }
-            return data.rows;
-        }
-    });
-    $("#tagTree").combotree({
-        loadFilter: function (data) {
-            for (var i = 0; i < data.rows.length; i++) {
-                data.rows[i].text = data.rows[i].name;
-                setData(data.rows[i].children);
-            }
-            return data.rows;
-        }
-
-    });
+    
     $("#editResourcesDialog").dialog("open");
 }
 function submitForm2() {
