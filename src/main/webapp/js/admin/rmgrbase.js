@@ -50,7 +50,6 @@ function editCategory() {
     var selectNode = tree.tree("getSelected");
     $("#editCategoryDlg").dialog("open");
     if (selectNode) {
-    	console.log(selectNode);
     	$("#id14").val(selectNode.id);
     	$("#parentCategoryId14").val(selectNode.parent_id);
     	$("#name14").textbox("setValue", selectNode.name);
