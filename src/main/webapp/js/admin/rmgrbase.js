@@ -39,6 +39,7 @@ function removeCategory() {
 function addCategory() {
     var tree = $("#categoryTree");
     var selectNode = tree.tree("getSelected");
+    $("#add_category_form").form('clear');
     $("#addCategoryDlg").dialog("open");
     if (selectNode) {
         $("#parentCategoryId").val(selectNode.id);
@@ -49,33 +50,28 @@ function editCategory() {
     var selectNode = tree.tree("getSelected");
     $("#editCategoryDlg").dialog("open");
     if (selectNode) {
-        $("#name14").textbox("setValue", selectNode.name);
-        $("#updateMetatypetree").combobox("setValue", selectNode.metalibrary_id);
-        $("#tagTree14").combotree("setValues", selectNode.tag_ids);
-        $("#description14").textbox("setValue", selectNode.description);
-        $("#imagePath14").val(selectNode.image_path);
-        $("#id14").val(selectNode.id);
-        $("#parentCategoryId14").val(selectNode.parent_id);
+    	console.log(selectNode);
+    	$("#id14").val(selectNode.id);
+    	$("#parentCategoryId14").val(selectNode.parent_id);
+    	$("#name14").textbox("setValue", selectNode.name);
+        $("#metatypetree14").combobox("setValue", selectNode.metalibrary_id);
+        $("#message14").textbox("setValue", selectNode.description);
     } else {
         alert("选中要编辑的行！");
     }
 }
 
-function submitForm() {
+function submitEditCategoryForm() {
     if ($("#editCategoryDlg").find("form").form("validate")) {
         var name = $("#name14").textbox("getValue");
-        var description = $("#description14").textbox("getValue");
-        var metalibrary_id = parseInt($("#updateMetatypetree").combobox("getValue"));
-        var tag_ids = $("#tagTree14").combobox("getValues");
-        var image_path = $("#imagePath14").val();
+        var description = $("#message14").textbox("getValue");
+        var metalibrary_id = parseInt($("#metatypetree14").combotree("getValue"));
         var parent_id = parseInt($("#parentCategoryId14").val());
         var id = parseInt($("#id14").val());
         var params = {
             name: name,
             description: description,
             metalibrary_id: metalibrary_id,
-            tag_ids:"["+tag_ids+"]",
-            image_path: image_path,
             url: "resourcelibrary/" + id,
             method: "PUT"
         };
@@ -88,13 +84,14 @@ function submitForm() {
                 $("#categoryTree").tree("reload");
                 $("#editCategoryDlg").dialog("close");
             } else {
-                alert("失败了.你问问管理员,好吗?");
+                alert("编辑失败！");
             }
         }, "json");
     }
 }
 
-function clearForm() {
+function clearEditCategoryForm() {
+	$("#edit_category_form").form('clear');
     $("#editCategoryDlg").dialog("close");
 }
 
@@ -130,7 +127,6 @@ function showContextMenu(e, node) {
 }
 
 function loadAllRes() {
-    //alert(node.id);
     if (window.location.href.indexOf("rmgr.jsp") >= 0) {
         $("#rGrid").datagrid({url: "/bcms/proxy?url=resource&method=GET"});
     } else {
@@ -154,7 +150,6 @@ $(function () {
             return formatCategoryTreeData(data.rows);
         },
         onClick: function (node) {
-            //alert(node.id);
             if (window.location.href.indexOf("rmgr.jsp") >= 0) {
                 $("#rGrid").datagrid({url: "/bcms/proxy?url=resource&method=GET&library_id=" + node.id});
             } else {
@@ -169,48 +164,13 @@ $(function () {
         valueField: "id",
         panelHeight: 'auto'
     });
-    $("#updateMetatypetree").combobox({
+    
+    $("#metatypetree14").combobox({
         textField: "name",
         valueField: "id",
         panelHeight: 'auto'
     });
-
-    $("#tagTree13").combotree({
-        loadFilter: function (data) {
-            for (var i = 0; i < data.rows.length; i++) {
-                data.rows[i].text = data.rows[i].name;
-                setData(data.rows[i].children);
-            }
-            return data.rows;
-        }
-    });
-    $("#tagTree14").combotree({
-        loadFilter: function (data) {
-            for (var i = 0; i < data.rows.length; i++) {
-                data.rows[i].text = data.rows[i].name;
-                setData(data.rows[i].children);
-            }
-            return data.rows;
-        }
-    });
-    /* $("#metatypetree").combotree({
-     url: "/bcms/categoryTree",
-     formatter: function (node) {
-     return node.name;
-     },
-     loadFilter: function (data, parent) {
-     for (var i = 0; i < data.length; i++) {
-     if (data[i].node_type == 1) {
-     data[i].iconCls = "icon-06";
-     }
-     }
-     return data;
-     },
-     onSelect: function (node) {
-     $("#metatypetree").combotree("setValue", node.id);
-     }
-     });*/
-
+    
     $("#addCategoryDlg").dialog({
         buttons: [
             {
@@ -220,12 +180,10 @@ $(function () {
                         var name = $("#name13").textbox("getValue");
                         var description = $("#description13").textbox("getValue");
                         var metalibrary_id = $("#metatypetree").combobox("getValue");
-                        /*var tag_ids = $("#tagTree13").combobox("getValues");*/
                         var params = {
                             name: name,
                             description: description,
                             metalibrary_id: metalibrary_id,
-                            /*tag_ids:"["+tag_ids+"]",*/
                             url: "resourcelibrary/",
                             method: "POST"
                         };
@@ -238,7 +196,7 @@ $(function () {
                                 $("#categoryTree").tree("reload");
                                 $("#addCategoryDlg").dialog("close");
                             } else {
-                                alert("失败了.你问问管理员,好吗?");
+                                alert("添加类库失败！");
                             }
                         }, "json");
                     }
@@ -247,6 +205,7 @@ $(function () {
             {
                 text: "取消",
                 handler: function () {
+                	$("#add_category_form").form('clear');
                     $("#addCategoryDlg").dialog("close");
                 }
             }

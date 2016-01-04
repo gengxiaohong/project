@@ -43,6 +43,8 @@
             <div id="categoryTreeTbr">
                 <a href="#" class="easyui-linkbutton" iconCls="icon-add" title="增加资源库" plain="true"
                    onclick="addCategory()">增加</a>
+                <a href="#" class="easyui-linkbutton" iconCls="icon-edit" title="编辑资源库" plain="true"
+                   onclick="editCategory()">编辑</a>
                 <a href="#" class="easyui-linkbutton" iconCls="icon-remove" title="删除资源库" plain="true" onclick="removeCategory()">删除</a>
                 
             </div>
@@ -71,7 +73,7 @@
 </div>
 <div id="addCategoryDlg" class="easyui-dialog" title="添加类库" data-options="iconCls:'icon-save'"
      style="width:400px;height:250px" closed="true">
-    <form>
+    <form id="add_category_form">
         <input type="hidden" id="parentCategoryId" value="">
         <table class="table">
             <tr>
@@ -98,32 +100,34 @@
 
 <div id="editCategoryDlg" class="easyui-dialog" title="编辑类库" data-options="iconCls:'icon-save'"
      style="width:300px;height:250px;padding:10px" closed="true">
-    <form>
+    <form id="edit_category_form">
+    	<input type="hidden" name="parentCategoryId" id="parentCategoryId14" value="">
+    	<input type="hidden" name="id" id="id14" value="">
         <table>
             <tr>
                 <td>名称</td>
-                <td><input class="easyui-textbox" required="true" type="text" name="name"></td>
+                <td><input class="easyui-textbox" required="true" type="text" name="name" id="name14"></td>
             </tr>
             <tr>
                 <td>
                     标准
                 </td>
                 <td>
-                    <input class="easyui-combotree"
-                           data-options="url:'/bcms/categoryTree',method:'get',required:true"
-                           style="width:200px;"/>
+                    <input name="metatypetree" class="easyui-combotree"
+                           data-options="url:'/bcms/proxy?method=GET&url=metalibrary/page/1',method:'get',required:true"
+                           style="width:200px;" id="metatypetree14"/>
                 </td>
             </tr>
             <tr>
                 <td>描述</td>
-                <td><input class="easyui-textbox" name="message" data-options="multiline:true" style="height:60px"/>
+                <td><input class="easyui-textbox" name="message" id="message14" data-options="multiline:true" style="height:60px"/>
                 </td>
             </tr>
         </table>
     </form>
     <div style="text-align:center;padding:5px">
-        <a href="javascript:void(0)" class="easyui-linkbutton" onclick="submitForm()">提交</a>
-        <a href="javascript:void(0)" class="easyui-linkbutton" onclick="clearForm()">取消</a>
+        <a href="javascript:void(0)" class="easyui-linkbutton" onclick="submitEditCategoryForm()">提交</a>
+        <a href="javascript:void(0)" class="easyui-linkbutton" onclick="clearEditCategoryForm()">取消</a>
     </div>
 </div>
 <div id="treeContextMenu" class="easyui-menu" style="width:120px;">
