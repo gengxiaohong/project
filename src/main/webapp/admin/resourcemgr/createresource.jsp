@@ -9,8 +9,6 @@
 <%@ taglib uri="http://www.rapid-framework.org.cn/rapid" prefix="rapid" %>
 <rapid:override name="title">创建资源</rapid:override>
 <rapid:override name="head">
-    <link type="text/css" rel="stylesheet" href="../../js/bootstrap-tagsinput/bootstrap-tagsinput.css">
-    <script type="text/javascript" src="../../js/bootstrap-tagsinput/bootstrap-tagsinput.min.js"></script>
     <script type="text/javascript" src="../../js/admin/rmgr.js"></script>
     <script type="text/javascript" src="../../js/spark-md5.js"></script>
     <script type="text/javascript" src="../../js/common/fileutils.js"></script>
