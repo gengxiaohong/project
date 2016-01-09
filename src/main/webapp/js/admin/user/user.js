@@ -1,25 +1,38 @@
 var department_tree;
 $(function () {
-	/*var url = "/bcms/departmentTree";
-	$.getJSON(url, function(json) {
-	department_tree= formatDepartmentTreeData(json)
-	$("#department_id").combotree('loadData', formatDepartmentTreeData(json));
-	});
-	*/
-	
 	$.post("/bcms/departmentTree", function (result) {
         var obj = $.parseJSON(result);
         if (obj.success==false) {
             alert(obj.msg);
         } else {
+           var dep_tree = [];
+           dep_tree.push({text:""});
            department_tree= formatDepartmentTreeData(obj);
-            $('#department_id').combotree ({
-                data:department_tree,
-                lines: true
-            });
+           dep_tree=dep_tree.concat(department_tree);
+//            $('#department_id').combotree ({
+//                data:dep_tree,
+//                lines: true
+//            });
+            $("#department_id").combotree({
+    			data : dep_tree,
+    			valueField : 'id',
+    			textField : 'text',
+    			editable : true,
+    			mode: 'local',
+    			delay: '500',
+    			lines: true,
+    			keyHandler : {enter: function() {
+    					//var opts = $(this).combobox('options');
+    					//return row[opts.textField].indexOf(q) == 0;
+    				    var curr_text = $('#department_id').combobox('getText')
+    				    queryComboTree(curr_text, "department_id");
+    				}
+    			}
+    			});  
         }
     });
-    
+	
+	  
     $('#user_table').datagrid({
         rownumbers: true,
         singleSelect: false,
@@ -53,6 +66,7 @@ $(function () {
     });
 
 });
+
 
 function getQueryParams(queryParams){
     var username=$("#username").val();
@@ -235,9 +249,93 @@ function initAddDepartmentCombotree() {
 	department_tree= formatDepartmentTreeData(json)
 	$("#add_user_dlg .department_tree").combotree('loadData', formatDepartmentTreeData(json));
 	});*/
-	$("#add_user_dlg .department_tree").combotree('loadData', department_tree);
+//	$("#add_user_dlg .department_tree").combotree('loadData', department_tree);
+	//渲染easyui 控件
+	$("#add_user_dlg .department_tree").combotree({
+			data : department_tree,
+			valueField : 'id',
+			textField : 'text',
+			editable : true,
+			mode: 'local',
+			delay: '500',
+			keyHandler : {enter: function() {
+					//var opts = $(this).combobox('options');
+					//return row[opts.textField].indexOf(q) == 0;
+				    var curr_text = $('#add_user_dlg .department_tree').combobox('getText')
+				    queryComboTree(curr_text, "add_user_dlg .department_tree");
+				}
+			}
+			});  
 
 }
+
+//组织机构combotree 过滤查询
+function queryComboTree(q, comboid) {
+	var datalist = [];//用平面的combobox来展示过滤的结果
+	var childrenlist = [];
+	var combotreeid = "#" + comboid;
+	var roots = $(combotreeid).combotree('tree').tree('getRoots');//得到根节点数组
+	var children;
+	var entertext = $(combotreeid).combotree('getText');
+	$(combotreeid).combotree('setText', q);
+	if (entertext == null || entertext == "") {//如果文本框的值为空，或者将文本框的值删除了，重新reload数据
+	    $(combotreeid).combotree('reload');
+	    $(combotreeid).combotree('clear');
+	    $(combotreeid).combotree('setText', q);
+	    return;
+	}
+	//循环数组，找到与输入值相似的，加到前面定义的数组中，
+	for (i = 0; i < roots.length; i++) {
+	    if (q == roots[i].text) {
+		$(combotreeid).combotree('tree')
+			.tree('select', roots[i].target);
+		    return;
+	    } else {
+		if (roots[i].text.indexOf(q) >= 0 && roots[i].text != "") {
+		    var org = {
+		        "id" : roots[i].id,
+			"text" : roots[i].text
+			    };
+		    datalist.push(org);
+		}
+	    }
+             //找子节点（递归）
+	    childrensTree(combotreeid, roots[i].target, datalist, q);
+        }
+		//如果找到相似的结果，则加载过滤的结果
+		if (datalist.length > 0) {
+			$(combotreeid).combotree('loadData', datalist);
+			$(combotreeid).combotree('setText', q);
+			datalist = [];//这里重新赋值是避免再次过滤时，会有重复的记录
+			return;
+		} else {
+			$(combotreeid).combotree('reload');
+			$(combotreeid).combotree('clear');
+			$(combotreeid).combotree('setText', q);
+			return;
+		}
+	}
+
+	function childrensTree(combotreeid, rootstarget, datalist, q) {
+		children = $(combotreeid).combotree('tree').tree('getChildren', rootstarget);
+		console.log(children);
+		for (j = 0; j < children.length; j++) {
+			if (q == children[j].text) {
+				$(combotreeid).combotree('tree').tree('select',
+						children[j].target);
+				return;
+			} else {
+				if (children[j].text.indexOf(q) >= 0 && children[j].text != "") {
+					var org = {
+						"id" : children[j].id,
+						"text" : children[j].text
+					};
+					datalist.push(org);
+				}
+			}
+			//childrensTree(combotreeid,children[j].target,datalist,q);
+		}
+	}
 
 function delUsers() {
     var rows = $('#user_table').datagrid("getSelections");

@@ -44,7 +44,7 @@
     <form id="add_user_form" method="post">
         <div class="fitem">
             <label>
-                账号
+                账号&nbsp;
             </label>
             <input name="name" id="name" class="easyui-validatebox" missingMessage="账号必须填写" required="true" type="text"  />
         </div>
@@ -56,31 +56,31 @@
         </div>
         <div class="fitem">
             <label>
-                密码
+                密码&nbsp;
             </label>
             <input name="password" type="password" class="easyui-validatebox" missingMessage="账号必须填写" required="true" type="text" id="password"/>
         </div>
         <div class="fitem">
             <label>
-                邮箱
+                邮箱&nbsp;
             </label>
             <input name="email" class="easyui-validatebox" validType="email" invalidMessage="请填写正确的邮件格式" />
         </div>
         <div class="fitem">
             <label>
-                手机
+                手机&nbsp;
             </label>
             <input name="phone" class="easyui-validatebox" required="true" type="text" />
         </div>
         <div class="fitem">
             <label>
-                编号
+                编号&nbsp;
             </label>
             <input name="number" class="easyui-validatebox" type="text" />
         </div>
         <div class="fitem">
             <label>
-                身份
+                身份&nbsp;
             </label>
             <input class="easyui-combobox identity_combobox" data-options="valueField:'id',textField:'text',panelHeight:'auto'" name="identity"   />
         </div>
@@ -91,12 +91,12 @@
         </div>
         <div class="fitem">
             <label>
-                部门</label>
+                部门&nbsp;</label>
             <input class="easyui-combotree department_tree" name="department_id"/>
         </div>
         <div class="fitem">
             <label>
-                性别
+                性别&nbsp;
             </label>
             <input class="easyui-combobox gender_combobox" data-options="valueField:'id',textField:'text',panelHeight:'auto'" name="gender" required="true"  />
         </div>
@@ -129,67 +129,67 @@
     <form id="modify_user_form" method="post">
         <div class="fitem">
             <label>
-                账号
+                账号&nbsp;
             </label>
-            <input name="name" disabled="true" class="easyui-validatebox" required="true" type="text" />
+            <input name="name" disabled="true" class="easyui-validatebox" required="true" type="text" style="width:200px;" />
         </div>
         <div class="fitem">
             <label>
                 中文名
             </label>
-            <input name="cn_name"  class="easyui-validatebox" type="text"  />
+            <input name="cn_name"  class="easyui-validatebox" type="text" style="width:200px;" />
         </div>
         <div class="fitem">
             <label>
-                邮箱
+                邮箱&nbsp;
             </label>
-            <input name="email" class="easyui-validatebox" type="text" />
+            <input name="email" class="easyui-validatebox" type="text" style="width:200px;"/>
         </div>
         <div class="fitem">
             <label>
-                手机
+                手机&nbsp;
             </label>
-            <input name="phone" class="easyui-validatebox" type="text" />
+            <input name="phone" class="easyui-validatebox" type="text" style="width:200px;"/>
         </div>
         <div class="fitem">
             <label>
-                编号
+                编号&nbsp;
             </label>
-            <input name="number" class="easyui-validatebox" type="text" />
+            <input name="number" class="easyui-validatebox" type="text" style="width:200px;"/>
         </div>
         <div class="fitem">
             <label>
-                身份
+                身份&nbsp;
             </label>
-            <input class="easyui-combobox identity_combobox" data-options="valueField:'id',textField:'text',panelHeight:'auto'" name="identity"   />
+            <input class="easyui-combobox identity_combobox" data-options="valueField:'id',textField:'text',panelHeight:'auto'" name="identity"  style="width:200px;" />
         </div>
         <div class="fitem">
             <label>
                 用户组</label>
-            <input class="easyui-combotree group_tree" multiple="true" name="group"/>
+            <input class="easyui-combotree group_tree" multiple="true" name="group" style="width:200px;"/>
         </div>
         <div class="fitem">
             <label>
-                部门</label>
-            <input class="easyui-combotree department_tree" name="department_id"/>
+                部门 &nbsp;</label>
+            <input class="easyui-combotree department_tree" name="department_id" style="width:200px;"/>
         </div>
         <div class="fitem">
             <label>
-                性别
+                性别&nbsp;
             </label>
-            <input class="easyui-combobox gender_combobox" data-options="valueField:'id',textField:'text',panelHeight:'auto'" name="gender" required="true"  />
+            <input class="easyui-combobox gender_combobox" data-options="valueField:'id',textField:'text',panelHeight:'auto'" name="gender" required="true"  style="width:200px;"/>
         </div>
         <div class="fitem">
             <label>
                 存储(G)
             </label>
-            <input name="disk_size" class="easyui-validatebox" type="text" />
+            <input name="disk_size" class="easyui-validatebox" type="text" style="width:200px;"/>
         </div>
         <div class="fitem">
             <label>
-                备注
+                备注 
             </label>
-            <input name="description" class="easyui-validatebox" type="text" />
+            <input name="description" class="easyui-validatebox" type="text" style="width:200px;"/>
         </div>
         <input type="hidden" name="id"/>
     </form>
