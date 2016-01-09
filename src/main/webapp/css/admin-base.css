@@ -80,11 +80,11 @@ body{ font-family:"Î¢ÈíÑÅºÚ";  margin:0px; padding:0px; }
 ul{ list-style:none;}
 .clear{ clear:both;}
 
-.logo{ height:88px; width:100%; background:#4ca9ef; -moz-box-shadow: 0px 3px 10px #c8c6c6; 
-box-shadow: 0px 3px 10px #c8c6c6;overflow-y:hidden;}
-.logo-left{ float:left; width:30%;}
-.logo-right{ float:right; font-size:14px; margin-top:18px; width:70%;}
-.logo-right li{ float:left;text-align:center; margin:0px  15px;}
+.logo{ height:88px; width:100%;min-width:1024px;min-height:88px; background:#4ca9ef; -moz-box-shadow: 0px 3px 10px #c8c6c6; 
+box-shadow: 0px 3px 10px #c8c6c6;overflow:hidden;}
+.logo-left{ float:left; width:224px;}
+.logo-right{ float:right; font-size:14px; margin-top:18px;}
+.logo-right li{ float:left;text-align:center; margin:0px  5px;}
 .logo-right li a{ display:block;}
 .logo-right span{display:inline-block; height:40px; padding:0px 5px;}
 .logo-right span img{ margin-top:7px;}
