@@ -140,11 +140,11 @@
   </div>
   <div id="add-dlg-buttons">
 		<a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-ok" onclick="submitForm()">提交</a>
-		<a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-cancel" onclick="javascript:$('#createResourcesDialog').dialog('close')">Cancel</a>
+		<a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-cancel" onclick="javascript:$('#createResourcesDialog').dialog('close')">取消</a>
 	</div>
 	<div id="edit-dlg-buttons">
 		<a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-ok" onclick="submitForm2()">提交</a>
-		<a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-cancel" onclick="javascript:$('#editResourcesDialog').dialog('close')">Cancel</a>
+		<a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-cancel" onclick="javascript:$('#editResourcesDialog').dialog('close')">取消</a>
 	</div>
 	<!--data grid  --> 
     <table id="rGrid" class="easyui-datagrid" data-options="fit:true">

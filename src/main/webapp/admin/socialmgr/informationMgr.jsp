@@ -82,10 +82,10 @@
   </div>
    <div id="add-dlg-buttons">
 		<a href="#" class="easyui-linkbutton" iconCls="icon-ok" onclick="saveInformation();">保存</a>
-		<a href="#" class="easyui-linkbutton" iconCls="icon-cancel" onclick="javascript:$('#newInformationDialog').dialog('close')">Cancel</a>
+		<a href="#" class="easyui-linkbutton" iconCls="icon-cancel" onclick="javascript:$('#newInformationDialog').dialog('close')">取消</a>
 	</div> 
 	<div id="edit-dlg-buttons">
 		<a href="#" class="easyui-linkbutton" iconCls="icon-ok" onclick="modifyInformation();">保存</a>
-		<a href="#" class="easyui-linkbutton" iconCls="icon-cancel" onclick="javascript:$('#editInformationDialog').dialog('close')">Cancel</a>
+		<a href="#" class="easyui-linkbutton" iconCls="icon-cancel" onclick="javascript:$('#editInformationDialog').dialog('close')">取消</a>
 	</div>
 </body>
