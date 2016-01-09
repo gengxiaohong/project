@@ -58,14 +58,18 @@ function ajaxLoadEndforMetadata(){
 $(function () {
 	$("#metadata_tree").tree({
         url: "/bcms/categoryTree",
+        queryParams: {},
         lines: true,
         formatter: function (node) {
             return node.name;
         },
-        onClick: function (node) {
+        onSelect: function (node) {
             var mg = $("#metaGrid");
             if (mg) {
-            	mg.treegrid({url:"/bcms/metaTypeList?id=" + node.id});
+            	var queryParams = mg.treegrid('options').queryParams={};  
+            	queryParams.meta_library = node.id;
+            	mg.treegrid({url:"/bcms/proxy?url=metatype&method=GET", queryParams: queryParams});
+//            	mg.treegrid({url:"/bcms/metaTypeList?id=" + node.id});
             }
         },
         loadFilter: function (data, parent) {
@@ -706,6 +710,7 @@ function showEditMetaItemDlg(node) {
 
 
 function searchMetaData() {
+	var node = $("#metadata_tree").tree("getSelected");
 	var searchCollection= $('#searchCollection').combobox('getValue');
 	var searchCondition = $('#searchCondition').combobox('getValue');
 	var searchContent = $('#searchContent').val();
@@ -717,10 +722,15 @@ function searchMetaData() {
 	} else if(searchCondition == 'lom_id') {
 		queryParams.lom_id = searchContent;
 	}
-	queryParams.url = "metatype";
+	if(node!=null && node.id!=null) {
+		var meta_library = node.id;
+		queryParams.meta_library = meta_library;
+	}
+//	queryParams.url = "metatype";
 	queryParams.method = "GET";
-	
+	console.log(queryParams);
     //重新加载treegrid的数据  
-    $("#metaGrid").treegrid('reload');
+	$("#metaGrid").treegrid({url:"/bcms/proxy?url=metatype&method=GET", queryParams: queryParams});
+//    $("#metaGrid").treegrid('reload');
 	
 }

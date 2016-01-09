@@ -39,7 +39,8 @@ $(function () {
     var isFirst = true;
     var loadCount = 0;
     $("#metaGrid").treegrid({
-        url: "/bcms/structureQueryProxy",
+        url: "/bcms/proxy?url=metatype&method=GET",
+        queryParams:{kind:3, parent_id:0, structure_type_id:0},
         idField: 'id',
         treeField: 'zh_name',
         fitColumns: true,
@@ -269,7 +270,6 @@ function searchStructure() {
 		queryParams.lom_id = searchContent;
 	}
 	
-	queryParams.url = "metatype";
 	queryParams.method = "GET";
 	queryParams.kind = "3";
 	queryParams.structure_type = "0";

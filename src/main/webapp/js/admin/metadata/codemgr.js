@@ -124,8 +124,8 @@ function searchEncode() {
 	} else if(searchCondition == 'code') {
 		queryParams.code = searchContent;
 	}
-	
-	queryParams.url = "encode";
+	queryParams.parent_id = 0;
+//	queryParams.url = "encode";
 	queryParams.method = "GET";
     //重新加载treegrid的数据  
     $("#metaGrid").treegrid('reload');
@@ -133,7 +133,8 @@ function searchEncode() {
 
 $(function () {
     $("#metaGrid").treegrid({
-    	url:'/bcms/proxy?url=encode&method=GET&parent_id=0',
+    	url:'/bcms/proxy?url=encode&method=GET',
+    	queryParams:{parent_id:0},
         idField: 'id',
         treeField: 'name',
         animate: false,
