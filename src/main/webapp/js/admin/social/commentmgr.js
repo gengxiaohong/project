@@ -3,7 +3,7 @@
  */
 $(function () {
     $('#comment_table').datagrid({
-        rownumbers: true,
+        rownumbers: false,
         singleSelect: true,
         pagination: true,
         toolbar:"#tb",

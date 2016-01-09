@@ -131,7 +131,7 @@
     </div>
 </div>
 <div id="treeContextMenu" class="easyui-menu" style="width:120px;">
-    <div onclick="append()" data-options="iconCls:'icon-add'">添加</div>
+    <div onclick="addCategory()" data-options="iconCls:'icon-add'">添加</div>
     <div onclick="removeit()" data-options="iconCls:'icon-remove'">删除</div>
     <div onclick="editCategory()" data-options="iconCls:'icon-edit'">编辑</div>
 </div>

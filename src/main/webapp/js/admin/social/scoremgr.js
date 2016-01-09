@@ -8,7 +8,7 @@ $(function () {
         url: "/bcms/proxy?url=score&method=GET",
         columns:[[
             {field:'id',width:'1%',checkbox:true,title:'ID'},
-            {field:'user_id',width:'25%',align:'center',title:'提交者'},
+            {field:'username',width:'25%',align:'center',title:'提交者'},
             {field:'score',width:'25%',align:'center',title:'分值'},
             {field:'target_id',width:'30%',align:'center',title:'关联资源'},
             {field:'_operate',width:'14%',align:'center',title:'操作',

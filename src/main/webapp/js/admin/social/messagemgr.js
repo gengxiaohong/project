@@ -3,7 +3,7 @@
  */
 $(function () {
     $('#message_table').datagrid({
-        rownumbers: true,
+        rownumbers: false,
         singleSelect:false,
         pagination:true,
         toolbar:"#tb",

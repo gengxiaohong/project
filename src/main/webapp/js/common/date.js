@@ -89,7 +89,7 @@ Date.parseFromText = function (text, parttern) {
         date.setYear(year);
     }
     if (month) {
-        date.setMonth(month);
+        date.setMonth(month-1);
     }
     if (day) {
         date.setDate(day);

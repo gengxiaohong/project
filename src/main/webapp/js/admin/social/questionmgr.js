@@ -1,7 +1,7 @@
 $(function () {
 
     $('#question_table').datagrid({
-        singleSelect:true,
+        singleSelect:false,
         fitColumns:true,
         pagination:true,
         view: detailview,

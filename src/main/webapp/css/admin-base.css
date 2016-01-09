@@ -82,8 +82,8 @@ ul{ list-style:none;}
 
 .logo{ height:88px; width:100%; background:#4ca9ef; -moz-box-shadow: 0px 3px 10px #c8c6c6; 
 box-shadow: 0px 3px 10px #c8c6c6;overflow-y:hidden;}
-.logo-left{ float:left; width:407px;}
-.logo-right{ float:right; font-size:14px; margin-top:18px; margin-right:3px;}
+.logo-left{ float:left; width:30%;}
+.logo-right{ float:right; font-size:14px; margin-top:18px; width:70%;}
 .logo-right li{ float:left;text-align:center; margin:0px  15px;}
 .logo-right li a{ display:block;}
 .logo-right span{display:inline-block; height:40px; padding:0px 5px;}
