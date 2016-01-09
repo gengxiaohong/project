@@ -15,26 +15,32 @@
 <rapid:override name="mainName">资源分类管理</rapid:override>
 <rapid:override name="mainIcon">icon-page_world</rapid:override>
 <rapid:override name="body">
+
+<div class="easyui-layout" fit="true">
+     <div region="west" title="分类列表" style="width: 200px;">
+         <ul id="tag_tree">
+         </ul>
+     </div>
+     <div region="center" title="分类列表" >
+         <div data-options="region:'center',title:'分类列表'" iconCls="icon-page_world">
+         		<div id="cateogrytb" style="padding:5px;height:auto;background:#fafafa;border:1px solid #ccc">
+      <input id="search_tag" class="easyui-searchbox" prompt="输入分类名搜索..." searcher="reloadSubTag" style="width: 300px;align-items: center; display: none;">
+        <a href="#" class="easyui-linkbutton" plain="true" iconCls="icon-add" onclick="addTag()">分类</a>
+        <a href="#" class="easyui-linkbutton" plain="true" iconCls="icon-add" onclick="addSubTag()">子分类</a>
+    </div>
+    <table style="width:auto;height:505px;" toolbar="#cateogrytb" id="tag_tree_grid" class="easyui-datagrid"
+            data-options="singleSelect:true,collapsible:true" rownumbers="true"
+         pagination="true">
+ </div>
+     </div>
+ </div>
       
-      <div class="easyui-layout" fit="true">
-           <div region="west" title="分类列表" style="width: 200px;">
-               <ul id="tag_tree">
-               </ul>
-           </div>
-           <div region="center" title="分类列表" >
-               <div data-options="region:'center',title:'分类列表'" iconCls="icon-page_world">
-               		<div id="cateogrytb" style="padding:5px;height:auto;background:#fafafa;border:1px solid #ccc">
-				        <input id="search_tag" class="easyui-searchbox" prompt="输入分类名搜索..." searcher="reloadSubTag" style="width: 300px;align-items: center; display: none;">
-				          <a href="#" class="easyui-linkbutton" plain="true" iconCls="icon-add" onclick="addTag()">分类</a>
-				          <a href="#" class="easyui-linkbutton" plain="true" iconCls="icon-add" onclick="addSubTag()">子分类</a>
-				      </div>
-				      <table style="width:auto;height:505px;" toolbar="#cateogrytb" id="tag_tree_grid" class="easyui-datagrid"
-			               data-options="singleSelect:true,collapsible:true" rownumbers="true"
-               pagination="true">
-			    </div>
-           </div>
-       </div>
-      
+<div id="treeContextMenuforRCategory" class="easyui-menu" style="width:120px;">
+    <div onclick="appendRCategory()" data-options="iconCls:'icon-add'">添加</div>
+    <div onclick="removeRCategory()" data-options="iconCls:'icon-remove'">删除</div>
+    <div onclick="editRCategory()" data-options="iconCls:'icon-edit'">编辑</div>
+</div>
+
 <div id="add_tag_dlg" class="easyui-dialog" style="width: 400px; height: 120px; padding: 10px 20px;"
      data-options="closed:true,title:'添加分类'" buttons="#add_tag_dlg_buttons">
     <form id="add_tag_form" method="post">

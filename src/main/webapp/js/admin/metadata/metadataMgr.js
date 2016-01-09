@@ -728,7 +728,6 @@ function searchMetaData() {
 	}
 //	queryParams.url = "metatype";
 	queryParams.method = "GET";
-	console.log(queryParams);
     //重新加载treegrid的数据  
 	$("#metaGrid").treegrid({url:"/bcms/proxy?url=metatype&method=GET", queryParams: queryParams});
 //    $("#metaGrid").treegrid('reload');

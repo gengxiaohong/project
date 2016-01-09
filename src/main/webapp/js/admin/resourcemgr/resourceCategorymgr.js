@@ -5,6 +5,9 @@ $(function () {
         formatter: function (node) {
             return node.name;
         },
+        onContextMenu: function (e, node) {
+            showContextMenu(e, node);
+        },
         onSelect:function(node){
         	var mg = $("#tag_tree_grid");
             if (mg) {
@@ -50,6 +53,14 @@ $(function () {
         }
     });
 });
+
+function showContextMenu(e, node) {
+    e.preventDefault();
+    $("#treeContextMenuforRCategory").menu("show", {
+        left: e.pageX,
+        top: e.pageY
+    });
+}
 
 function addTag() {
     $("#add_tag_form").form('clear');
@@ -159,18 +170,55 @@ function delTag(id){
                     }
                 });
             }
-        })
+        });
     }else{
         $.messager.alert("提示", "请选择要删除的分类！", "info");
         return;
     }
 }
 
+function appendRCategory() {
+	addSubTag();
+}
+
+function editRCategory() {
+    var tree = $("#tag_tree");
+    var selectNode = tree.tree("getSelected");
+    if (selectNode) {
+    	$('#modify_tag_dlg input[name=name]').val(selectNode.name);
+        $('#modify_tag_dlg input[name=id]').val(selectNode.id);
+        $('#modify_tag_dlg input[name=parent_id]').val(selectNode.parent_id);
+        $('#modify_tag_dlg').dialog('open').window('resize',{
+        	left:($(window).width()-400)/2,
+        	top:($(window).height()-120)/2
+        });
+    } else {
+        alert("选中要编辑的行！");
+    }
+}
+
+function removeRCategory() {
+    var tree = $("#tag_tree");
+    var selectNode = tree.tree("getSelected");
+    if (selectNode) {
+    	$.messager.confirm('确认', '确认删除?', function (data) {
+            if(data) {
+                $.post("/bcms/proxy", {method: "delete", url: "tag/" + selectNode.id }, function (result) {
+                    var obj= $.parseJSON(result);
+                    if (obj.success==false) {
+                    	$.messager.alert("删除失败!");
+                    } else {
+                    	$("#tag_tree").tree("reload");
+                    }
+                });
+            }
+        });
+    }
+}
+
 function reloadTag(node){
 	$("#tag_tree").tree("reload");
-	$("#tag_tree").tree("load",{
-		name:$('#search_tag').val()
-	});
+
 	if(node) {//选中父分类
 		$("#tag_tree").tree("select", node.target);
 	} else {
