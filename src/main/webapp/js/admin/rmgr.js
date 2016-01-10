@@ -34,7 +34,7 @@ $(function () {
                     sortable: true,
                     formatter: function (value, row, index) {
                         var date = Date.parseFromText(row.created_at, "yyyy-MM-ddTHH:mm:ssZ");
-                        return date.format("yyyy-MM-dd hh:mm:ss.S")
+                        return date.format("yyyy-MM-dd hh:mm:ss")
                     }
                 },
                 {
