@@ -9,10 +9,10 @@
 <%@ taglib uri="http://www.rapid-framework.org.cn/rapid" prefix="rapid" %>
 <rapid:override name="title">资源列表</rapid:override>
 <rapid:override name="head">
-    <script type="text/javascript" src="../../js/admin/rmgr.js"></script>
     <script type="text/javascript" src="../../js/spark-md5.js"></script>
     <script type="text/javascript" src="../../js/common/fileutils.js"></script>
     <script type="text/javascript" src="http://42.62.52.40:8000/static/flow.js"></script>
+    <script type="text/javascript" src="../../js/admin/rmgr.js"></script>
     <script type="text/javascript" src="../../js/admin/resourcemgr/createresource.js"></script>
 </rapid:override>
 <rapid:override name="mainName">资源库统计</rapid:override>
@@ -32,7 +32,7 @@
         <div style="clear:both;"></div>
     </div>
     <!--创建资源  -->
-    <div class="easyui-dialog" id="createResourcesDialog" style="width:400px;height:300px;padding-top:5px;overflow:auto;"
+    <div class="easyui-dialog" id="createResourcesDialog" style="width:450px;height:350px;padding-top:5px;overflow:auto;"
    data-options="title:'创建资源',collapsible:true,modal:true,closed:true,buttons:'#add-dlg-buttons'">
   	<form id="createResourceForm">
      	<input id="subMeta10" type="hidden" value=""/>
@@ -79,17 +79,17 @@
                     </ul>
                 </td>
             </tr>
-            <!-- <tr>
-                <td><label>海报:</label></td>
-                <td><input type="text" class="easyui-filebox" buttonText="选择文件" id="fileIpt2">&nbsp;&nbsp;<a class="easyui-linkbutton" onclick="startUpload2()">上传</a></td>
+            <tr>
+                <td><label>资源海报:</label></td>
+                <td><input type="text" class="easyui-filebox" buttonText="选择文件" id="fileIptforPoster">&nbsp;&nbsp;<a class="easyui-linkbutton" onclick="startUploadforPoster()">上传</a></td>
             </tr>
             <tr>
                 <td></td>
                 <td>
-                    <ul class="list-group" id="fileList2">
+                    <ul class="list-group" id="fileListforPoster">
                     </ul>
                 </td>
-            </tr> -->
+            </tr>
         </table>
     </form>
   </div>
@@ -125,6 +125,14 @@
                             data-options="method:'POST',required:true"
                             style="width:200px;"></select></td>
             </tr>
+            <!-- <tr>
+                <td><label>资源海报:</label></td>
+                <td>
+                	<input type="text" class="easyui-filebox" buttonText="选择文件" id="fileIptforPoster">&nbsp;&nbsp;<a class="easyui-linkbutton" onclick="startUploadforPoster()">上传</a>
+	                <ul class="list-group" id="fileListforPoster">
+	                </ul>
+	            </td>
+            </tr> -->
             <tr>
                 <td><label>标签:</label></td>
                 <td><input id="tagname2" type="text" class="easyui-textbox" style="width:200px;"/></td>

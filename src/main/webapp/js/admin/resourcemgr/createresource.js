@@ -26,6 +26,26 @@ function startUpload() {
         }, "json");
     }
 }
+
+var flowforPoster;
+function startUploadforPoster() {
+    if (waitFileforPoster.file && waitFileforPoster.hash) {
+        $.post("/bcms/proxy", {
+            url: "file/" + waitFileforPoster.hash + "/checksum",
+            method: "GET"
+        }, function (data2) {
+            var fileId = data2.id;
+            if (fileId !== undefined) {
+                waitFileforPoster.id = fileId;
+                waitFileforPoster.status = true;
+                $("#upload-" + waitFileforPoster.fileId).empty().append("秒传!");
+            } else {
+                flowforPoster.upload();
+            }
+        }, "json");
+    }
+}
+
 function setData(data) {
     if (data != undefined) {
         for (var i = 0; i < data.length; i++) {
@@ -35,6 +55,7 @@ function setData(data) {
     }
 }
 var waitFile = {status: false};
+var waitFileforPoster = {status: false};
 $(function () {
 
     $("#resourceTree").combotree({
@@ -56,103 +77,128 @@ $(function () {
         }
     });
     $("#subMeta10").val(resourceId);
-    flow = new Flow({
-        target: 'http://42.62.77.189:8000/file/upload',
-        chunkSize: 1024 * 1024,
-        testChunks: false,
-        simultaneousUploads: 1,
-        method: "POST",
-        query: {
-            user_id: 1
-        }
-    });
-    var fileList = $("#fileList");
-    /*var fileList2 = $("#fileList2");*/
-    flow.on("fileAdded", function (file, event) {
-        var fileId = file.uniqueIdentifier;
-        calFile48Hash(file.file, function (source, hash) {
-            waitFile.hash = hash.toUpperCase();
-            waitFile.file = source;
-            waitFile.fileId = fileId;
-            fileList.append("<p class=\"list-group-item\">" + source.name + "(文件大小:" + source.size + "字节,hash:" + hash.toUpperCase() + ",已上传 :<span class=\"label label-info\" id=\"upload-" + fileId + "\">0%</span>)</p>");
-            /*fileList2.append("<p class=\"list-group-item\">" + source.name + "(文件大小:" + source.size + "字节,hash:" + hash.toUpperCase() + ",已上传 :<span class=\"label label-info\" id=\"upload-" + fileId + "\">0%</span>)</p>");*/
-        });
-    });
-    flow.on("fileProgress", function (file, chunk) {
-        var fileId = file.uniqueIdentifier;
-        $("#upload-" + fileId).empty().append(chunk.offset + "%");
-    });
+    
+    $("#createResourcesDialog").dialog({
+    	onOpen:function(){
+    		flow = new Flow({
+    	        target: 'http://42.62.77.189:8000/file/upload',
+    	        chunkSize: 1024 * 1024,
+    	        testChunks: false,
+    	        simultaneousUploads: 1,
+    	        method: "POST",
+    	        query: {
+    	            user_id: 1
+    	        }
+    	    });
+    	    var fileList = $("#fileList");
+    	    /*var fileList2 = $("#fileList2");*/
+    	    flow.on("fileAdded", function (file, event) {
+    	        var fileId = file.uniqueIdentifier;
+    	        calFile48Hash(file.file, function (source, hash) {
+    	            waitFile.hash = hash.toUpperCase();
+    	            waitFile.file = source;
+    	            waitFile.fileId = fileId;
+    	            fileList.append("<p class=\"list-group-item\">" + source.name + "(文件大小:" + source.size + "字节,hash:" + hash.toUpperCase() + ",已上传 :<span class=\"label label-info\" id=\"upload-" + fileId + "\">0%</span>)</p>");
+    	            /*fileList2.append("<p class=\"list-group-item\">" + source.name + "(文件大小:" + source.size + "字节,hash:" + hash.toUpperCase() + ",已上传 :<span class=\"label label-info\" id=\"upload-" + fileId + "\">0%</span>)</p>");*/
+    	        });
+    	    });
+    	    flow.on("fileProgress", function (file, chunk) {
+    	        var fileId = file.uniqueIdentifier;
+    	        $("#upload-" + fileId).empty().append(chunk.offset + "%");
+    	    });
 
-    flow.on('fileSuccess', function (file, message) {
-        //console.log(file,message);
-        waitFile.status = true;
-        var fileId = file.uniqueIdentifier;
-        $("#upload-" + fileId).empty().append("上传完成!");
-    });
+    	    flow.on('fileSuccess', function (file, message) {
+    	        //console.log(file,message);
+    	        waitFile.status = true;
+    	        var fileId = file.uniqueIdentifier;
+    	        $("#upload-" + fileId).empty().append("上传完成!");
+    	    });
 
-    flow.on('fileError', function (file, message) {
-        //console.log(file, message);
-        waitFile.status = false;
-        var fileId = file.uniqueIdentifier;
-        $("#upload-" + fileId).empty().append("上传失败!");
-    });
+    	    flow.on('fileError', function (file, message) {
+    	        //console.log(file, message);
+    	        waitFile.status = false;
+    	        var fileId = file.uniqueIdentifier;
+    	        $("#upload-" + fileId).empty().append("上传失败!");
+    	    });
 
-    $("#fileIpt").filebox({
-        onChange: function () {
-            //var file = $("#fileIpt").find("input[type='file']");
-            if (fileList.find("p").length > 0) {
-                return;
-            }
-            var fileBoxId = $("#fileIpt").next().find("input[type='file']").attr("id");
-            var fileIpt = document.getElementById(fileBoxId);
-            var files = fileIpt.files;
-            for (var i = 0; i < files.length; i++) {
-                var file = files[i];
-                //var fileName = file.name;
-                //var fileSize = file.size;
-                flow.addFile(file);
+    	    $("#fileIpt").filebox({
+    	        onChange: function () {
+    	            //var file = $("#fileIpt").find("input[type='file']");
+    	            if (fileList.find("p").length > 0) {
+    	                return;
+    	            }
+    	            var fileBoxId = $("#fileIpt").next().find("input[type='file']").attr("id");
+    	            var fileIpt = document.getElementById(fileBoxId);
+    	            var files = fileIpt.files;
+    	            for (var i = 0; i < files.length; i++) {
+    	                var file = files[i];
+    	                //var fileName = file.name;
+    	                //var fileSize = file.size;
+    	                flow.addFile(file);
+    	            }
+    	        }
+    	    });
+    	    
+    		flowforPoster = new Flow({
+    	        target: 'http://42.62.77.189:8000/file/upload',
+    	        chunkSize: 1024 * 1024,
+    	        testChunks: false,
+    	        simultaneousUploads: 1,
+    	        method: "POST",
+    	        query: {
+    	            user_id: 1
+    	        }
+    	    });
+    	    var fileListforPoster = $("#fileListforPoster");
+    	    /*var fileList2 = $("#fileList2");*/
+    	    flowforPoster.on("fileAdded", function (file, event) {
+    	        var fileId = file.uniqueIdentifier;
+    	        calFile48Hash(file.file, function (source, hash) {
+    	            waitFileforPoster.hash = hash.toUpperCase();
+    	            waitFileforPoster.file = source;
+    	            waitFileforPoster.fileId = fileId;
+    	            fileListforPoster.append("<p class=\"list-group-item\">" + source.name + "(文件大小:" + source.size + "字节,hash:" + hash.toUpperCase() + ",已上传 :<span class=\"label label-info\" id=\"upload-" + fileId + "\">0%</span>)</p>");
+    	            /*fileList2.append("<p class=\"list-group-item\">" + source.name + "(文件大小:" + source.size + "字节,hash:" + hash.toUpperCase() + ",已上传 :<span class=\"label label-info\" id=\"upload-" + fileId + "\">0%</span>)</p>");*/
+    	        });
+    	    });
+    	    flowforPoster.on("fileProgress", function (file, chunk) {
+    	        var fileId = file.uniqueIdentifier;
+    	        $("#upload-" + fileId).empty().append(chunk.offset + "%");
+    	    });
 
-                /* var formData = new FormData();
-                 formData.append("file", file);
-                 formData.append("flowChunkNumber", 1);
-                 formData.append("flowChunkSize", 1024*1024);
-                 formData.append("flowCurrentChunkSize", 0);
-                 formData.append("flowTotalSize", fileSize);
-                 formData.append("flowIdentifier", fileSize + "-" + fileName);
-                 formData.append("flowFilename", fileName);
-                 formData.append("filename", fileName);
-                 formData.append("flowRelativePath", fileName);
-                 formData.append("flowTotalChunks", 1);
-                 $.ajax({
-                 url: "http://42.62.52.40:8000/file/upload",
-                 type: 'POST',
-                 data: formData,
-                 processData: false,
-                 contentType: false,
-                 success: function (data1) {
-                 alert(data1);
-                 },
-                 error: function (data2) {
-                 alert(data2);
-                 }
-                 });*/
-            }
-        }
+    	    flowforPoster.on('fileSuccess', function (file, message) {
+    	        //console.log(file,message);
+    	        waitFileforPoster.status = true;
+    	        var fileId = file.uniqueIdentifier;
+    	        $("#upload-" + fileId).empty().append("上传完成!");
+    	    });
+
+    	    flowforPoster.on('fileError', function (file, message) {
+    	        //console.log(file, message);
+    	        waitFileforPoster.status = false;
+    	        var fileId = file.uniqueIdentifier;
+    	        $("#upload-" + fileId).empty().append("上传失败!");
+    	    });
+
+    	    $("#fileIptforPoster").filebox({
+    	        onChange: function () {
+    	            //var file = $("#fileIptforPoster").find("input[type='file']");
+    	            if (fileListforPoster.find("p").length > 0) {
+    	                return;
+    	            }
+    	            var fileBoxId = $("#fileIptforPoster").next().find("input[type='file']").attr("id");
+    	            var fileIptforPoster = document.getElementById(fileBoxId);
+    	            var files = fileIptforPoster.files;
+    	            for (var i = 0; i < files.length; i++) {
+    	                var file = files[i];
+    	                //var fileName = file.name;
+    	                //var fileSize = file.size;
+    	                flowforPoster.addFile(file);
+    	            }
+    	        }
+    	    });
+    	}
     });
-    /*$("#fileIpt2").filebox({
-        onChange: function () {
-            if (fileList.find("p").length > 0) {
-                return;
-            }
-            var fileBoxId = $("#fileIpt").next().find("input[type='file']").attr("id");
-            var fileIpt = document.getElementById(fileBoxId);
-            var files = fileIpt.files;
-            for (var i = 0; i < files.length; i++) {
-                var file = files[i];
-                flow.addFile(file);
-            }
-        }
-    });*/
 
     //$("#.parentResource")
     $.post("/bcms/proxy", {url: "taglibrary/page/1", method: "GET"}, function (data) {
