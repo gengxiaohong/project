@@ -80,6 +80,12 @@ $(function () {
     
     $("#createResourcesDialog").dialog({
     	onOpen:function(){
+    		var node = $("#categoryTree").tree("getSelected");
+    		if(node) {
+    			$("#resourceTree").combotree("setValue",node.id);
+    		}
+			 
+    		// flow init
     		flow = new Flow({
     	        target: 'http://42.62.77.189:8000/file/upload',
     	        chunkSize: 1024 * 1024,
@@ -303,7 +309,7 @@ function submitSuccess(data3, resourceId) {
 function createResource() {
 	$("#createResourceForm").form('clear');
 	$("#createResourcesDialog").dialog('open');
-   }
+}
 function forwardCldList(){
 	window.location.href="/bcms/admin/resourcemgr/childresourcemgr.jsp?id=" + resourceId;
 }
