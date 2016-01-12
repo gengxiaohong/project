@@ -15,14 +15,18 @@ function startUpload() {
             url: "file/" + waitFile.hash + "/checksum",
             method: "GET"
         }, function (data2) {
-            var fileId = data2.id;
-            if (fileId !== undefined) {
-                waitFile.id = fileId;
-                waitFile.status = true;
-                $("#upload-" + waitFile.fileId).empty().append("秒传!");
-            } else {
-                flow.upload();
-            }
+        	if(data2.success == false) {
+        		flow.upload();
+        	} else {
+        		var fileId = data2.id;
+                if (fileId !== undefined) {
+                    waitFile.id = fileId;
+                    waitFile.status = true;
+                    $("#upload-" + waitFile.fileId).empty().append("秒传!");
+                } else {
+                    flow.upload();
+                }
+        	}
         }, "json");
     }
 }
@@ -34,14 +38,18 @@ function startUploadforPoster() {
             url: "file/" + waitFileforPoster.hash + "/checksum",
             method: "GET"
         }, function (data2) {
-            var fileId = data2.id;
-            if (fileId !== undefined) {
-                waitFileforPoster.id = fileId;
-                waitFileforPoster.status = true;
-                $("#upload-" + waitFileforPoster.fileId).empty().append("秒传!");
-            } else {
-                flowforPoster.upload();
-            }
+        	if(data2.success == false) {
+        		flowforPoster.upload();
+        	} else {
+        		var fileId = data2.id;
+                if (fileId !== undefined) {
+                	waitFileforPoster.id = fileId;
+                    waitFileforPoster.status = true;
+                    $("#upload-" + waitFileforPoster.fileId).empty().append("秒传!");
+                } else {
+                	flowforPoster.upload();
+                }
+        	}
         }, "json");
     }
 }
@@ -87,7 +95,7 @@ $(function () {
 			 
     		// flow init
     		flow = new Flow({
-    	        target: 'http://42.62.77.189:8000/file/upload',
+    	        target: 'http://42.62.77.189/api/file/upload',
     	        chunkSize: 1024 * 1024,
     	        testChunks: false,
     	        simultaneousUploads: 1,
@@ -146,7 +154,7 @@ $(function () {
     	    });
     	    
     		flowforPoster = new Flow({
-    	        target: 'http://42.62.77.189:8000/file/upload',
+    	        target: 'http://42.62.77.189/api/file/upload',
     	        chunkSize: 1024 * 1024,
     	        testChunks: false,
     	        simultaneousUploads: 1,
