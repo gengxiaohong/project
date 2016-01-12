@@ -187,7 +187,7 @@ public class Proxy extends HttpServlet {
                 return;
             } else {
                 result.put("success", false);
-                result.put("msg", EntityUtils.toString(httpResponse.getEntity()));
+                result.put("msg", content);
             }
         } catch (IOException e) {
             e.printStackTrace();
