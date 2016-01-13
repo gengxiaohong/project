@@ -36,6 +36,7 @@
    data-options="title:'创建资源',collapsible:true,modal:true,closed:true,buttons:'#add-dlg-buttons'">
   	<form id="createResourceForm">
      	<input id="subMeta10" type="hidden" value=""/>
+     	<input id="poster_url" type="hidden" value=""/>
         <table style="width:100%;">
             <tr>
                 <td><label>资源名:</label></td>
@@ -147,7 +148,7 @@
     </form>
   </div>
   <div id="add-dlg-buttons">
-		<a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-ok" onclick="submitForm()">提交</a>
+		<a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-ok" onclick="submitFormforCreateResource()">提交</a>
 		<a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-cancel" onclick="javascript:$('#createResourcesDialog').dialog('close')">取消</a>
 	</div>
 	<div id="edit-dlg-buttons">

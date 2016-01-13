@@ -61,7 +61,7 @@
         <servlet-name>categoryTree</servlet-name>
         <url-pattern>/categoryTree</url-pattern>
     </servlet-mapping>
-   
+    
     <servlet>
         <servlet-name>metaTypeList</servlet-name>
         <servlet-class>brms.action.MetaTypeList</servlet-class>
@@ -86,6 +86,15 @@
     <servlet-mapping>
         <servlet-name>EditMetaValue</servlet-name>
         <url-pattern>/editMetaValue</url-pattern>
+    </servlet-mapping>
+    
+    <servlet>
+        <servlet-name>LoadBaseUrl</servlet-name>
+        <servlet-class>brms.action.LoadBaseUrl</servlet-class>
+    </servlet>
+    <servlet-mapping> 
+        <servlet-name>LoadBaseUrl</servlet-name>
+        <url-pattern>/loadBaseUrl</url-pattern>
     </servlet-mapping>
     
     

@@ -1,19 +1,26 @@
 package brms.action;
 
 import java.io.IOException;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Enumeration;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import brms.utils.CommUtils;
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
 import org.apache.http.HttpStatus;
 import org.apache.http.NameValuePair;
-import org.apache.http.client.methods.*;
+import org.apache.http.client.methods.HttpDelete;
+import org.apache.http.client.methods.HttpGet;
+import org.apache.http.client.methods.HttpPost;
+import org.apache.http.client.methods.HttpPut;
+import org.apache.http.client.methods.HttpUriRequest;
 import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClientBuilder;
@@ -119,7 +126,7 @@ public class Proxy extends HttpServlet {
         List<NameValuePair> nameValuePairs = dealParams(request);
         Map<String, Object> result = new HashMap<>();
         for (NameValuePair nameValuePair : nameValuePairs) {
-            if (!nameValuePair.getName().contains("url") && !nameValuePair.getName().contains("method")&& !nameValuePair.getName().contains("isStatsticalQuery") && !nameValuePair.getValue().isEmpty()) {
+            if (!nameValuePair.getName().equals("url") && !nameValuePair.getName().equals("method")&& !nameValuePair.getName().contains("isStatsticalQuery") && !nameValuePair.getValue().isEmpty()) {
                 if (nameValuePair.getValue().startsWith("[") && nameValuePair.getValue().endsWith("]")) {
                     try {
                         JSONArray jsonArray = new JSONArray(nameValuePair.getValue());

@@ -1,7 +1,7 @@
 /**
  * Created by ligson on 2015/8/28.
  */
-
+var uploadUrl = "";
 var href = window.location.href;
 var idx = href.indexOf("id=");
 var resourceId = undefined;
@@ -23,6 +23,7 @@ function startUpload() {
                     waitFile.id = fileId;
                     waitFile.status = true;
                     $("#upload-" + waitFile.fileId).empty().append("秒传!");
+                    settingPosterUrl();
                 } else {
                     flow.upload();
                 }
@@ -32,8 +33,10 @@ function startUpload() {
 }
 
 var flowforPoster;
+var posterHash = "";
 function startUploadforPoster() {
     if (waitFileforPoster.file && waitFileforPoster.hash) {
+    	posterHash = waitFileforPoster.hash;
         $.post("/bcms/proxy", {
             url: "file/" + waitFileforPoster.hash + "/checksum",
             method: "GET"
@@ -54,6 +57,23 @@ function startUploadforPoster() {
     }
 }
 
+function settingPosterUrl() {
+	console.log(posterHash);
+	if(posterHash != "") {
+		$.post("/bcms/proxy", {
+	        url: "file/" + posterHash + "/checksum",
+	        method: "GET"
+	    }, function (data2) {
+	    	console.log(data2);
+	    	if(data2.success == false) {
+	    	} else {
+	    		$("#poster_url").val(data2.broadcast_addr);
+	    	}
+	    }, "json");
+	}
+	
+}
+
 function setData(data) {
     if (data != undefined) {
         for (var i = 0; i < data.length; i++) {
@@ -62,10 +82,17 @@ function setData(data) {
         }
     }
 }
+
+function loadBaseUrl() {
+	$.post("/bcms/loadBaseUrl", function (data) {
+		uploadUrl = data.base_url;
+    }, "json");
+}
+
 var waitFile = {status: false};
 var waitFileforPoster = {status: false};
 $(function () {
-
+	loadBaseUrl();
     $("#resourceTree").combotree({
         loadFilter: function (data) {
             for (var i = 0; i < data.rows.length; i++) {
@@ -92,10 +119,12 @@ $(function () {
     		if(node) {
     			$("#resourceTree").combotree("setValue",node.id);
     		}
-			 
+			
+    		$("#fileList").empty();
+    		$("#fileListforPoster").empty();
     		// flow init
     		flow = new Flow({
-    	        target: 'http://42.62.77.189/api/file/upload',
+    	        target: uploadUrl + 'file/upload',
     	        chunkSize: 1024 * 1024,
     	        testChunks: false,
     	        simultaneousUploads: 1,
@@ -154,7 +183,7 @@ $(function () {
     	    });
     	    
     		flowforPoster = new Flow({
-    	        target: 'http://42.62.77.189/api/file/upload',
+    	        target: uploadUrl + 'file/upload',
     	        chunkSize: 1024 * 1024,
     	        testChunks: false,
     	        simultaneousUploads: 1,
@@ -171,7 +200,7 @@ $(function () {
     	            waitFileforPoster.hash = hash.toUpperCase();
     	            waitFileforPoster.file = source;
     	            waitFileforPoster.fileId = fileId;
-    	            fileListforPoster.append("<p class=\"list-group-item\">" + source.name + "(文件大小:" + source.size + "字节,hash:" + hash.toUpperCase() + ",已上传 :<span class=\"label label-info\" id=\"upload-" + fileId + "\">0%</span>)</p>");
+    	            fileListforPoster.empty().append("<p class=\"list-group-item\">" + source.name + "(文件大小:" + source.size + "字节,hash:" + hash.toUpperCase() + ",已上传 :<span class=\"label label-info\" id=\"upload-" + fileId + "\">0%</span>)</p>");
     	            /*fileList2.append("<p class=\"list-group-item\">" + source.name + "(文件大小:" + source.size + "字节,hash:" + hash.toUpperCase() + ",已上传 :<span class=\"label label-info\" id=\"upload-" + fileId + "\">0%</span>)</p>");*/
     	        });
     	    });
@@ -185,6 +214,8 @@ $(function () {
     	        waitFileforPoster.status = true;
     	        var fileId = file.uniqueIdentifier;
     	        $("#upload-" + fileId).empty().append("上传完成!");
+    	        // settingPostUrl
+        		settingPosterUrl();
     	    });
 
     	    flowforPoster.on('fileError', function (file, message) {
@@ -242,12 +273,13 @@ function formatTagLibTreeGridData(data) {
     console.log(fin);
     return fin;
 }
-function submitForm() {
+function submitFormforCreateResource() {
     var ff = $("#createResourceForm");
     if (!(waitFile.status && waitFile.hash)) {
         $.messager.alert('提示',"请上传资源文件!",'warning');
         return;
     }
+
     if (ff.form("validate")) {
         var name = $("#name10").textbox("getValue");
         var kind10 = $("#kind10").combobox("getValue");
@@ -255,6 +287,7 @@ function submitForm() {
         var committer = $.cookie("bcms_user_id");
         var parent_id = $("#subMeta10").val();
         var tag = $("#tagTree").combobox("getValues");
+        var poster_url = $("#poster_url").val();
 
         var params = {
             method: "POST",
@@ -263,7 +296,8 @@ function submitForm() {
             kind: kind10,
             resourcelibrary_id: parseInt(node),
             tag_ids: "["+tag+"]",
-            committer: parseInt(committer)
+            committer: parseInt(committer),
+            poster_url: poster_url
         };
         if (parent_id) {
             params.parent_id = parent_id;
@@ -279,6 +313,8 @@ function submitForm() {
                     }, function (data3) {
                         if (data3.id != undefined) {
                             submitSuccess(data3, data.id);
+                        } else {
+                        	$.messager.alert('提示',"资源文件关联失败!",'error');
                         }
                     }, "json");
                 } else {
@@ -286,16 +322,20 @@ function submitForm() {
                         url: "file/" + waitFile.hash + "/checksum",
                         method: "GET"
                     }, function (data2) {
-                        var fileId = data2.id;
-                        if (fileId) {
-                            $.post("/bcms/proxy", {
-                                url: "file/detail/" + fileId,
-                                method: "POST",
-                                resource_id: data.id
-                            }, function (data3) {
-                                submitSuccess(data3, data.id);
-                            }, "json");
-                        }
+                    	if(data2.success == false) {
+                    		$.messager.alert('提示',"资源文件关联失败!",'error');
+                    	} else {
+                    		var fileId = data2.id;
+                            if (fileId) {
+                                $.post("/bcms/proxy", {
+                                    url: "file/detail/" + fileId,
+                                    method: "POST",
+                                    resource_id: data.id
+                                }, function (data3) {
+                                    submitSuccess(data3, data.id);
+                                }, "json");
+                            }
+                    	}
                     }, "json");
                 }
             } else {
