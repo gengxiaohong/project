@@ -66,7 +66,7 @@
            
             <tr>
                 <td colspan="2"  style="text-align: center;padding:10px;">
-                    <a class="easyui-linkbutton" iconCls="icon-ok" onclick="submitForm()">提交</a>
+                    <a class="easyui-linkbutton" iconCls="icon-ok" onclick="submitFormforCreateResource()">提交</a>
                     <a class="easyui-linkbutton" iconCls="icon-back" onclick="forwardCldList()">子资源列表</a>
                 </td>
             </tr>
