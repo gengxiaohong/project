@@ -10,6 +10,7 @@
  "isVisible": true
  */
 $(function () {
+	loadBaseUrl();
     $("#rGrid").datagrid({
     	rownumbers: true,
         singleSelect: true,
@@ -153,6 +154,7 @@ function saveTopic(){
         var description = $("#descr").textbox("getValue");
         var rows = $('#select_resource_list').datalist("getData").rows;
         var is_published = $("#is_published").combotree("getValue");
+        var poster_url = $("#poster_url").val();
         var resource_ids=[];
         for(var i=0;i<rows.length;i++){
         	resource_ids.push(rows[i].id);
@@ -164,41 +166,52 @@ function saveTopic(){
             name: name,
             description: description,
             resource_ids: JSON.stringify(resource_ids),
-            is_published: is_published
-        }, function (data) {
-            if (data.id != undefined) {
-                //alert("ok........");
-                if (waitFile.fileId != null) {
-                    $.post("/bcms/proxy", {
-                        url: "file/detail/" + data.id,
-                        method: "POST",
-                        resource_id: data.id
-                    }, function (data3) {
-                        if (data3.id != undefined) {
-                            submitSuccess(data3, data.id);
-                        }
-                    }, "json");
-                } else {
-                    $.post("/bcms/proxy", {
-                        url: "file/" + waitFile.hash + "/checksum",
-                        method: "GET"
-                    }, function (data2) {
-                        var fileId = data2.id;
-                        if (fileId) {
-                            $.post("/bcms/proxy", {
-                                url: "file/detail/" + fileId,
-                                method: "POST",
-                                resource_id: data.id
-                            }, function (data3) {
-                                submitSuccess(data3, data.id);
-                            }, "json");
-                        }
-                    }, "json");
-                }
-            } else {
-                alert("资源创建失败!" + data.msg);
-            }
-        }, "json");
+            is_published: is_published,
+            poster_url: poster_url
+		        }, function(data) {
+			if (data.success == false) {
+				alert(data.msg);
+			} else {
+				if (data.id != undefined) {
+					// alert("ok........");
+					if (waitFile.fileId != null) {
+						$.post("/bcms/proxy", {
+							url : "file/detail/" + data.id,
+							method : "POST",
+							resource_id : data.id
+						}, function(data3) {
+							if (data3.id != undefined) {
+								submitSuccess(data3, data.id);
+							} else {
+								$.messager.alert('提示', "资源文件关联失败!", 'error');
+							}
+						}, "json");
+					} else {
+						$.post("/bcms/proxy", {
+							url : "file/" + waitFile.hash + "/checksum",
+							method : "GET"
+						}, function(data2) {
+							if (data2.success == false) {
+								$.messager.alert('提示', "资源文件关联失败!", 'error');
+							} else {
+								var fileId = data2.id;
+								if (fileId) {
+									$.post("/bcms/proxy", {
+										url : "file/detail/" + fileId,
+										method : "POST",
+										resource_id : data.id
+									}, function(data3) {
+										submitSuccess(data3, data.id);
+									}, "json");
+								}
+							}
+						}, "json");
+					}
+				} else {
+					alert("资源创建失败!" + data.msg);
+				}
+			}
+		}, "json");
     } else {
         alert("表单参数不完整!");
     }
@@ -208,6 +221,9 @@ function submitSuccess(data3, resourceId) {
     if (data3.id != undefined) {
         alert("资源创建成功!");
         window.location.href = "/bcms/admin/appmgr/topicmgr.jsp";
+        flow = undefined;
+        $("#fileList").empty();
+    	waitFile = {status: false};
     } else {
         alert("资源创建失败!");
     }
@@ -217,7 +233,7 @@ function editTopic(){
     var row = $('#rGrid').datagrid('getSelected');
     if (row) {
         initModify(row);
-        //$('#modify_topic_dlg').dialog('open');
+        // $('#modify_topic_dlg').dialog('open');
         initModifyResourceLibrary();
         $("#modify_topic_dlg").window('open').window('resize',{
         	left:$(window).width()-1000,
@@ -390,30 +406,64 @@ function reloadResource() {
 //    $("#add_tag_form #resource_list").datalist('reload');
 }
 
+var uploadUrl = "";
 var flow;
+var waitFile = {status: false};
+var posterHash = "";
+
 function startUpload() {
     if (waitFile.file && waitFile.hash) {
+    	posterHash = waitFile.hash;
         $.post("/bcms/proxy", {
             url: "file/" + waitFile.hash + "/checksum",
             method: "GET"
         }, function (data2) {
-            var fileId = data2.id;
-            if (fileId !== undefined) {
-                waitFile.id = fileId;
-                waitFile.status = true;
-                $("#upload-" + waitFile.fileId).empty().append("秒传!");
-            } else {
-                flow.upload();
-            }
+        	if(data2.success == false) {
+        		flow.upload();
+        	} else {
+        		var fileId = data2.id;
+                if (fileId !== undefined) {
+                    waitFile.id = fileId;
+                    waitFile.status = true;
+                    $("#upload-" + waitFile.fileId).empty().append("秒传!");
+                    settingPosterUrl();
+                } else {
+                    flow.upload();
+                }
+        	}
         }, "json");
     }
 }
 
-var waitFile = {status: false};
-$(function () {
+function settingPosterUrl() {
+	console.log(posterHash);
+	if(posterHash != "") {
+		$.post("/bcms/proxy", {
+	        url: "file/" + posterHash + "/checksum",
+	        method: "GET"
+	    }, function (data2) {
+	    	console.log(data2);
+	    	if(data2.success == false) {
+	    	} else {
+	    		$("#poster_url").val(data2.broadcast_addr);
+	    	}
+	    }, "json");
+	}
+	
+}
 
+function loadBaseUrl() {
+	$.post("/bcms/loadBaseUrl", function (data) {
+		uploadUrl = data.base_url;
+		initFlow();
+    }, "json");
+}
+
+function initFlow() {
+
+	$("#fileList").empty();
     flow = new Flow({
-        target: 'http://42.62.77.189/api/file/upload',
+        target: uploadUrl + 'file/upload',
         chunkSize: 1024 * 1024,
         testChunks: false,
         simultaneousUploads: 1,
@@ -510,4 +560,5 @@ $(function () {
         }
 
     }, "json");
-});
+
+}

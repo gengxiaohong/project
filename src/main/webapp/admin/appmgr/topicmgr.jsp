@@ -36,6 +36,7 @@
 <div id="add_topic_dlg" title="添加专题" class="easyui-dialog" style="width:850px; height:auto; padding: 10px;"
      closed="true">
     <form id="add_tag_form" method="post">
+        <input id="poster_url" type="hidden" value=""/>
     	<table class="table">
     		<tr>
     			<td><label>专题名称</label></td>
